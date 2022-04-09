@@ -1,13 +1,13 @@
-package com.zglossip.demo;
+package com.zglossip.bopbrowser;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class BopBrowserApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(BopBrowserApplication.class, args);
 	}
 
 }
