@@ -6,7 +6,7 @@ import com.zglossip.bopbrowser.domains.SongStub;
 
 import java.util.List;
 
-public class AristDeezerAdaptor extends ArtistStubDeezerAdaptor implements Artist {
+public class ArtistDeezerAdaptor extends ArtistStubDeezerAdaptor implements Artist {
   private List<SongStub> topSongList;
   private List<AlbumStub> topAlbumList;
 

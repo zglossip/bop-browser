@@ -7,4 +7,8 @@ public class GenreDeezerAdaptor extends DeezerGenre implements Genre {
   public GenreDeezerAdaptor(final DeezerGenre genre) {
     super(genre);
   }
+
+  public GenreDeezerAdaptor() {
+    super();
+  }
 }
