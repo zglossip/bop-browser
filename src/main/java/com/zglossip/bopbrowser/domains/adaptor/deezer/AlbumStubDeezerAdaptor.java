@@ -5,7 +5,9 @@ import com.zglossip.bopbrowser.domains.Genre;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbum;
 
 import java.net.URI;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class AlbumStubDeezerAdaptor extends DeezerAlbum implements AlbumStub {
@@ -17,11 +19,18 @@ public class AlbumStubDeezerAdaptor extends DeezerAlbum implements AlbumStub {
 
   @Override
   public List<Genre> getGenreList() {
+    if (Objects.isNull(getGenres())) {
+      return Collections.emptyList();
+    }
+
     return getGenres().stream().map(GenreDeezerAdaptor::new).collect(Collectors.toList());
   }
 
   @Override
-  public int getArtistId() {
+  public Integer getArtistId() {
+    if (Objects.isNull(getArtist()) || getArtist().getId() == 0) {
+      return null;
+    }
     return getArtist().getId();
   }
 

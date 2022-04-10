@@ -6,11 +6,11 @@ import java.util.List;
 public interface Song extends SongStub {
   String getAlbumTitle();
 
-  int getAlbumId();
+  Integer getAlbumId();
 
   List<Genre> getAlbumGenres();
 
-  int getArtistId();
+  Integer getArtistId();
 
   String getArtistName();
 

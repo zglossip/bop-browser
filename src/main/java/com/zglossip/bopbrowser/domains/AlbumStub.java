@@ -17,7 +17,7 @@ public interface AlbumStub {
 
   String getRecordType();
 
-  int getArtistId();
+  Integer getArtistId();
 
   String getArtistName();
 
