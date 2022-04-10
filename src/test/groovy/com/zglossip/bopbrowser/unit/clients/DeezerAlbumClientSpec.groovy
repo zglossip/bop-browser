@@ -1,8 +1,7 @@
-package com.zglossip.bopbrowser.unit.daos
+package com.zglossip.bopbrowser.unit.clients
 
 import com.zglossip.bopbrowser.clients.DeezerAlbumClient
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbum
 import com.zglossip.bopbrowser.util.ApiUtil
 import spock.lang.Specification
 import spock.lang.Subject
@@ -23,7 +22,7 @@ class DeezerAlbumClientSpec extends Specification {
 
   def 'Get album info'() {
     given:
-    AlbumDeezerAdaptor expected = new DeezerAlbum(id: id)
+    AlbumDeezerAdaptor expected = new AlbumDeezerAdaptor(id: id)
 
     when:
     AlbumDeezerAdaptor result = albumClient.getAlbumInfo(id)

@@ -1,4 +1,4 @@
-package com.zglossip.bopbrowser.unit.daos
+package com.zglossip.bopbrowser.unit.clients
 
 import com.zglossip.bopbrowser.clients.DeezerSearchClient
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
@@ -27,7 +27,7 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search artists'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = [new DeezerArtist(id: 1), new DeezerArtist(id: 3)]
+    List<ArtistStubDeezerAdaptor> expected = [new ArtistStubDeezerAdaptor(id: 1), new ArtistStubDeezerAdaptor(id: 3)]
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:

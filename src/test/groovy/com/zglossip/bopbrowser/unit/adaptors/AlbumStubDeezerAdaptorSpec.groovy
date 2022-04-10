@@ -4,7 +4,6 @@ import com.zglossip.bopbrowser.domains.Genre
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenre
 import spock.lang.Specification
 
 class AlbumStubDeezerAdaptorSpec extends Specification {
@@ -41,7 +40,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
 
   def 'Get genres'() {
     given:
-    albumStub.setGenres([new DeezerGenre(id: 0, name: genreName1), new DeezerGenre(id: 1, name: genreName2)])
+    albumStub.setGenres([new GenreDeezerAdaptor(id: 0, name: genreName1), new GenreDeezerAdaptor(id: 1, name: genreName2)])
 
     and:
     List<Genre> expected = []

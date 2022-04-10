@@ -1,5 +1,6 @@
 package com.zglossip.bopbrowser.util;
 
+import com.zglossip.bopbrowser.exceptions.InvalidInputException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collections;
 
 import static com.zglossip.bopbrowser.util.BeanConstants.REST_TEMPLATE_BEAN;
@@ -24,6 +26,14 @@ public class ApiUtil {
                     @Qualifier(RETRY_TEMPLATE_BEAN) final RetryTemplate retryTemplate) {
     this.restTemplate = restTemplate;
     this.retryTemplate = retryTemplate;
+  }
+
+  public static URI generateUri(final String uriString, final String errorMessage) {
+    try {
+      return new URI(uriString);
+    } catch (final URISyntaxException e) {
+      throw new InvalidInputException(String.format(errorMessage, e));
+    }
   }
 
   public <T> T getRequest(final URI uri, final Class<T> clazz) {

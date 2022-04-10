@@ -1,10 +1,9 @@
-package com.zglossip.bopbrowser.unit.daos
+package com.zglossip.bopbrowser.unit.clients
 
 import com.zglossip.bopbrowser.clients.DeezerArtistClient
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbum
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtistAlbumsResult
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerRelatedArtistsResult
@@ -28,7 +27,7 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get artist info'() {
     given:
-    ArtistDeezerAdaptor expected = new DeezerArtist(id: id)
+    ArtistDeezerAdaptor expected = new ArtistDeezerAdaptor(id: id)
 
     when:
     ArtistDeezerAdaptor result = artistClient.getArtistInfo(id)
@@ -58,7 +57,7 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get artist albums'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = [new DeezerAlbum(id: 1), new DeezerAlbum(id: 2)]
+    List<AlbumStubDeezerAdaptor> expected = [new AlbumStubDeezerAdaptor(id: 1), new AlbumStubDeezerAdaptor(id: 2)]
 
     when:
     List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)

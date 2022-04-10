@@ -3,15 +3,17 @@ package com.zglossip.bopbrowser.clients;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistDeezerAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor;
-import com.zglossip.bopbrowser.exceptions.InvalidInputException;
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtistAlbumsResult;
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerRelatedArtistsResult;
 import com.zglossip.bopbrowser.util.ApiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.List;
 
+import static com.zglossip.bopbrowser.util.ApiUtil.generateUri;
 import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI;
 
 @Service
@@ -27,24 +29,41 @@ public class DeezerArtistClient extends AbstractClient {
   }
 
   public ArtistDeezerAdaptor getArtistInfo(final int id) {
-    return getRequest(getArtistInfoUrl(id), ArtistDeezerAdaptor.class);
+    return getRequest(getArtistInfoUri(id), ArtistDeezerAdaptor.class);
   }
 
   public List<AlbumStubDeezerAdaptor> getTopAlbums(final int id) {
-    //TODO Fill out
-    return null;
+    final DeezerArtistAlbumsResult results = getRequest(getTopAlbumsUri(id), DeezerArtistAlbumsResult.class);
+
+    if (results == null || results.getData() == null) {
+      return Collections.emptyList();
+    }
+
+    return results.getData();
   }
 
   public List<ArtistStubDeezerAdaptor> getRelatedArtists(final int id) {
-    //TODO Fill out
-    return null;
+    final DeezerRelatedArtistsResult results = getRequest(getRelatedArtistsUri(id), DeezerRelatedArtistsResult.class);
+
+    if (results == null || results.getData() == null) {
+      return Collections.emptyList();
+    }
+
+    return results.getData();
   }
 
-  private URI getArtistInfoUrl(final int id) {
-    try {
-      return new URI(BASE_URI + String.format(ARTIST_INFO_URI, id));
-    } catch (final URISyntaxException e) {
-      throw new InvalidInputException(String.format("There was an issue getting the artist info for artist ID %d", id), e);
-    }
+  private URI getArtistInfoUri(final int id) {
+    return generateUri(BASE_URI + String.format(ARTIST_INFO_URI, id),
+                       String.format("There was an issue getting the artist info URI for artist ID %d", id));
+  }
+
+  private URI getTopAlbumsUri(final int id) {
+    return generateUri(BASE_URI + String.format(TOP_ALBUMS_URI, id),
+                       String.format("There was an issue getting the top albums URI for artist ID %d", id));
+  }
+
+  private URI getRelatedArtistsUri(final int id) {
+    return generateUri(BASE_URI + String.format(RELATED_ARTISTS_URI, id),
+                       String.format("There was an issue getting the related artists URI for artist ID %d", id));
   }
 }
