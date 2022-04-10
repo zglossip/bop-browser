@@ -35,7 +35,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchArtistResult.class) >> new DeezerSearchArtistResult(data: expected)
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -51,7 +51,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchArtistResult.class) >> new DeezerSearchArtistResult(data: expected)
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -67,7 +67,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchArtistResult.class) >> new DeezerSearchArtistResult()
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -83,7 +83,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchArtistResult.class) >> null
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -99,7 +99,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchAlbumResult.class) >> new DeezerSearchAlbumResult(data: expected)
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -115,7 +115,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchAlbumResult.class) >> new DeezerSearchAlbumResult(data: expected)
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -131,7 +131,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchAlbumResult.class) >> new DeezerSearchAlbumResult()
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -147,7 +147,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchAlbumResult.class) >> null
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -163,7 +163,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchSongResult.class) >> new DeezerSearchSongResult(data: expected)
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -179,7 +179,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchSongResult.class) >> new DeezerSearchSongResult(data: expected)
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -195,7 +195,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchSongResult.class) >> new DeezerSearchSongResult()
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'
@@ -211,7 +211,7 @@ class DeezerSearchClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSearchSongResult.class) >> null
-    results == expected
+    results.equals(expected)
 
     where:
     query = 'Test query'

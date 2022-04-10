@@ -10,5 +10,7 @@ public interface ArtistStub {
 
   URI getPictureUri();
 
-  List<Genre> getGenreList();
+  List<? extends Genre> getGenreList();
+
+  void setGenreList(List<? extends Genre> genreList);
 }

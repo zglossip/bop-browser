@@ -34,7 +34,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.ARTIST_INFO_URI, id)), ArtistDeezerAdaptor.class) >> expected
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -49,7 +49,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.ARTIST_INFO_URI, id)), ArtistDeezerAdaptor.class) >> expected
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -64,7 +64,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult(data: expected)
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -79,7 +79,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult(data: expected)
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -94,7 +94,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult()
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -109,7 +109,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> null
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -124,7 +124,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult(data: expected)
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -139,7 +139,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult(data: expected)
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -154,7 +154,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult()
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -169,7 +169,7 @@ class DeezerArtistClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> null
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
