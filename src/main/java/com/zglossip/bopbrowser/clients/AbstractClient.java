@@ -1,13 +1,13 @@
-package com.zglossip.bopbrowser.daos;
+package com.zglossip.bopbrowser.clients;
 
 import com.zglossip.bopbrowser.util.ApiUtil;
 
 import java.net.URI;
 
-public abstract class AbstractDao {
+public abstract class AbstractClient {
   private final ApiUtil apiUtil;
 
-  public AbstractDao(final ApiUtil apiUtil) {
+  public AbstractClient(final ApiUtil apiUtil) {
     this.apiUtil = apiUtil;
   }
 

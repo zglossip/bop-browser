@@ -1,6 +1,6 @@
 package com.zglossip.bopbrowser.unit.daos
 
-import com.zglossip.bopbrowser.daos.DeezerArtistDao
+import com.zglossip.bopbrowser.clients.DeezerArtistClient
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor
@@ -14,16 +14,16 @@ import spock.lang.Subject
 
 import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI
 
-class DeezerArtistDaoSpec extends Specification {
+class DeezerArtistClientSpec extends Specification {
 
   private ApiUtil apiUtil
 
   @Subject
-  private DeezerArtistDao actorDao
+  private DeezerArtistClient artistClient
 
   def setup() {
     apiUtil = Mock(ApiUtil)
-    actorDao = new DeezerArtistDao(apiUtil)
+    artistClient = new DeezerArtistClient(apiUtil)
   }
 
   def 'Get artist info'() {
@@ -31,10 +31,10 @@ class DeezerArtistDaoSpec extends Specification {
     ArtistDeezerAdaptor expected = new DeezerArtist(id: id)
 
     when:
-    ArtistDeezerAdaptor result = actorDao.getArtistInfo(id)
+    ArtistDeezerAdaptor result = artistClient.getArtistInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.ARTIST_INFO_URI, id)), ArtistDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.ARTIST_INFO_URI, id)), ArtistDeezerAdaptor.class) >> expected
     result == expected
 
     where:
@@ -46,10 +46,10 @@ class DeezerArtistDaoSpec extends Specification {
     ArtistDeezerAdaptor expected = null
 
     when:
-    ArtistDeezerAdaptor result = actorDao.getArtistInfo(id)
+    ArtistDeezerAdaptor result = artistClient.getArtistInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.ARTIST_INFO_URI, id)), ArtistDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.ARTIST_INFO_URI, id)), ArtistDeezerAdaptor.class) >> expected
     result == expected
 
     where:
@@ -61,10 +61,10 @@ class DeezerArtistDaoSpec extends Specification {
     List<AlbumStubDeezerAdaptor> expected = [new DeezerAlbum(id: 1), new DeezerAlbum(id: 2)]
 
     when:
-    List<AlbumStubDeezerAdaptor> result = actorDao.getTopAlbums(id)
+    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult(data: expected)
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult(data: expected)
     result == expected
 
     where:
@@ -76,10 +76,10 @@ class DeezerArtistDaoSpec extends Specification {
     List<AlbumStubDeezerAdaptor> expected = []
 
     when:
-    List<AlbumStubDeezerAdaptor> result = actorDao.getTopAlbums(id)
+    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult(data: expected)
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult(data: expected)
     result == expected
 
     where:
@@ -91,10 +91,10 @@ class DeezerArtistDaoSpec extends Specification {
     List<AlbumStubDeezerAdaptor> expected = []
 
     when:
-    List<AlbumStubDeezerAdaptor> result = actorDao.getTopAlbums(id)
+    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult()
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> new DeezerArtistAlbumsResult()
     result == expected
 
     where:
@@ -106,10 +106,10 @@ class DeezerArtistDaoSpec extends Specification {
     List<AlbumStubDeezerAdaptor> expected = []
 
     when:
-    List<AlbumStubDeezerAdaptor> result = actorDao.getTopAlbums(id)
+    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> null
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerArtistAlbumsResult.class) >> null
     result == expected
 
     where:
@@ -121,10 +121,10 @@ class DeezerArtistDaoSpec extends Specification {
     List<ArtistStubDeezerAdaptor> expected = [new DeezerArtist(id: 1), new DeezerArtist(id: 2)]
 
     when:
-    List<ArtistStubDeezerAdaptor> result = actorDao.getRelatedArtists(id)
+    List<ArtistStubDeezerAdaptor> result = artistClient.getRelatedArtists(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult(data: expected)
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult(data: expected)
     result == expected
 
     where:
@@ -136,10 +136,10 @@ class DeezerArtistDaoSpec extends Specification {
     List<ArtistStubDeezerAdaptor> expected = []
 
     when:
-    List<ArtistStubDeezerAdaptor> result = actorDao.getRelatedArtists(id)
+    List<ArtistStubDeezerAdaptor> result = artistClient.getRelatedArtists(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult(data: expected)
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult(data: expected)
     result == expected
 
     where:
@@ -151,10 +151,10 @@ class DeezerArtistDaoSpec extends Specification {
     List<ArtistStubDeezerAdaptor> expected = []
 
     when:
-    List<ArtistStubDeezerAdaptor> result = actorDao.getRelatedArtists(id)
+    List<ArtistStubDeezerAdaptor> result = artistClient.getRelatedArtists(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult()
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> new DeezerRelatedArtistsResult()
     result == expected
 
     where:
@@ -166,10 +166,10 @@ class DeezerArtistDaoSpec extends Specification {
     List<ArtistStubDeezerAdaptor> expected = []
 
     when:
-    List<ArtistStubDeezerAdaptor> result = actorDao.getRelatedArtists(id)
+    List<ArtistStubDeezerAdaptor> result = artistClient.getRelatedArtists(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(actorDao.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> null
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerRelatedArtistsResult.class) >> null
     result == expected
 
     where:

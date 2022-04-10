@@ -1,6 +1,6 @@
 package com.zglossip.bopbrowser.unit.daos
 
-import com.zglossip.bopbrowser.daos.DeezerAlbumDao
+import com.zglossip.bopbrowser.clients.DeezerAlbumClient
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbum
 import com.zglossip.bopbrowser.util.ApiUtil
@@ -9,16 +9,16 @@ import spock.lang.Subject
 
 import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI
 
-class DeezerAlbumDaoSpec extends Specification {
+class DeezerAlbumClientSpec extends Specification {
 
   private ApiUtil apiUtil
 
   @Subject
-  private DeezerAlbumDao albumDao
+  private DeezerAlbumClient albumClient
 
   def setup() {
     apiUtil = Mock(ApiUtil)
-    albumDao = new DeezerAlbumDao(apiUtil)
+    albumClient = new DeezerAlbumClient(apiUtil)
   }
 
   def 'Get album info'() {
@@ -26,10 +26,10 @@ class DeezerAlbumDaoSpec extends Specification {
     AlbumDeezerAdaptor expected = new DeezerAlbum(id: id)
 
     when:
-    AlbumDeezerAdaptor result = albumDao.getAlbumInfo(id)
+    AlbumDeezerAdaptor result = albumClient.getAlbumInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumDao.ALBUM_INFO_URI, id)), AlbumDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), AlbumDeezerAdaptor.class) >> expected
     result == expected
 
     where:
@@ -41,10 +41,10 @@ class DeezerAlbumDaoSpec extends Specification {
     AlbumDeezerAdaptor expected = null
 
     when:
-    AlbumDeezerAdaptor result = albumDao.getAlbumInfo(id)
+    AlbumDeezerAdaptor result = albumClient.getAlbumInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumDao.ALBUM_INFO_URI, id)), AlbumDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), AlbumDeezerAdaptor.class) >> expected
     result == expected
 
     where:

@@ -1,4 +1,4 @@
-package com.zglossip.bopbrowser.daos;
+package com.zglossip.bopbrowser.clients;
 
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistDeezerAdaptor;
@@ -15,14 +15,14 @@ import java.util.List;
 import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI;
 
 @Service
-public class DeezerArtistDao extends AbstractDao {
+public class DeezerArtistClient extends AbstractClient {
 
   public static final String ARTIST_INFO_URI = "/artist/%d";
   public static final String TOP_ALBUMS_URI = ARTIST_INFO_URI + "/albums";
   public static final String RELATED_ARTISTS_URI = ARTIST_INFO_URI + "/related";
 
   @Autowired
-  public DeezerArtistDao(final ApiUtil apiUtil) {
+  public DeezerArtistClient(final ApiUtil apiUtil) {
     super(apiUtil);
   }
 

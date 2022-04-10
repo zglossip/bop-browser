@@ -1,4 +1,4 @@
-package com.zglossip.bopbrowser.daos;
+package com.zglossip.bopbrowser.clients;
 
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class DeezerSearchDao extends AbstractDao {
+public class DeezerSearchClient extends AbstractClient {
 
   private final static String SEARCH_URI = "/search";
   public final static String SEARCH_ARTISTS_URL = SEARCH_URI + "/artist?q=%s";
@@ -18,7 +18,7 @@ public class DeezerSearchDao extends AbstractDao {
   public final static String SEARCH_SONGS_URL = SEARCH_URI + "/track?q=%s";
 
   @Autowired
-  public DeezerSearchDao(final ApiUtil apiUtil) {
+  public DeezerSearchClient(final ApiUtil apiUtil) {
     super(apiUtil);
   }
 

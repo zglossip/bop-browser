@@ -1,4 +1,4 @@
-package com.zglossip.bopbrowser.daos;
+package com.zglossip.bopbrowser.clients;
 
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor;
 import com.zglossip.bopbrowser.util.ApiUtil;
@@ -6,11 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DeezerAlbumDao extends AbstractDao {
+public class DeezerAlbumClient extends AbstractClient {
   public static final String ALBUM_INFO_URI = "/album/%d";
 
   @Autowired
-  public DeezerAlbumDao(final ApiUtil apiUtil) {
+  public DeezerAlbumClient(final ApiUtil apiUtil) {
     super(apiUtil);
   }
 

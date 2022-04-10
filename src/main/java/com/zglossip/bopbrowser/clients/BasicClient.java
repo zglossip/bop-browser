@@ -1,14 +1,14 @@
-package com.zglossip.bopbrowser.daos;
+package com.zglossip.bopbrowser.clients;
 
 import com.zglossip.bopbrowser.util.ApiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BasicDao extends AbstractDao {
+public class BasicClient extends AbstractClient {
 
   @Autowired
-  public BasicDao(final ApiUtil apiUtil) {
+  public BasicClient(final ApiUtil apiUtil) {
     super(apiUtil);
   }
 }
