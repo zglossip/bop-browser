@@ -78,7 +78,8 @@ public class DeezerSearchClient extends AbstractClient {
 
   private URI generateUriWithQuery(final String query, final String uri, final String errorMessage) {
     try {
-      return generateUri(BASE_URI + String.format(uri, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())), errorMessage);
+      return generateUri(BASE_URI + String.format(uri, URLEncoder.encode(query == null ? "" : query, StandardCharsets.UTF_8.toString())),
+                         errorMessage);
     } catch (final UnsupportedEncodingException e) {
       throw new BadQueryException(String.format("There was an issue encoding query %s", query), e);
     }

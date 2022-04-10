@@ -160,17 +160,32 @@ class ArtistServiceSpec extends Specification {
 
   def 'Search artists'() {
     given:
-    def expected = [new ArtistStubDeezerAdaptor(id: 3), new AlbumStubDeezerAdaptor(id: 4)]
+    def artists = [new ArtistStubDeezerAdaptor(id: 3), new ArtistStubDeezerAdaptor(id: 4)]
+
+    def expectedGenres = [
+        new GenreDeezerAdaptor(name: 'Genre4'),
+        new GenreDeezerAdaptor(name: 'Genre2'),
+        new GenreDeezerAdaptor(name: 'Genre1')
+    ]
+
+    def expected = [new ArtistStubDeezerAdaptor(id: 3, genreList: expectedGenres), new ArtistStubDeezerAdaptor(id: 4, genreList: [])]
 
     when:
-    List<ArtistStub> results = artistService.searchArtists(query)
+    List<ArtistStub> results = artistService.search(query)
 
     then:
-    1 * deezerSearchClient.searchArtists(query) >> expected
+    1 * deezerSearchClient.searchArtists(query) >> artists
+    1 * deezerArtistClient.getTopAlbums(3) >> topAlbumList
     results.equals(expected)
 
     where:
     query = 'Test Test'
+    topAlbumList = [new AlbumStubDeezerAdaptor(id: 2, genres: [new GenreDeezerAdaptor(name: 'Genre1'), new GenreDeezerAdaptor(name: 'Genre2')]),
+                    new AlbumStubDeezerAdaptor(id: 24, genres: [new GenreDeezerAdaptor(name: 'Genre2'), new GenreDeezerAdaptor(name: 'Genre3'), new GenreDeezerAdaptor(name: 'Genre4')]),
+                    new AlbumStubDeezerAdaptor(id: 25, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
+                    new AlbumStubDeezerAdaptor(id: 26, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
+                    new AlbumStubDeezerAdaptor(id: 27, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
+                    new AlbumStubDeezerAdaptor(id: 28, genres: [new GenreDeezerAdaptor(name: 'Genre4')])]
   }
 
   def 'Search artists (empty)'() {
@@ -178,7 +193,7 @@ class ArtistServiceSpec extends Specification {
     def expected = []
 
     when:
-    List<ArtistStub> results = artistService.searchArtists(query)
+    List<ArtistStub> results = artistService.search(query)
 
     then:
     1 * deezerSearchClient.searchArtists(query) >> expected

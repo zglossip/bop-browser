@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SongService {
+public class SongService extends AbstractService<Song> {
 
   private final DeezerSearchClient deezerSearchClient;
 
@@ -17,7 +17,8 @@ public class SongService {
     this.deezerSearchClient = deezerSearchClient;
   }
 
-  public List<? extends Song> searchSongs(final String query) {
+  @Override
+  public List<? extends Song> search(final String query) {
     return deezerSearchClient.searchSongs(query);
   }
 }

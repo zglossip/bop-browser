@@ -2,7 +2,7 @@ package com.zglossip.bopbrowser.domains;
 
 import java.net.URI;
 
-public interface SongStub {
+public interface SongStub extends MusicCategory {
   int getId();
 
   Integer getTrackPosition();

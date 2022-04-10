@@ -1,5 +1,5 @@
 package com.zglossip.bopbrowser.domains;
 
-public interface Genre {
+public interface Genre extends MusicCategory {
   String getName();
 }

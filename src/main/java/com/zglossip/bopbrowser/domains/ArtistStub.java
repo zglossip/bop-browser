@@ -3,7 +3,7 @@ package com.zglossip.bopbrowser.domains;
 import java.net.URI;
 import java.util.List;
 
-public interface ArtistStub {
+public interface ArtistStub extends MusicCategory {
   int getId();
 
   String getName();

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AlbumService {
+public class AlbumService extends AbstractService<AlbumStub> {
 
   private final DeezerAlbumClient deezerAlbumClient;
   private final DeezerSearchClient deezerSearchClient;
@@ -25,7 +25,8 @@ public class AlbumService {
     return deezerAlbumClient.getAlbumInfo(id);
   }
 
-  public List<? extends AlbumStub> searchAlbums(final String query) {
+  @Override
+  public List<? extends AlbumStub> search(final String query) {
     return deezerSearchClient.searchAlbums(query);
   }
 }

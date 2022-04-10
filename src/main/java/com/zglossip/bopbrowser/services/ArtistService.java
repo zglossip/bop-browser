@@ -17,7 +17,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class ArtistService {
+public class ArtistService extends AbstractService<ArtistStub> {
+
+  private static final int SEARCH_PAGE_GENRE_COUNT = 3;
 
   private final DeezerArtistClient deezerArtistClient;
   private final DeezerSearchClient deezerSearchClient;
@@ -55,8 +57,14 @@ public class ArtistService {
     return deezerArtistClient.getRelatedArtists(id);
   }
 
-  public List<? extends ArtistStub> searchArtists(final String query) {
-    return deezerSearchClient.searchArtists(query);
+  @Override
+  public List<? extends ArtistStub> search(final String query) {
+    final List<? extends ArtistStub> artists = deezerSearchClient.searchArtists(query);
+    artists.forEach(artist -> {
+      final List<? extends AlbumStub> topAlbums = getArtistAlbums(artist.getId());
+      artist.setGenreList(getTopGenres(topAlbums, SEARCH_PAGE_GENRE_COUNT));
+    });
+    return artists;
   }
 
   private List<? extends SongStub> getTopSongs(final URI uri) {
@@ -70,6 +78,10 @@ public class ArtistService {
   }
 
   private List<? extends Genre> getTopGenres(final List<? extends AlbumStub> topAlbums, final int numberOfGenres) {
+    if (topAlbums == null) {
+      return Collections.emptyList();
+    }
+
     final List<Genre> sorted = topAlbums.stream()
                                         .map(AlbumStub::getGenreList)
                                         .flatMap(List::stream)

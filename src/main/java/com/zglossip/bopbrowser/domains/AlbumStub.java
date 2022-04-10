@@ -4,7 +4,7 @@ import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface AlbumStub {
+public interface AlbumStub extends MusicCategory {
   int getId();
 
   String getTitle();
