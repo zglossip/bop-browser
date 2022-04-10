@@ -1,14 +1,14 @@
 package com.zglossip.bopbrowser.unit.adaptors
 
+import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.SongStubDeezerAdaptor
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbum
 import spock.lang.Specification
 
 class SongStubDeezerAdaptorSpec extends Specification {
 
   def 'Get album art URI'() {
     given:
-    DeezerAlbum album = new DeezerAlbum(cover: albumArtUri)
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor(cover: albumArtUri)
     songStub.setAlbum(album)
 
     when:
@@ -24,7 +24,7 @@ class SongStubDeezerAdaptorSpec extends Specification {
 
   def 'Get album art URI (null URI)'() {
     given:
-    DeezerAlbum album = new DeezerAlbum()
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor()
     songStub.setAlbum(album)
 
     when:

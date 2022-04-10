@@ -1,8 +1,8 @@
 package com.zglossip.bopbrowser.unit.adaptors
 
+import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.SongDeezerAdaptor
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbum
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import org.springframework.boot.test.context.SpringBootTest
 import spock.lang.Specification
 
@@ -10,7 +10,7 @@ import spock.lang.Specification
 class SongDeezerAdaptorSpec extends Specification {
   def 'Get album title'() {
     given:
-    DeezerAlbum album = new DeezerAlbum(title: albumTitle)
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor(title: albumTitle)
     song.setAlbum(album)
 
     when:
@@ -26,7 +26,7 @@ class SongDeezerAdaptorSpec extends Specification {
 
   def 'Get album title (null title)'() {
     given:
-    DeezerAlbum album = new DeezerAlbum()
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor()
     song.setAlbum(album)
 
     when:
@@ -52,7 +52,7 @@ class SongDeezerAdaptorSpec extends Specification {
 
   def 'Get album ID'() {
     given:
-    DeezerAlbum album = new DeezerAlbum(id: albumId)
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor(id: albumId)
     song.setAlbum(album)
 
     when:
@@ -68,7 +68,7 @@ class SongDeezerAdaptorSpec extends Specification {
 
   def 'Get album ID (null ID)'() {
     given:
-    DeezerAlbum album = new DeezerAlbum()
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor()
     song.setAlbum(album)
 
     when:
@@ -94,7 +94,7 @@ class SongDeezerAdaptorSpec extends Specification {
 
   def 'Get artist ID'() {
     given:
-    DeezerArtist artist = new DeezerArtist(id: artistId)
+    ArtistStubDeezerAdaptor artist = new ArtistStubDeezerAdaptor(id: artistId)
     song.setArtist(artist)
 
     when:
@@ -110,7 +110,7 @@ class SongDeezerAdaptorSpec extends Specification {
 
   def 'Get artist ID (null ID)'() {
     given:
-    DeezerArtist artist = new DeezerArtist()
+    ArtistStubDeezerAdaptor artist = new ArtistStubDeezerAdaptor()
     song.setArtist(artist)
 
     when:
@@ -136,7 +136,7 @@ class SongDeezerAdaptorSpec extends Specification {
 
   def 'Get artist name'() {
     given:
-    DeezerArtist artist = new DeezerArtist(name: artistName)
+    ArtistStubDeezerAdaptor artist = new ArtistStubDeezerAdaptor(name: artistName)
     song.setArtist(artist)
 
     when:
@@ -152,7 +152,7 @@ class SongDeezerAdaptorSpec extends Specification {
 
   def 'Get artist name (null name)'() {
     given:
-    DeezerArtist artist = new DeezerArtist()
+    ArtistStubDeezerAdaptor artist = new ArtistStubDeezerAdaptor()
     song.setArtist(artist)
 
     when:

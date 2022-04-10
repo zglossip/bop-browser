@@ -2,6 +2,10 @@ package com.zglossip.bopbrowser.domains.models.deezer;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.SongStubDeezerAdaptor;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -29,7 +33,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   private String md5Image;
   @JsonAlias("genre_id")
   private Integer genreId;
-  private List<DeezerGenre> genres;
+  private List<GenreDeezerAdaptor> genres;
   private String label;
   @JsonAlias("nb_tracks")
   private Integer nbTracks;
@@ -40,7 +44,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   @JsonAlias("record_type")
   private String recordType;
   private Boolean available;
-  private DeezerAlbum alternative;
+  private AlbumDeezerAdaptor alternative;
   private URI tracklist;
   @JsonAlias("explicit_lyrics")
   private Boolean explicitLyrics;
@@ -48,10 +52,8 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   private Boolean explicitContentLyrics;
   @JsonAlias("explicit_content_cover")
   private Boolean explicitContentCover;
-  private List<DeezerArtist> contributers;
+  private List<ArtistStubDeezerAdaptor> contributers;
   private DeezerArtist artist;
-  private List<DeezerSong> tracks;
-
   protected final Comparator<DeezerAlbum> comparator = Comparator.comparing(DeezerAlbum::getId, Comparator.naturalOrder())
                                                                  .thenComparing(DeezerAlbum::getTitle,
                                                                                 Comparator.nullsLast(Comparator.naturalOrder()))
@@ -101,6 +103,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
                                                                                 Comparator.nullsLast(Comparator.naturalOrder()))
                                                                  .thenComparing(DeezerAlbum::getArtist,
                                                                                 Comparator.nullsLast(Comparator.naturalOrder()));
+  private List<SongStubDeezerAdaptor> tracks;
 
   public int getId() {
     return id;
@@ -198,11 +201,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.genreId = genreId;
   }
 
-  public List<DeezerGenre> getGenres() {
+  public List<GenreDeezerAdaptor> getGenres() {
     return genres;
   }
 
-  public void setGenres(final List<DeezerGenre> genres) {
+  public void setGenres(final List<GenreDeezerAdaptor> genres) {
     this.genres = genres;
   }
 
@@ -262,11 +265,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.available = available;
   }
 
-  public DeezerAlbum getAlternative() {
+  public AlbumDeezerAdaptor getAlternative() {
     return alternative;
   }
 
-  public void setAlternative(final DeezerAlbum alternative) {
+  public void setAlternative(final AlbumDeezerAdaptor alternative) {
     this.alternative = alternative;
   }
 
@@ -302,11 +305,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.explicitContentCover = explicitContentCover;
   }
 
-  public List<DeezerArtist> getContributers() {
+  public List<ArtistStubDeezerAdaptor> getContributers() {
     return contributers;
   }
 
-  public void setContributers(final List<DeezerArtist> contributers) {
+  public void setContributers(final List<ArtistStubDeezerAdaptor> contributers) {
     this.contributers = contributers;
   }
 
@@ -318,11 +321,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.artist = artist;
   }
 
-  public List<DeezerSong> getTracks() {
+  public List<SongStubDeezerAdaptor> getTracks() {
     return tracks;
   }
 
-  public void setTracks(final List<DeezerSong> tracks) {
+  public void setTracks(final List<SongStubDeezerAdaptor> tracks) {
     this.tracks = tracks;
   }
 
