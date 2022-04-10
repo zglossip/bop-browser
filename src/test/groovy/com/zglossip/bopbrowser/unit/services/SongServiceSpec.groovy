@@ -24,7 +24,7 @@ class SongServiceSpec extends Specification {
     def expected = [new SongDeezerAdaptor(id: 3), new SongDeezerAdaptor(id: 4)]
 
     when:
-    List<Song> results = songService.searchSongs(query)
+    List<Song> results = songService.search(query)
 
     then:
     1 * deezerSearchClient.searchSongs(query) >> expected
@@ -39,7 +39,7 @@ class SongServiceSpec extends Specification {
     def expected = []
 
     when:
-    List<Song> results = songService.searchSongs(query)
+    List<Song> results = songService.search(query)
 
     then:
     1 * deezerSearchClient.searchSongs(query) >> expected

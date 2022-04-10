@@ -59,7 +59,7 @@ class AlbumServiceSpec extends Specification {
     def expected = [new AlbumStubDeezerAdaptor(id: 1), new AlbumStubDeezerAdaptor(id: 2)]
 
     when:
-    List<AlbumStub> results = albumService.searchAlbums(query)
+    List<AlbumStub> results = albumService.search(query)
 
     then:
     1 * deezerSearchClient.searchAlbums(query) >> expected
@@ -74,7 +74,7 @@ class AlbumServiceSpec extends Specification {
     def expected = []
 
     when:
-    List<AlbumStub> results = albumService.searchAlbums(query)
+    List<AlbumStub> results = albumService.search(query)
 
     then:
     1 * deezerSearchClient.searchAlbums(query) >> expected
