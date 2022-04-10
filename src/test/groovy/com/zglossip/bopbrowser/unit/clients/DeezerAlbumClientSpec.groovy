@@ -29,7 +29,7 @@ class DeezerAlbumClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), AlbumDeezerAdaptor.class) >> expected
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
@@ -44,7 +44,7 @@ class DeezerAlbumClientSpec extends Specification {
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), AlbumDeezerAdaptor.class) >> expected
-    result == expected
+    result.equals(expected)
 
     where:
     id = 123
