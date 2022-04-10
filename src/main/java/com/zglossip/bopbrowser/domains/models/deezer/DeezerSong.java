@@ -2,6 +2,9 @@ package com.zglossip.bopbrowser.domains.models.deezer;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.SongDeezerAdaptor;
 
 import java.math.BigDecimal;
 import java.net.URI;
@@ -14,41 +17,6 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public
 class DeezerSong implements Comparable<DeezerSong> {
-  private int id;
-  private Boolean readable;
-  private String title;
-  @JsonAlias("title_version")
-  private String titleVersion;
-  private Boolean unseen;
-  private String isrc;
-  private URI link;
-  private URI share;
-  private Integer duration;
-  @JsonAlias("track_position")
-  private Integer trackPosition;
-  @JsonAlias("disk_number")
-  private Integer diskNumber;
-  private Integer rank;
-  @JsonAlias("release_date")
-  private LocalDate releaseDate;
-  @JsonAlias("explicit_lyrics")
-  private Boolean explicitLyrics;
-  @JsonAlias("explicit_content_lyrics")
-  private Integer explicitContentLyrics;
-  @JsonAlias("explicit_content_cover")
-  private Integer explicitContentCover;
-  private URI preview;
-  private BigDecimal bpm;
-  private BigDecimal gain;
-  @JsonAlias("available_countries")
-  private Collection<String> availableCountries;
-  private DeezerSong alternative;
-  private List<DeezerArtist> contributers;
-  @JsonAlias("md5_image")
-  private String md5Image;
-  private DeezerArtist artist;
-  private DeezerAlbum album;
-
   private static final Comparator<DeezerSong> comparator = Comparator.comparing(DeezerSong::getId)
                                                                      .thenComparing(DeezerSong::isReadable,
                                                                                     Comparator.nullsLast(Comparator.naturalOrder()))
@@ -94,6 +62,40 @@ class DeezerSong implements Comparable<DeezerSong> {
                                                                                     Comparator.nullsLast(Comparator.naturalOrder()))
                                                                      .thenComparing(DeezerSong::getAlbum,
                                                                                     Comparator.nullsLast(Comparator.naturalOrder()));
+  private int id;
+  private Boolean readable;
+  private String title;
+  @JsonAlias("title_version")
+  private String titleVersion;
+  private Boolean unseen;
+  private String isrc;
+  private URI link;
+  private URI share;
+  private Integer duration;
+  @JsonAlias("track_position")
+  private Integer trackPosition;
+  @JsonAlias("disk_number")
+  private Integer diskNumber;
+  private Integer rank;
+  @JsonAlias("release_date")
+  private LocalDate releaseDate;
+  @JsonAlias("explicit_lyrics")
+  private Boolean explicitLyrics;
+  @JsonAlias("explicit_content_lyrics")
+  private Integer explicitContentLyrics;
+  @JsonAlias("explicit_content_cover")
+  private Integer explicitContentCover;
+  private URI preview;
+  private BigDecimal bpm;
+  private BigDecimal gain;
+  @JsonAlias("available_countries")
+  private Collection<String> availableCountries;
+  private SongDeezerAdaptor alternative;
+  private List<ArtistStubDeezerAdaptor> contributers;
+  @JsonAlias("md5_image")
+  private String md5Image;
+  private ArtistStubDeezerAdaptor artist;
+  private AlbumStubDeezerAdaptor album;
 
   public int getId() {
     return id;
@@ -255,19 +257,19 @@ class DeezerSong implements Comparable<DeezerSong> {
     this.availableCountries = availableCountries;
   }
 
-  public DeezerSong getAlternative() {
+  public SongDeezerAdaptor getAlternative() {
     return alternative;
   }
 
-  public void setAlternative(final DeezerSong alternative) {
+  public void setAlternative(final SongDeezerAdaptor alternative) {
     this.alternative = alternative;
   }
 
-  public List<DeezerArtist> getContributers() {
+  public List<ArtistStubDeezerAdaptor> getContributers() {
     return contributers;
   }
 
-  public void setContributers(final List<DeezerArtist> contributers) {
+  public void setContributers(final List<ArtistStubDeezerAdaptor> contributers) {
     this.contributers = contributers;
   }
 
@@ -279,19 +281,19 @@ class DeezerSong implements Comparable<DeezerSong> {
     this.md5Image = md5Image;
   }
 
-  public DeezerArtist getArtist() {
+  public ArtistStubDeezerAdaptor getArtist() {
     return artist;
   }
 
-  public void setArtist(final DeezerArtist artist) {
+  public void setArtist(final ArtistStubDeezerAdaptor artist) {
     this.artist = artist;
   }
 
-  public DeezerAlbum getAlbum() {
+  public AlbumStubDeezerAdaptor getAlbum() {
     return album;
   }
 
-  public void setAlbum(final DeezerAlbum album) {
+  public void setAlbum(final AlbumStubDeezerAdaptor album) {
     this.album = album;
   }
 
