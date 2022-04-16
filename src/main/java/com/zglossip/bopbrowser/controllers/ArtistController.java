@@ -5,14 +5,12 @@ import com.zglossip.bopbrowser.domains.Artist;
 import com.zglossip.bopbrowser.domains.ArtistStub;
 import com.zglossip.bopbrowser.services.ArtistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/artist")
+@RestController
+@RequestMapping("/artist")
 public class ArtistController extends AbstractController<ArtistService> {
   @Autowired
   public ArtistController(final ArtistService artistService) {

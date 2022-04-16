@@ -1,8 +1,11 @@
 package com.zglossip.bopbrowser.domains;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.net.URI;
 import java.util.List;
 
+@JsonSerialize(as = Artist.class)
 public interface Artist extends ArtistStub {
   List<? extends SongStub> getTopSongList();
 
