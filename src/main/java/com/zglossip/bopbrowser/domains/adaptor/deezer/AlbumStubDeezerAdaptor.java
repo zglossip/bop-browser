@@ -36,6 +36,10 @@ public class AlbumStubDeezerAdaptor extends DeezerAlbum implements AlbumStub {
 
   @Override
   public String getArtistName() {
+    if (Objects.isNull(getArtist())) {
+      return null;
+    }
+
     return getArtist().getName();
   }
 }

@@ -149,4 +149,30 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     artistName = 'Test McTesty'
   }
 
+  def 'Get artist name (null name)'() {
+    given:
+    DeezerArtist artist = new DeezerArtist()
+    albumStub.setArtist(artist)
+
+    when:
+    String result = albumStub.getArtistName()
+
+    then:
+    result == null
+
+    where:
+    albumStub = new AlbumStubDeezerAdaptor()
+  }
+
+  def 'Get artist name (null artist)'() {
+    when:
+    String result = albumStub.getArtistName()
+
+    then:
+    result == null
+
+    where:
+    albumStub = new AlbumStubDeezerAdaptor()
+  }
+
 }
