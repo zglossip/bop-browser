@@ -62,10 +62,9 @@ class ArtistServiceSpec extends Specification {
     then:
     1 * deezerArtistClient.getArtistInfo(id) >> artist
     1 * deezerArtistClient.getTopAlbums(id) >> topAlbumList
-    1 * genreService.populateAlbumStubGenre(topAlbumList.stream().limit(nbAlbums).collect(Collectors.toList()))
+    1 * genreService.populateAlbumStubGenre(topAlbumList)
     1 * basicClient.getRequest(tracklistUri, DeezerSongList.class) >> new DeezerSongList(data: topSongList)
     1 * deezerArtistClient.getRelatedArtists(id) >> relatedArtistList
-    0 * _
     result.equals(expected)
 
     where:
@@ -181,6 +180,7 @@ class ArtistServiceSpec extends Specification {
     then:
     1 * deezerSearchClient.searchArtists(query) >> artists
     1 * deezerArtistClient.getTopAlbums(3) >> topAlbumList
+    1 * genreService.populateAlbumStubGenre(topAlbumList)
     results.equals(expected)
 
     where:

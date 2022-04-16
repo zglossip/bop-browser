@@ -46,9 +46,7 @@ public class ArtistService extends AbstractService<ArtistStub> {
     }
 
     final List<? extends AlbumStub> topAlbums = getArtistAlbums(id);
-    final List<? extends AlbumStub> topAlbumsLimited = topAlbums.stream().limit(numberOfAlbums).collect(Collectors.toList());
-    genreService.populateAlbumStubGenre(topAlbumsLimited.stream().map(a -> (AlbumStubDeezerAdaptor) a).collect(Collectors.toList()));
-    artist.setTopAlbumList(topAlbumsLimited);
+    artist.setTopAlbumList(topAlbums.stream().limit(numberOfAlbums).collect(Collectors.toList()));
     artist.setGenreList(getTopGenres(topAlbums, numberOfGenres));
     artist.setTopSongList(getTopSongs(artist.getTracklist()).stream().limit(numberOfTracks).collect(Collectors.toList()));
     artist.setRelatedArtistList(getRelatedArtists(id).stream().limit(numberOfArtists).collect(Collectors.toList()));
@@ -88,15 +86,19 @@ public class ArtistService extends AbstractService<ArtistStub> {
       return Collections.emptyList();
     }
 
-    final List<Genre> sorted = topAlbums.stream()
-                                        .map(AlbumStub::getGenreList)
-                                        .flatMap(List::stream)
-                                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                                        .entrySet()
-                                        .stream()
-                                        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                                        .map(Map.Entry::getKey)
-                                        .collect(Collectors.toList());
+    final List<AlbumStubDeezerAdaptor> convertedList = topAlbums.stream().map(a -> (AlbumStubDeezerAdaptor) a).collect(Collectors.toList());
+
+    genreService.populateAlbumStubGenre(convertedList);
+
+    final List<Genre> sorted = convertedList.stream()
+                                            .map(AlbumStub::getGenreList)
+                                            .flatMap(List::stream)
+                                            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                                            .entrySet()
+                                            .stream()
+                                            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                                            .map(Map.Entry::getKey)
+                                            .collect(Collectors.toList());
     return sorted.stream().limit(numberOfGenres).collect(Collectors.toList());
   }
 }

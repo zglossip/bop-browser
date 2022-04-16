@@ -4,6 +4,7 @@ package com.zglossip.bopbrowser.unit.services
 import com.zglossip.bopbrowser.clients.DeezerGenreClient
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
 import com.zglossip.bopbrowser.services.GenreService
 import spock.lang.Specification
 import spock.lang.Subject
@@ -34,18 +35,23 @@ class GenreServiceSpec extends Specification {
     where:
     genreId1 = 10
     genreId2 = 20
+    genreId3 = 30
     genre1 = new GenreDeezerAdaptor(id: genreId1)
     genre2 = new GenreDeezerAdaptor(id: genreId2)
+    genre3 = new GenreDeezerAdaptor(id: genreId3)
     albumId1 = 1
     albumId2 = 2
     albumId3 = 3
+    albumId4 = 4
     albumListInput = [new AlbumStubDeezerAdaptor(id: albumId1, genreId: genreId1),
                       new AlbumStubDeezerAdaptor(id: albumId2, genreId: genreId2),
-                      new AlbumStubDeezerAdaptor(id: albumId3, genreId: genreId2)]
+                      new AlbumStubDeezerAdaptor(id: albumId3, genreId: genreId2),
+                      new AlbumStubDeezerAdaptor(id: albumId4, genres: new DeezerGenreList(data: [genre3]))]
     expectedGenreOutput = [
         (albumId1): [genre1],
         (albumId2): [genre2],
-        (albumId3): [genre2]
+        (albumId3): [genre2],
+        (albumId4): [genre3]
     ]
   }
 

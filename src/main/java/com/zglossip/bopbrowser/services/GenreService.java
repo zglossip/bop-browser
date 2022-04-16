@@ -31,8 +31,12 @@ public class GenreService extends AbstractService<Genre> {
   }
 
   public void populateAlbumStubGenre(final List<AlbumStubDeezerAdaptor> albumList) {
-    final Map<Integer, GenreDeezerAdaptor> genreMap = getGenreMapForAlbums(albumList);
-    albumList.forEach(album -> album.setDownloadedGenres(getGenreList(genreMap, album.getGenreId())));
+    final Map<Integer, GenreDeezerAdaptor> genreMap = getGenreMapForAlbums(albumList.stream()
+                                                                                    .filter(a -> Objects.isNull(a.getGenres()) ||
+                                                                                                 Objects.isNull(a.getGenres().getData()))
+                                                                                    .collect(Collectors.toList()));
+    albumList.stream().filter(a -> Objects.isNull(a.getGenres()) || Objects.isNull(a.getGenres().getData()))
+             .forEach(album -> album.setDownloadedGenres(getGenreList(genreMap, album.getGenreId())));
   }
 
   private List<GenreDeezerAdaptor> getGenreList(final Map<Integer, GenreDeezerAdaptor> genreMap, final Integer genreId) {
