@@ -8,9 +8,9 @@ import com.zglossip.bopbrowser.domains.adaptor.deezer.SongDeezerAdaptor;
 
 import java.math.BigDecimal;
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -77,7 +77,7 @@ class DeezerSong implements Comparable<DeezerSong> {
   private Integer diskNumber;
   private Integer rank;
   @JsonAlias("release_date")
-  private LocalDate releaseDate;
+  private Date releaseDate;
   @JsonAlias("explicit_lyrics")
   private Boolean explicitLyrics;
   @JsonAlias("explicit_content_lyrics")
@@ -223,11 +223,11 @@ class DeezerSong implements Comparable<DeezerSong> {
     this.rank = rank;
   }
 
-  public LocalDate getReleaseDate() {
+  public Date getReleaseDate() {
     return releaseDate;
   }
 
-  public void setReleaseDate(final LocalDate releaseDate) {
+  public void setReleaseDate(final Date releaseDate) {
     this.releaseDate = releaseDate;
   }
 

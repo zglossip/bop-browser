@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -36,7 +36,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   private Integer duration;
   private Integer fans;
   @JsonAlias("release_date")
-  private LocalDate releaseDate;
+  private Date releaseDate;
   @JsonAlias("record_type")
   private String recordType;
   private Boolean available;
@@ -272,11 +272,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.fans = fans;
   }
 
-  public LocalDate getReleaseDate() {
+  public Date getReleaseDate() {
     return releaseDate;
   }
 
-  public void setReleaseDate(final LocalDate releaseDate) {
+  public void setReleaseDate(final Date releaseDate) {
     this.releaseDate = releaseDate;
   }
 
