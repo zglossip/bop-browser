@@ -3,14 +3,10 @@ package com.zglossip.bopbrowser.domains.models.deezer;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.SongStubDeezerAdaptor;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -33,14 +29,14 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   private String md5Image;
   @JsonAlias("genre_id")
   private Integer genreId;
-  private List<GenreDeezerAdaptor> genres;
+  private DeezerGenreList genres;
   private String label;
   @JsonAlias("nb_tracks")
   private Integer nbTracks;
   private Integer duration;
   private Integer fans;
   @JsonAlias("release_date")
-  private LocalDate releaseDate;
+  private Date releaseDate;
   @JsonAlias("record_type")
   private String recordType;
   private Boolean available;
@@ -52,7 +48,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   private Boolean explicitContentLyrics;
   @JsonAlias("explicit_content_cover")
   private Boolean explicitContentCover;
-  private List<ArtistStubDeezerAdaptor> contributers;
+  private DeezerArtistList contributers;
   private DeezerArtist artist;
   protected final Comparator<DeezerAlbum> comparator = Comparator.comparing(DeezerAlbum::getId, Comparator.naturalOrder())
                                                                  .thenComparing(DeezerAlbum::getTitle,
@@ -103,7 +99,42 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
                                                                                 Comparator.nullsLast(Comparator.naturalOrder()))
                                                                  .thenComparing(DeezerAlbum::getArtist,
                                                                                 Comparator.nullsLast(Comparator.naturalOrder()));
-  private List<SongStubDeezerAdaptor> tracks;
+  private DeezerSongList tracks;
+
+  protected DeezerAlbum(final DeezerAlbum deezerAlbum) {
+    id = deezerAlbum.getId();
+    title = deezerAlbum.getTitle();
+    upc = deezerAlbum.getUpc();
+    link = deezerAlbum.getLink();
+    share = deezerAlbum.getShare();
+    cover = deezerAlbum.getCover();
+    coverSmall = deezerAlbum.getCoverSmall();
+    coverMedium = deezerAlbum.getCoverMedium();
+    coverBig = deezerAlbum.getCoverBig();
+    coverXl = deezerAlbum.getCoverXl();
+    md5Image = deezerAlbum.getMd5Image();
+    genreId = deezerAlbum.getGenreId();
+    genres = deezerAlbum.getGenres();
+    label = deezerAlbum.getLabel();
+    nbTracks = deezerAlbum.getNbTracks();
+    duration = deezerAlbum.getDuration();
+    fans = deezerAlbum.getFans();
+    releaseDate = deezerAlbum.getReleaseDate();
+    recordType = deezerAlbum.getRecordType();
+    available = deezerAlbum.isAvailable();
+    alternative = deezerAlbum.getAlternative();
+    tracklist = deezerAlbum.getTracklist();
+    explicitLyrics = deezerAlbum.isExplicitLyrics();
+    explicitContentLyrics = deezerAlbum.isExplicitContentLyrics();
+    explicitContentCover = deezerAlbum.isExplicitContentCover();
+    contributers = deezerAlbum.getContributers();
+    artist = deezerAlbum.getArtist();
+    tracks = deezerAlbum.getTracks();
+  }
+
+  public DeezerAlbum() {
+
+  }
 
   public int getId() {
     return id;
@@ -201,11 +232,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.genreId = genreId;
   }
 
-  public List<GenreDeezerAdaptor> getGenres() {
+  public DeezerGenreList getGenres() {
     return genres;
   }
 
-  public void setGenres(final List<GenreDeezerAdaptor> genres) {
+  public void setGenres(final DeezerGenreList genres) {
     this.genres = genres;
   }
 
@@ -241,11 +272,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.fans = fans;
   }
 
-  public LocalDate getReleaseDate() {
+  public Date getReleaseDate() {
     return releaseDate;
   }
 
-  public void setReleaseDate(final LocalDate releaseDate) {
+  public void setReleaseDate(final Date releaseDate) {
     this.releaseDate = releaseDate;
   }
 
@@ -305,11 +336,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.explicitContentCover = explicitContentCover;
   }
 
-  public List<ArtistStubDeezerAdaptor> getContributers() {
+  public DeezerArtistList getContributers() {
     return contributers;
   }
 
-  public void setContributers(final List<ArtistStubDeezerAdaptor> contributers) {
+  public void setContributers(final DeezerArtistList contributers) {
     this.contributers = contributers;
   }
 
@@ -321,11 +352,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.artist = artist;
   }
 
-  public List<SongStubDeezerAdaptor> getTracks() {
+  public DeezerSongList getTracks() {
     return tracks;
   }
 
-  public void setTracks(final List<SongStubDeezerAdaptor> tracks) {
+  public void setTracks(final DeezerSongList tracks) {
     this.tracks = tracks;
   }
 

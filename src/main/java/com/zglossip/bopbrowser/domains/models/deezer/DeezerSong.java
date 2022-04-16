@@ -8,10 +8,9 @@ import com.zglossip.bopbrowser.domains.adaptor.deezer.SongDeezerAdaptor;
 
 import java.math.BigDecimal;
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -78,7 +77,7 @@ class DeezerSong implements Comparable<DeezerSong> {
   private Integer diskNumber;
   private Integer rank;
   @JsonAlias("release_date")
-  private LocalDate releaseDate;
+  private Date releaseDate;
   @JsonAlias("explicit_lyrics")
   private Boolean explicitLyrics;
   @JsonAlias("explicit_content_lyrics")
@@ -91,11 +90,42 @@ class DeezerSong implements Comparable<DeezerSong> {
   @JsonAlias("available_countries")
   private Collection<String> availableCountries;
   private SongDeezerAdaptor alternative;
-  private List<ArtistStubDeezerAdaptor> contributers;
+  private DeezerArtistList contributers;
   @JsonAlias("md5_image")
   private String md5Image;
   private ArtistStubDeezerAdaptor artist;
   private AlbumStubDeezerAdaptor album;
+
+  public DeezerSong() {
+
+  }
+
+  protected DeezerSong(final DeezerSong deezerSong) {
+    id = deezerSong.getId();
+    title = deezerSong.getTitle();
+    titleVersion = deezerSong.getTitleVersion();
+    unseen = deezerSong.isUnseen();
+    isrc = deezerSong.getIsrc();
+    link = deezerSong.getLink();
+    share = deezerSong.getShare();
+    duration = deezerSong.getDuration();
+    trackPosition = deezerSong.getTrackPosition();
+    diskNumber = deezerSong.getDiskNumber();
+    rank = deezerSong.getRank();
+    releaseDate = deezerSong.getReleaseDate();
+    explicitLyrics = deezerSong.isExplicitLyrics();
+    explicitContentLyrics = deezerSong.getExplicitContentLyrics();
+    explicitContentCover = deezerSong.getExplicitContentCover();
+    preview = deezerSong.getPreview();
+    bpm = deezerSong.getBpm();
+    gain = deezerSong.getGain();
+    availableCountries = deezerSong.getAvailableCountries();
+    alternative = deezerSong.getAlternative();
+    contributers = deezerSong.getContributers();
+    md5Image = deezerSong.getMd5Image();
+    artist = deezerSong.getArtist();
+    album = deezerSong.getAlbum();
+  }
 
   public int getId() {
     return id;
@@ -193,11 +223,11 @@ class DeezerSong implements Comparable<DeezerSong> {
     this.rank = rank;
   }
 
-  public LocalDate getReleaseDate() {
+  public Date getReleaseDate() {
     return releaseDate;
   }
 
-  public void setReleaseDate(final LocalDate releaseDate) {
+  public void setReleaseDate(final Date releaseDate) {
     this.releaseDate = releaseDate;
   }
 
@@ -265,11 +295,11 @@ class DeezerSong implements Comparable<DeezerSong> {
     this.alternative = alternative;
   }
 
-  public List<ArtistStubDeezerAdaptor> getContributers() {
+  public DeezerArtistList getContributers() {
     return contributers;
   }
 
-  public void setContributers(final List<ArtistStubDeezerAdaptor> contributers) {
+  public void setContributers(final DeezerArtistList contributers) {
     this.contributers = contributers;
   }
 

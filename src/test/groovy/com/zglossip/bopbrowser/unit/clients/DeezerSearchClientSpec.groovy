@@ -34,7 +34,7 @@ class DeezerSearchClientSpec extends Specification {
     List<ArtistStubDeezerAdaptor> results = searchClient.searchArtists(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchArtistResult.class) >> new DeezerSearchArtistResult(data: expected)
+    1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList(data: expected)
     results.equals(expected)
 
     where:
@@ -50,7 +50,7 @@ class DeezerSearchClientSpec extends Specification {
     List<ArtistStubDeezerAdaptor> results = searchClient.searchArtists(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchArtistResult.class) >> new DeezerSearchArtistResult(data: expected)
+    1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList(data: expected)
     results.equals(expected)
 
     where:
@@ -66,7 +66,7 @@ class DeezerSearchClientSpec extends Specification {
     List<ArtistStubDeezerAdaptor> results = searchClient.searchArtists(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchArtistResult.class) >> new DeezerSearchArtistResult()
+    1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList()
     results.equals(expected)
 
     where:
@@ -82,7 +82,7 @@ class DeezerSearchClientSpec extends Specification {
     List<ArtistStubDeezerAdaptor> results = searchClient.searchArtists(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchArtistResult.class) >> null
+    1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> null
     results.equals(expected)
 
     where:
@@ -98,7 +98,7 @@ class DeezerSearchClientSpec extends Specification {
     List<AlbumStubDeezerAdaptor> results = searchClient.searchAlbums(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchAlbumResult.class) >> new DeezerSearchAlbumResult(data: expected)
+    1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected)
     results.equals(expected)
 
     where:
@@ -114,7 +114,7 @@ class DeezerSearchClientSpec extends Specification {
     List<AlbumStubDeezerAdaptor> results = searchClient.searchAlbums(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchAlbumResult.class) >> new DeezerSearchAlbumResult(data: expected)
+    1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected)
     results.equals(expected)
 
     where:
@@ -130,7 +130,7 @@ class DeezerSearchClientSpec extends Specification {
     List<AlbumStubDeezerAdaptor> results = searchClient.searchAlbums(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchAlbumResult.class) >> new DeezerSearchAlbumResult()
+    1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList()
     results.equals(expected)
 
     where:
@@ -146,7 +146,7 @@ class DeezerSearchClientSpec extends Specification {
     List<AlbumStubDeezerAdaptor> results = searchClient.searchAlbums(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchAlbumResult.class) >> null
+    1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> null
     results.equals(expected)
 
     where:
@@ -162,7 +162,7 @@ class DeezerSearchClientSpec extends Specification {
     List<SongDeezerAdaptor> results = searchClient.searchSongs(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchSongResult.class) >> new DeezerSearchSongResult(data: expected)
+    1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList(data: expected)
     results.equals(expected)
 
     where:
@@ -178,7 +178,7 @@ class DeezerSearchClientSpec extends Specification {
     List<SongDeezerAdaptor> results = searchClient.searchSongs(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchSongResult.class) >> new DeezerSearchSongResult(data: expected)
+    1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList(data: expected)
     results.equals(expected)
 
     where:
@@ -194,7 +194,7 @@ class DeezerSearchClientSpec extends Specification {
     List<SongDeezerAdaptor> results = searchClient.searchSongs(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchSongResult.class) >> new DeezerSearchSongResult()
+    1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList()
     results.equals(expected)
 
     where:
@@ -210,7 +210,7 @@ class DeezerSearchClientSpec extends Specification {
     List<SongDeezerAdaptor> results = searchClient.searchSongs(query)
 
     then:
-    1 * apiUtil.getRequest(expectedUri, DeezerSearchSongResult.class) >> null
+    1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> null
     results.equals(expected)
 
     where:

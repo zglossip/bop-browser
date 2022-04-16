@@ -6,5 +6,5 @@ import java.util.List;
 
 @JsonSerialize(as = Album.class)
 public interface Album extends AlbumStub {
-  List<SongStub> getSongList();
+  List<? extends SongStub> getSongList();
 }

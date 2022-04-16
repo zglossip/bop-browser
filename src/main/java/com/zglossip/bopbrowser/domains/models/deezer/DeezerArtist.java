@@ -9,26 +9,6 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeezerArtist implements Comparable<DeezerArtist> {
-  private int id;
-  private String name;
-  private URI link;
-  private URI share;
-  private URI picture;
-  @JsonAlias("picture_small")
-  private URI pictureSmall;
-  @JsonAlias("picture_medium")
-  private URI pictureMedium;
-  @JsonAlias("picture_big")
-  private URI pictureBig;
-  @JsonAlias("picture_xl")
-  private URI pictureXl;
-  @JsonAlias("nb_album")
-  private Integer nbAlbum;
-  @JsonAlias("nb_fan")
-  private Integer nbFan;
-  private Boolean radio;
-  private URI tracklist;
-
   private static final Comparator<DeezerArtist> comparator = Comparator.comparing(DeezerArtist::getId)
                                                                        .thenComparing(DeezerArtist::getName,
                                                                                       Comparator.nullsLast(Comparator.naturalOrder()))
@@ -54,6 +34,45 @@ public class DeezerArtist implements Comparable<DeezerArtist> {
                                                                                       Comparator.nullsLast(Comparator.naturalOrder()))
                                                                        .thenComparing(DeezerArtist::getTracklist,
                                                                                       Comparator.nullsLast(Comparator.naturalOrder()));
+  private int id;
+  private String name;
+  private URI link;
+  private URI share;
+  private URI picture;
+  @JsonAlias("picture_small")
+  private URI pictureSmall;
+  @JsonAlias("picture_medium")
+  private URI pictureMedium;
+  @JsonAlias("picture_big")
+  private URI pictureBig;
+  @JsonAlias("picture_xl")
+  private URI pictureXl;
+  @JsonAlias("nb_album")
+  private Integer nbAlbum;
+  @JsonAlias("nb_fan")
+  private Integer nbFan;
+  private Boolean radio;
+  private URI tracklist;
+
+  public DeezerArtist() {
+
+  }
+
+  protected DeezerArtist(final DeezerArtist deezerArtist) {
+    id = deezerArtist.getId();
+    name = deezerArtist.getName();
+    link = deezerArtist.getLink();
+    share = deezerArtist.getShare();
+    picture = deezerArtist.getPicture();
+    pictureSmall = deezerArtist.getPictureSmall();
+    pictureMedium = deezerArtist.getPictureMedium();
+    pictureBig = deezerArtist.getPictureBig();
+    pictureXl = deezerArtist.getPictureXl();
+    nbAlbum = deezerArtist.getNbAlbum();
+    nbFan = deezerArtist.getNbFan();
+    radio = deezerArtist.isRadio();
+    tracklist = deezerArtist.getTracklist();
+  }
 
   public int getId() {
     return id;

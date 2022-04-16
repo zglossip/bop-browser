@@ -3,8 +3,8 @@ package com.zglossip.bopbrowser.clients;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistDeezerAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtistAlbumsResult;
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerRelatedArtistsResult;
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbumList;
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtistList;
 import com.zglossip.bopbrowser.util.ApiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.zglossip.bopbrowser.util.ApiUtil.generateUri;
 import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI;
@@ -33,23 +34,23 @@ public class DeezerArtistClient extends AbstractClient {
   }
 
   public List<AlbumStubDeezerAdaptor> getTopAlbums(final int id) {
-    final DeezerArtistAlbumsResult results = getRequest(getTopAlbumsUri(id), DeezerArtistAlbumsResult.class);
+    final DeezerAlbumList results = getRequest(getTopAlbumsUri(id), DeezerAlbumList.class);
 
     if (results == null || results.getData() == null) {
       return Collections.emptyList();
     }
 
-    return results.getData();
+    return results.getData().stream().map(AlbumStubDeezerAdaptor::clone).collect(Collectors.toList());
   }
 
   public List<ArtistStubDeezerAdaptor> getRelatedArtists(final int id) {
-    final DeezerRelatedArtistsResult results = getRequest(getRelatedArtistsUri(id), DeezerRelatedArtistsResult.class);
+    final DeezerArtistList results = getRequest(getRelatedArtistsUri(id), DeezerArtistList.class);
 
     if (results == null || results.getData() == null) {
       return Collections.emptyList();
     }
 
-    return results.getData();
+    return results.getData().stream().map(ArtistStubDeezerAdaptor::clone).collect(Collectors.toList());
   }
 
   private URI getArtistInfoUri(final int id) {

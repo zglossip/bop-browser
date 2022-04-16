@@ -4,7 +4,9 @@ import com.zglossip.bopbrowser.clients.BasicClient;
 import com.zglossip.bopbrowser.clients.DeezerArtistClient;
 import com.zglossip.bopbrowser.clients.DeezerSearchClient;
 import com.zglossip.bopbrowser.domains.*;
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerTopSongsResult;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.SongStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,13 +26,15 @@ public class ArtistService extends AbstractService<ArtistStub> {
   private final DeezerArtistClient deezerArtistClient;
   private final DeezerSearchClient deezerSearchClient;
   private final BasicClient basicClient;
+  private final GenreService genreService;
 
   @Autowired
   public ArtistService(final DeezerArtistClient deezerArtistClient, final DeezerSearchClient deezerSearchClient,
-                       final BasicClient basicClient) {
+                       final BasicClient basicClient, final GenreService genreService) {
     this.deezerArtistClient = deezerArtistClient;
     this.deezerSearchClient = deezerSearchClient;
     this.basicClient = basicClient;
+    this.genreService = genreService;
   }
 
   public Artist getArtistInfo(final int id, final int numberOfGenres, final int numberOfTracks, final int numberOfAlbums,
@@ -68,13 +72,13 @@ public class ArtistService extends AbstractService<ArtistStub> {
   }
 
   private List<? extends SongStub> getTopSongs(final URI uri) {
-    final DeezerTopSongsResult result = basicClient.getRequest(uri, DeezerTopSongsResult.class);
+    final DeezerSongList result = basicClient.getRequest(uri, DeezerSongList.class);
 
     if (result == null || result.getData() == null) {
       return Collections.emptyList();
     }
 
-    return result.getData();
+    return result.getData().stream().map(SongStubDeezerAdaptor::clone).collect(Collectors.toList());
   }
 
   private List<? extends Genre> getTopGenres(final List<? extends AlbumStub> topAlbums, final int numberOfGenres) {
@@ -82,15 +86,19 @@ public class ArtistService extends AbstractService<ArtistStub> {
       return Collections.emptyList();
     }
 
-    final List<Genre> sorted = topAlbums.stream()
-                                        .map(AlbumStub::getGenreList)
-                                        .flatMap(List::stream)
-                                        .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                                        .entrySet()
-                                        .stream()
-                                        .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                                        .map(Map.Entry::getKey)
-                                        .collect(Collectors.toList());
+    final List<AlbumStubDeezerAdaptor> convertedList = topAlbums.stream().map(a -> (AlbumStubDeezerAdaptor) a).collect(Collectors.toList());
+
+    genreService.populateAlbumStubGenre(convertedList);
+
+    final List<Genre> sorted = convertedList.stream()
+                                            .map(AlbumStub::getGenreList)
+                                            .flatMap(List::stream)
+                                            .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                                            .entrySet()
+                                            .stream()
+                                            .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                                            .map(Map.Entry::getKey)
+                                            .collect(Collectors.toList());
     return sorted.stream().limit(numberOfGenres).collect(Collectors.toList());
   }
 }
