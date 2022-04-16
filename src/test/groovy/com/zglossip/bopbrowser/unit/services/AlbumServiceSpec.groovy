@@ -82,6 +82,32 @@ class AlbumServiceSpec extends Specification {
     id = 123
   }
 
+  def 'Get album stub'() {
+    when:
+    AlbumStub result = albumService.getAlbumStub(id)
+
+    then:
+    1 * deezerAlbumClient.getAlbumStub(id) >> expected
+    result == expected
+
+    where:
+    id = 100
+    expected = new AlbumStubDeezerAdaptor(id: id)
+  }
+
+  def 'Get album stub (null)'() {
+    when:
+    AlbumStub result = albumService.getAlbumStub(id)
+
+    then:
+    1 * deezerAlbumClient.getAlbumStub(id) >> expected
+    result == expected
+
+    where:
+    id = 100
+    expected = null
+  }
+
   def 'Search album'() {
     given:
     def expected = [new AlbumStubDeezerAdaptor(id: 1), new AlbumStubDeezerAdaptor(id: 2)]

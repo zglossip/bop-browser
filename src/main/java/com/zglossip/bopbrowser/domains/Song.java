@@ -10,7 +10,7 @@ public interface Song extends SongStub {
 
   Integer getAlbumId();
 
-  List<Genre> getAlbumGenres();
+  List<? extends Genre> getAlbumGenres();
 
   Integer getArtistId();
 

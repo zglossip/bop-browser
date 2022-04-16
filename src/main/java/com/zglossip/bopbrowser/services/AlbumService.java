@@ -49,6 +49,10 @@ public class AlbumService extends AbstractService<AlbumStub> {
     return album;
   }
 
+  public AlbumStub getAlbumStub(final int id) {
+    return deezerAlbumClient.getAlbumStub(id);
+  }
+
   @Override
   public List<? extends AlbumStub> search(final String query) {
     final List<AlbumStubDeezerAdaptor> searchResults = deezerSearchClient.searchAlbums(query);
