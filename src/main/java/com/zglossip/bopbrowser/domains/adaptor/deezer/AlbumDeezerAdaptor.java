@@ -8,14 +8,14 @@ import java.util.Objects;
 
 public class AlbumDeezerAdaptor extends AlbumStubDeezerAdaptor implements Album {
 
-  private List<SongStub> songList;
+  private List<? extends SongStub> songList;
 
   @Override
-  public List<SongStub> getSongList() {
+  public List<? extends SongStub> getSongList() {
     return songList;
   }
 
-  public void setSongList(final List<SongStub> songList) {
+  public void setSongList(final List<? extends SongStub> songList) {
     this.songList = songList;
   }
 

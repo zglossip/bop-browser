@@ -11,6 +11,18 @@ import java.util.Objects;
 public class ArtistStubDeezerAdaptor extends DeezerArtist implements ArtistStub {
   private List<? extends Genre> genreList;
 
+  private ArtistStubDeezerAdaptor(final DeezerArtist deezerArtist) {
+    super(deezerArtist);
+  }
+
+  public ArtistStubDeezerAdaptor() {
+    super();
+  }
+
+  public static ArtistStubDeezerAdaptor clone(final DeezerArtist deezerArtist) {
+    return new ArtistStubDeezerAdaptor(deezerArtist);
+  }
+
   @Override
   public URI getPictureUri() {
     return getPicture();

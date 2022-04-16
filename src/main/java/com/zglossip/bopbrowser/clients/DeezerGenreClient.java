@@ -1,0 +1,31 @@
+package com.zglossip.bopbrowser.clients;
+
+import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor;
+import com.zglossip.bopbrowser.util.ApiUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.net.URI;
+
+import static com.zglossip.bopbrowser.util.ApiUtil.generateUri;
+import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI;
+
+@Service
+public class DeezerGenreClient extends AbstractClient {
+
+  public static final String GENRE_URI = "/genre/%d";
+
+  @Autowired
+  public DeezerGenreClient(final ApiUtil apiUtil) {
+    super(apiUtil);
+  }
+
+  public GenreDeezerAdaptor getGenre(final int id) {
+    return getRequest(getGenreUri(id), GenreDeezerAdaptor.class);
+  }
+
+  private URI getGenreUri(final int id) {
+    return generateUri(BASE_URI + String.format(GENRE_URI, id),
+                       String.format("There was an issue getting the artist info URI for artist ID %d", id));
+  }
+}

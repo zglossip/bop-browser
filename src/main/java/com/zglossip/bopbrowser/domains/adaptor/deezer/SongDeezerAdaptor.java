@@ -2,6 +2,7 @@ package com.zglossip.bopbrowser.domains.adaptor.deezer;
 
 import com.zglossip.bopbrowser.domains.Genre;
 import com.zglossip.bopbrowser.domains.Song;
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerSong;
 
 import java.util.Collections;
 import java.util.List;
@@ -9,6 +10,19 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class SongDeezerAdaptor extends SongStubDeezerAdaptor implements Song {
+
+  private SongDeezerAdaptor(final DeezerSong deezerSong) {
+    super(deezerSong);
+  }
+
+  public SongDeezerAdaptor() {
+    super();
+  }
+
+  public static SongDeezerAdaptor clone(final DeezerSong deezerSong) {
+    return new SongDeezerAdaptor(deezerSong);
+  }
+
   @Override
   public String getAlbumTitle() {
     if (Objects.isNull(getAlbum())) {
@@ -33,7 +47,7 @@ public class SongDeezerAdaptor extends SongStubDeezerAdaptor implements Song {
       return Collections.emptyList();
     }
 
-    return getAlbum().getGenres().stream().map(GenreDeezerAdaptor::new).collect(Collectors.toList());
+    return getAlbum().getGenres().getData().stream().map(GenreDeezerAdaptor::new).collect(Collectors.toList());
   }
 
   @Override

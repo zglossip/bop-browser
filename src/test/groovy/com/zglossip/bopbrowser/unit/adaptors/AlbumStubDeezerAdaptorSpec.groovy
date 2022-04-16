@@ -4,6 +4,7 @@ import com.zglossip.bopbrowser.domains.Genre
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
 import spock.lang.Specification
 
 class AlbumStubDeezerAdaptorSpec extends Specification {
@@ -40,7 +41,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
 
   def 'Get genres'() {
     given:
-    albumStub.setGenres([new GenreDeezerAdaptor(id: 0, name: genreName1), new GenreDeezerAdaptor(id: 1, name: genreName2)])
+    albumStub.setGenres(new DeezerGenreList(data: [new GenreDeezerAdaptor(id: 0, name: genreName1), new GenreDeezerAdaptor(id: 1, name: genreName2)]))
 
     and:
     List<Genre> expected = []
@@ -65,7 +66,24 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
 
   def 'Get genres (empty)'() {
     given:
-    albumStub.setGenres([])
+    albumStub.setGenres(new DeezerGenreList(data: []))
+
+    and:
+    List<Genre> expected = []
+
+    when:
+    List<Genre> results = albumStub.getGenreList()
+
+    then:
+    results == expected
+
+    where:
+    albumStub = new AlbumStubDeezerAdaptor()
+  }
+
+  def 'Get genres (null data)'() {
+    given:
+    albumStub.setGenres(new DeezerGenreList(data: null))
 
     and:
     List<Genre> expected = []
@@ -89,6 +107,57 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
 
     where:
     albumStub = new AlbumStubDeezerAdaptor()
+  }
+
+  def 'Get downloaded genres'() {
+    given:
+    albumStub.setDownloadedGenres([new GenreDeezerAdaptor(id: 0, name: genreName1), new GenreDeezerAdaptor(id: 1, name: genreName2)])
+
+    and:
+    List<Genre> expected = []
+    [genreName1, genreName2].eachWithIndex { name, id ->
+      Genre genre = new GenreDeezerAdaptor()
+      genre.setId(id)
+      genre.setName(name)
+      expected << genre
+    }
+
+    when:
+    List<Genre> results = albumStub.getGenreList()
+
+    then:
+    results == expected
+
+    where:
+    albumStub = new AlbumStubDeezerAdaptor()
+    genreName1 = 'Test name 1'
+    genreName2 = 'Test name 2'
+  }
+
+  def 'Get genres (with downloaded genres)'() {
+    given:
+    albumStub.setGenres(new DeezerGenreList(data: [new GenreDeezerAdaptor(id: 0, name: genreName1), new GenreDeezerAdaptor(id: 1, name: genreName2)]))
+    albumStub.setDownloadedGenres([new GenreDeezerAdaptor(id: 1, name: 'bad genre'), new GenreDeezerAdaptor(id: 2, name: 'bad genre 2')])
+
+    and:
+    List<Genre> expected = []
+    [genreName1, genreName2].eachWithIndex { name, id ->
+      Genre genre = new GenreDeezerAdaptor()
+      genre.setId(id)
+      genre.setName(name)
+      expected << genre
+    }
+
+    when:
+    List<Genre> results = albumStub.getGenreList()
+
+    then:
+    results == expected
+
+    where:
+    albumStub = new AlbumStubDeezerAdaptor()
+    genreName1 = 'Test name 1'
+    genreName2 = 'Test name 2'
   }
 
   def 'Get artist ID'() {

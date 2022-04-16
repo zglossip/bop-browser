@@ -7,8 +7,10 @@ import com.zglossip.bopbrowser.domains.AlbumStub
 import com.zglossip.bopbrowser.domains.Artist
 import com.zglossip.bopbrowser.domains.ArtistStub
 import com.zglossip.bopbrowser.domains.adaptor.deezer.*
-import com.zglossip.bopbrowser.domains.models.deezer.DeezerTopSongsResult
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList
 import com.zglossip.bopbrowser.services.ArtistService
+import com.zglossip.bopbrowser.services.GenreService
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -22,12 +24,14 @@ class ArtistServiceSpec extends Specification {
   DeezerArtistClient deezerArtistClient
   DeezerSearchClient deezerSearchClient
   BasicClient basicClient
+  GenreService genreService
 
   def setup() {
     deezerArtistClient = Mock(DeezerArtistClient)
     deezerSearchClient = Mock(DeezerSearchClient)
     basicClient = Mock(BasicClient)
-    artistService = new ArtistService(deezerArtistClient, deezerSearchClient, basicClient)
+    genreService = Mock(GenreService)
+    artistService = new ArtistService(deezerArtistClient, deezerSearchClient, basicClient, genreService)
   }
 
   def 'Get artist info'() {
@@ -58,7 +62,8 @@ class ArtistServiceSpec extends Specification {
     then:
     1 * deezerArtistClient.getArtistInfo(id) >> artist
     1 * deezerArtistClient.getTopAlbums(id) >> topAlbumList
-    1 * basicClient.getRequest(tracklistUri, DeezerTopSongsResult.class) >> new DeezerTopSongsResult(data: topSongList)
+    1 * genreService.populateAlbumStubGenre(topAlbumList.stream().limit(nbAlbums).collect(Collectors.toList()))
+    1 * basicClient.getRequest(tracklistUri, DeezerSongList.class) >> new DeezerSongList(data: topSongList)
     1 * deezerArtistClient.getRelatedArtists(id) >> relatedArtistList
     0 * _
     result.equals(expected)
@@ -67,12 +72,12 @@ class ArtistServiceSpec extends Specification {
     id = 234
     tracklistUri = new URI("tracklist")
     topSongList = [new SongStubDeezerAdaptor(id: 1), new SongStubDeezerAdaptor(id: 4), new SongStubDeezerAdaptor(id: 7)]
-    topAlbumList = [new AlbumStubDeezerAdaptor(id: 2, genres: [new GenreDeezerAdaptor(name: 'Genre1'), new GenreDeezerAdaptor(name: 'Genre2')]),
-                    new AlbumStubDeezerAdaptor(id: 24, genres: [new GenreDeezerAdaptor(name: 'Genre2'), new GenreDeezerAdaptor(name: 'Genre3'), new GenreDeezerAdaptor(name: 'Genre4')]),
-                    new AlbumStubDeezerAdaptor(id: 25, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
-                    new AlbumStubDeezerAdaptor(id: 26, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
-                    new AlbumStubDeezerAdaptor(id: 27, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
-                    new AlbumStubDeezerAdaptor(id: 28, genres: [new GenreDeezerAdaptor(name: 'Genre4')])]
+    topAlbumList = [new AlbumStubDeezerAdaptor(id: 2, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre1'), new GenreDeezerAdaptor(name: 'Genre2')])),
+                    new AlbumStubDeezerAdaptor(id: 24, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre2'), new GenreDeezerAdaptor(name: 'Genre3'), new GenreDeezerAdaptor(name: 'Genre4')])),
+                    new AlbumStubDeezerAdaptor(id: 25, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
+                    new AlbumStubDeezerAdaptor(id: 26, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
+                    new AlbumStubDeezerAdaptor(id: 27, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
+                    new AlbumStubDeezerAdaptor(id: 28, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')]))]
     relatedArtistList = [new ArtistStubDeezerAdaptor(id: 3939), new ArtistStubDeezerAdaptor(id: 328)]
     nbTracks = 2
     nbAlbums = 1
@@ -180,12 +185,12 @@ class ArtistServiceSpec extends Specification {
 
     where:
     query = 'Test Test'
-    topAlbumList = [new AlbumStubDeezerAdaptor(id: 2, genres: [new GenreDeezerAdaptor(name: 'Genre1'), new GenreDeezerAdaptor(name: 'Genre2')]),
-                    new AlbumStubDeezerAdaptor(id: 24, genres: [new GenreDeezerAdaptor(name: 'Genre2'), new GenreDeezerAdaptor(name: 'Genre3'), new GenreDeezerAdaptor(name: 'Genre4')]),
-                    new AlbumStubDeezerAdaptor(id: 25, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
-                    new AlbumStubDeezerAdaptor(id: 26, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
-                    new AlbumStubDeezerAdaptor(id: 27, genres: [new GenreDeezerAdaptor(name: 'Genre4')]),
-                    new AlbumStubDeezerAdaptor(id: 28, genres: [new GenreDeezerAdaptor(name: 'Genre4')])]
+    topAlbumList = [new AlbumStubDeezerAdaptor(id: 2, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre1'), new GenreDeezerAdaptor(name: 'Genre2')])),
+                    new AlbumStubDeezerAdaptor(id: 24, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre2'), new GenreDeezerAdaptor(name: 'Genre3'), new GenreDeezerAdaptor(name: 'Genre4')])),
+                    new AlbumStubDeezerAdaptor(id: 25, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
+                    new AlbumStubDeezerAdaptor(id: 26, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
+                    new AlbumStubDeezerAdaptor(id: 27, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
+                    new AlbumStubDeezerAdaptor(id: 28, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')]))]
   }
 
   def 'Search artists (empty)'() {

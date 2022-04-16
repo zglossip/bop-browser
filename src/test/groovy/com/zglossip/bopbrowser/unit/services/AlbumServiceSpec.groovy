@@ -7,6 +7,7 @@ import com.zglossip.bopbrowser.domains.AlbumStub
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
 import com.zglossip.bopbrowser.services.AlbumService
+import com.zglossip.bopbrowser.services.GenreService
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -17,11 +18,13 @@ class AlbumServiceSpec extends Specification {
 
   DeezerAlbumClient deezerAlbumClient
   DeezerSearchClient deezerSearchClient
+  GenreService genreService
 
   def setup() {
     deezerAlbumClient = Mock(DeezerAlbumClient)
     deezerSearchClient = Mock(DeezerSearchClient)
-    albumService = new AlbumService(deezerAlbumClient, deezerSearchClient)
+    genreService = Mock(GenreService)
+    albumService = new AlbumService(deezerAlbumClient, deezerSearchClient, genreService)
   }
 
   def 'Get album info'() {
@@ -63,6 +66,7 @@ class AlbumServiceSpec extends Specification {
 
     then:
     1 * deezerSearchClient.searchAlbums(query) >> expected
+    1 * genreService.populateAlbumStubGenre(expected)
     results.equals(expected)
 
     where:
