@@ -18,4 +18,6 @@ public interface Song extends SongStub {
   String getArtistName();
 
   LocalDate getReleaseDate();
+
+  Integer getTrackPosition();
 }

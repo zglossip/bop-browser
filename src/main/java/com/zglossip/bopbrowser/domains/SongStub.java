@@ -8,8 +8,6 @@ import java.net.URI;
 public interface SongStub extends MusicCategory {
   int getId();
 
-  Integer getTrackPosition();
-
   String getTitle();
 
   Integer getDuration();

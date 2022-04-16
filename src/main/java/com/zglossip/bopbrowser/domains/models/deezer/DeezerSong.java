@@ -102,6 +102,7 @@ class DeezerSong implements Comparable<DeezerSong> {
 
   protected DeezerSong(final DeezerSong deezerSong) {
     id = deezerSong.getId();
+    title = deezerSong.getTitle();
     titleVersion = deezerSong.getTitleVersion();
     unseen = deezerSong.isUnseen();
     isrc = deezerSong.getIsrc();
