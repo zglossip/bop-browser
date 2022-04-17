@@ -1,5 +1,59 @@
 <template>
-  <div>
-    <!--    TODO Fill out-->
+  <div
+    class="card bb-search-result d-flex flex-row"
+    @click="loadSong(songResult.albumId, songResult.id)"
+  >
+    <img
+      :alt="songResult.albumTitle"
+      :src="songResult.albumArtUri"
+      class="img-fluid rounded-start bb-search-image"
+    />
+    <div class="card-body d-flex flex-column align-items-start">
+      <div class="d-flex d-inline align-items-end">
+        <h2 class="card-title">{{ songResult.title }}</h2>
+        <span class="ms-1 pb-2">{{ duration }}</span>
+      </div>
+      <span class="card-text mb-auto">{{ songResult.albumTitle }}</span>
+      <span class="card-text">by {{ songResult.artistName }}</span>
+      <span class="card-text">{{ genres }}</span>
+    </div>
   </div>
 </template>
+
+<script>
+import { useRouter } from "vue-router";
+import { computed } from "vue";
+import { Duration } from "luxon";
+
+export default {
+  props: {
+    songResult: Object,
+  },
+  setup(props) {
+    const router = useRouter();
+
+    const genres = computed(() => {
+      return props.songResult.albumGenres.reduce(
+        (prev, cur) => prev + (prev ? ", " : "") + cur.name,
+        ""
+      );
+    });
+
+    const loadSong = (songId, albumId) => {
+      router.push({
+        name: "Song",
+        params: { albumId },
+        query: { songId },
+      });
+    };
+
+    const duration = computed(() => {
+      return Duration.fromMillis(props.songResult.duration * 1000).toFormat(
+        "mm:ss"
+      );
+    });
+
+    return { genres, loadSong, duration };
+  },
+};
+</script>

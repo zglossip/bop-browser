@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/artist")
+@RequestMapping("/api/v1/artist")
 public class ArtistController extends AbstractController<ArtistService> {
   @Autowired
   public ArtistController(final ArtistService artistService) {

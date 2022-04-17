@@ -1,20 +1,30 @@
 <template>
   <div>
     <navbar />
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
         <div class="col">
-          <span>Query = {{ currentQuery }}</span>
           <search-artist-result-container
             v-if="currentCategory === musicCategories.ARTIST.value"
-          ></search-artist-result-container>
+            :query="currentQuery"
+          />
           <search-album-result-container
             v-else-if="currentCategory === musicCategories.ALBUM.value"
-          ></search-album-result-container>
+            :query="currentQuery"
+          />
           <search-song-result-container
             v-else-if="currentCategory === musicCategories.SONG.value"
-          ></search-song-result-container>
-          <div v-else></div>
+            :query="currentQuery"
+          />
+          <div v-else>
+            <span>
+              <h1>404</h1>
+              <p>
+                Music category "{{ currentCategory }}" not found. Please return
+                <a href="/" @click="returnHome"> home </a>
+              </p>
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -30,7 +40,7 @@ import SearchSongResultContainer from "@/components/search/SearchSongResultConta
 import { MUSIC_CATEGORIES } from "@/util/constants.js";
 
 import { ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 
 export default {
   components: {
@@ -41,11 +51,17 @@ export default {
   },
   setup() {
     const route = useRoute();
+    const router = useRouter();
     const currentCategory = ref(route.params.category);
     const currentQuery = ref(route.query.q);
     const musicCategories = ref(MUSIC_CATEGORIES);
 
-    return { currentCategory, currentQuery, musicCategories };
+    const returnHome = (evt) => {
+      evt.preventDefault();
+      router.push({ name: "Home" });
+    };
+
+    return { currentCategory, currentQuery, musicCategories, returnHome };
   },
 };
 </script>

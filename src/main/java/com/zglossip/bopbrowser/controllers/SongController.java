@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/v1/song")
 public class SongController extends AbstractController<SongService> {
   @Autowired
   SongController(final SongService service) {

@@ -40,7 +40,8 @@ export default {
 
     const router = useRouter();
 
-    const onSubmit = () => {
+    const onSubmit = (evt) => {
+      evt.preventDefault();
       router.push({
         name: "Search",
         params: {

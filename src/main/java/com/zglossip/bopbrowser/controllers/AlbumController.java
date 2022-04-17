@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/album")
+@RequestMapping("/api/v1/album")
 public class AlbumController extends AbstractController<AlbumService> {
 
   @Autowired
