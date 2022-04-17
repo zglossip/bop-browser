@@ -3,6 +3,7 @@ import Home from "@/views/Home.vue";
 import Search from "@/views/Search.vue";
 import Artist from "@/views/Artist.vue";
 import Album from "@/views/Album.vue";
+import ArtistAlbums from "@/views/ArtistAlbums.vue";
 
 const router = createRouter({
   base: "BopBrowserFrontend",
@@ -22,6 +23,11 @@ const router = createRouter({
       path: "/artist/:id",
       name: "Artist",
       component: Artist,
+    },
+    {
+      path: "/artist/:id/albums",
+      name: "ArtistAlbums",
+      component: ArtistAlbums,
     },
     {
       path: "/album/:id",
