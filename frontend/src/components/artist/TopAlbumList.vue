@@ -27,8 +27,8 @@
 
 <script>
 import AlbumStub from "@/components/AlbumStub.vue";
-import { DateTime } from "luxon";
 import { useRouter } from "vue-router";
+import { getReleaseYear } from "@/util/util";
 
 export default {
   components: {
@@ -41,14 +41,10 @@ export default {
   setup() {
     const router = useRouter();
 
-    const getReleaseYear = (releaseDate) => {
-      return DateTime.fromISO(releaseDate).year;
-    };
-
     const seeMoreAlbums = (evt, id) => {
       evt.preventDefault();
       router.push({
-        name: "ArtistAlbum",
+        name: "ArtistAlbums",
         params: { id },
       });
     };
