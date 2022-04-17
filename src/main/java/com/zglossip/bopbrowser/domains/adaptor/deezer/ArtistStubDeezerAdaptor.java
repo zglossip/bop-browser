@@ -25,7 +25,7 @@ public class ArtistStubDeezerAdaptor extends DeezerArtist implements ArtistStub 
 
   @Override
   public URI getPictureUri() {
-    return getPictureMedium();
+    return getPictureBig();
   }
 
   @Override

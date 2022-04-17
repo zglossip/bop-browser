@@ -19,4 +19,5 @@ export const API_URIS = {
   searchArtist: (query) => uriBase + `/artist/search?query=${query}`,
   searchAlbum: (query) => uriBase + `/album/search?query=${query}`,
   searchSong: (query) => uriBase + `/song/search?query=${query}`,
+  getArtist: (id) => uriBase + `/artist/${id}`,
 };

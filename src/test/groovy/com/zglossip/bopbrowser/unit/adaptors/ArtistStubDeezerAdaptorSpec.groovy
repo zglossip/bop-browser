@@ -8,7 +8,7 @@ class ArtistStubDeezerAdaptorSpec extends Specification {
 
   def 'Get pictureUri'() {
     given:
-    artistStub.setPictureMedium(pictureUri)
+    artistStub.setPictureBig(pictureUri)
 
     when:
     URI result = artistStub.getPictureUri()
