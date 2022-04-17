@@ -29,7 +29,7 @@ const router = createRouter({
       component: Album,
     },
     {
-      path: "/album/:albumId",
+      path: "/song/:songId",
       name: "Song",
       component: Album,
     },
