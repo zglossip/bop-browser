@@ -1,3 +1,14 @@
-@import 'colors';
-@import 'bootstrapOverride';
-@import '~bootstrap/scss/bootstrap';
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.bb-search-result {
+  :hover {
+    //TODO: No magic colors
+    background-color: mediumpurple;
+    cursor: pointer;
+  }
+}
+
+.bb-search-image {
+  width: 10rem;
+  object-fit: cover;
+}

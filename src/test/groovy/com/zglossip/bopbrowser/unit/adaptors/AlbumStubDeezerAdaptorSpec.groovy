@@ -11,7 +11,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
 
   def 'Get pictureUri'() {
     given:
-    albumStub.setCover(pictureUri)
+    albumStub.setCoverMedium(pictureUri)
 
     when:
     URI result = albumStub.getPictureUri()

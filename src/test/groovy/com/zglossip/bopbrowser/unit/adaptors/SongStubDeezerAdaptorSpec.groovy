@@ -8,7 +8,7 @@ class SongStubDeezerAdaptorSpec extends Specification {
 
   def 'Get album art URI'() {
     given:
-    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor(cover: albumArtUri)
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor(coverMedium: albumArtUri)
     songStub.setAlbum(album)
 
     when:
