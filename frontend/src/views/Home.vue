@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="row">
       <div class="col text-center">
         <h1>Bop Browser</h1>
@@ -16,9 +16,9 @@
 </template>
 
 <script>
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/SearchBar.vue";
 
 export default {
-  components: { SearchBar }
+  components: { SearchBar },
 };
 </script>

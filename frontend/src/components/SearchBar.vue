@@ -1,10 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <form
-        class="col d-flex"
-        @submit="onSubmit(currentCategory, currentQuery)"
-      >
+      <form class="col d-flex" method="get" @submit="onSubmit">
         <select
           v-model="currentCategory"
           aria-label="Search type selection"
@@ -14,16 +11,13 @@
             v-for="category in musicCategories"
             :key="category.value"
             :value="category.value"
-            >{{ category.label }}
+          >
+            {{ category.label }}
           </option>
         </select>
         <div class="input-group">
           <input v-model="currentQuery" class="form-control" />
-          <button
-            class="btn btn-secondary"
-            type="button"
-            @click="onSubmit(currentCategory, currentQuery)"
-          >
+          <button class="btn btn-secondary" type="button" @click="onSubmit">
             Search
           </button>
         </div>
@@ -34,19 +28,31 @@
 
 <script>
 import { MUSIC_CATEGORIES } from "@/util/constants";
-import { ref } from "@vue/composition-api";
+
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default {
-  setup(props, context) {
+  setup() {
     const musicCategories = ref(Object.values(MUSIC_CATEGORIES));
     const currentCategory = ref(MUSIC_CATEGORIES.ARTIST.value);
     const currentQuery = ref("");
 
-    const onSubmit = (category, query) => {
-      context.root.$router.push("/search/" + category + "?query=" + query);
+    const router = useRouter();
+
+    const onSubmit = () => {
+      router.push({
+        name: "Search",
+        params: {
+          category: currentCategory.value,
+        },
+        query: {
+          q: currentQuery.value,
+        },
+      });
     };
 
     return { musicCategories, currentCategory, currentQuery, onSubmit };
-  }
+  },
 };
 </script>

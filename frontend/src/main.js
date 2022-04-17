@@ -1,43 +1,16 @@
-import Vue from "vue";
+import {createApp} from "vue";
 import App from "./App.vue";
 import router from "./router";
 import "@/styles/styles.scss";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faBook,
-  faCopy,
-  faExclamationCircle,
-  faFileExcel,
-  faMousePointer,
-  faPaperPlane,
-  faSort,
-  faSortDown,
-  faSortUp,
-  faSyncAlt
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import VueCompositionAPI from "@vue/composition-api";
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faSearch} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
-Vue.use(VueCompositionAPI);
+library.add(faSearch);
 
-library.add(
-  faCopy,
-  faSyncAlt,
-  faExclamationCircle,
-  faBook,
-  faSort,
-  faSortUp,
-  faSortDown,
-  faPaperPlane,
-  faFileExcel,
-  faMousePointer
-);
+const app = createApp(App);
 
-Vue.component("font-awesome-icon", FontAwesomeIcon);
+app.use(router);
+app.component("font-awesome-icon", FontAwesomeIcon);
 
-Vue.config.productionTip = false;
-
-new Vue({
-  router,
-  render: h => h(App)
-}).$mount("#app");
+app.mount("#app");

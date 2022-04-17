@@ -1,5 +1,5 @@
 <template>
   <div>
-    <!--    TODO Fill out-->
+    Artist
   </div>
 </template>
