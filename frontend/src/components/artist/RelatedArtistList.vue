@@ -20,7 +20,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <a href="#" @click="seeRelatedArtists($event, id)">See more...</a>
+        <a href="#" @click="seeRelatedArtists($event, artistId)">See more...</a>
       </div>
     </div>
   </div>
@@ -36,6 +36,7 @@ export default {
   },
   props: {
     relatedArtists: Array,
+    artistId: Number,
   },
   setup() {
     const router = useRouter();

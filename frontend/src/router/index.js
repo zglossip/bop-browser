@@ -4,6 +4,7 @@ import Search from "@/views/Search.vue";
 import Artist from "@/views/Artist.vue";
 import Album from "@/views/Album.vue";
 import ArtistAlbums from "@/views/ArtistAlbums.vue";
+import RelatedArtists from "@/views/RelatedArtists.vue";
 
 const router = createRouter({
   base: "BopBrowserFrontend",
@@ -28,6 +29,11 @@ const router = createRouter({
       path: "/artist/:id/albums",
       name: "ArtistAlbums",
       component: ArtistAlbums,
+    },
+    {
+      path: "/artist/:id/related",
+      name: "RelatedArtists",
+      component: RelatedArtists,
     },
     {
       path: "/album/:id",
