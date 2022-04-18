@@ -32,7 +32,10 @@
         </div>
         <div class="row">
           <div class="col">
-            <related-artist-list :related-artists="artist.relatedArtistList" />
+            <related-artist-list
+              :artist-id="artist.id"
+              :related-artists="artist.relatedArtistList"
+            />
           </div>
         </div>
       </div>
