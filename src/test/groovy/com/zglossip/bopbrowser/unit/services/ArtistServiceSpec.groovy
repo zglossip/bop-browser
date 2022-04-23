@@ -166,31 +166,17 @@ class ArtistServiceSpec extends Specification {
     given:
     def artists = [new ArtistStubDeezerAdaptor(id: 3), new ArtistStubDeezerAdaptor(id: 4)]
 
-    def expectedGenres = [
-        new GenreDeezerAdaptor(name: 'Genre4'),
-        new GenreDeezerAdaptor(name: 'Genre2'),
-        new GenreDeezerAdaptor(name: 'Genre1')
-    ]
-
-    def expected = [new ArtistStubDeezerAdaptor(id: 3, genreList: expectedGenres), new ArtistStubDeezerAdaptor(id: 4, genreList: [])]
+    def expected = [new ArtistStubDeezerAdaptor(id: 3), new ArtistStubDeezerAdaptor(id: 4)]
 
     when:
     List<ArtistStub> results = artistService.search(query)
 
     then:
     1 * deezerSearchClient.searchArtists(query) >> artists
-    1 * deezerArtistClient.getTopAlbums(3) >> topAlbumList
-    1 * genreService.populateAlbumStubGenre(topAlbumList)
     results.equals(expected)
 
     where:
     query = 'Test Test'
-    topAlbumList = [new AlbumStubDeezerAdaptor(id: 2, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre1'), new GenreDeezerAdaptor(name: 'Genre2')])),
-                    new AlbumStubDeezerAdaptor(id: 24, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre2'), new GenreDeezerAdaptor(name: 'Genre3'), new GenreDeezerAdaptor(name: 'Genre4')])),
-                    new AlbumStubDeezerAdaptor(id: 25, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
-                    new AlbumStubDeezerAdaptor(id: 26, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
-                    new AlbumStubDeezerAdaptor(id: 27, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')])),
-                    new AlbumStubDeezerAdaptor(id: 28, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(name: 'Genre4')]))]
   }
 
   def 'Search artists (empty)'() {

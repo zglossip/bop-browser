@@ -63,12 +63,7 @@ public class ArtistService extends AbstractService<ArtistStub> {
 
   @Override
   public List<? extends ArtistStub> search(final String query) {
-    final List<? extends ArtistStub> artists = deezerSearchClient.searchArtists(query);
-    artists.forEach(artist -> {
-      final List<? extends AlbumStub> topAlbums = getArtistAlbums(artist.getId());
-      artist.setGenreList(getTopGenres(topAlbums, SEARCH_PAGE_GENRE_COUNT));
-    });
-    return artists;
+    return deezerSearchClient.searchArtists(query);
   }
 
   private List<? extends SongStub> getTopSongs(final URI uri) {

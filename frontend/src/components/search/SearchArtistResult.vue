@@ -8,27 +8,20 @@
       />
       <div class="card-body d-flex flex-column align-items-start">
         <p class="card-title">{{ artistResult.name }}</p>
-        <p class="card-text">
-          {{ genres }}
-        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { getGenres } from "@/util/util.js";
 
 export default {
   props: {
     artistResult: Object,
   },
-  setup(props) {
+  setup() {
     const router = useRouter();
-
-    const genres = computed(() => getGenres(props.artistResult.genreList));
 
     const loadArtist = (id) => {
       router.push({
@@ -37,7 +30,7 @@ export default {
       });
     };
 
-    return { genres, loadArtist };
+    return { loadArtist };
   },
 };
 </script>

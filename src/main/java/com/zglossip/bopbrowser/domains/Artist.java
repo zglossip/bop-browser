@@ -7,6 +7,10 @@ import java.util.List;
 
 @JsonSerialize(as = Artist.class)
 public interface Artist extends ArtistStub {
+  List<? extends Genre> getGenreList();
+
+  void setGenreList(List<? extends Genre> genreList);
+
   List<? extends SongStub> getTopSongList();
 
   void setTopSongList(List<? extends SongStub> topSongList);
