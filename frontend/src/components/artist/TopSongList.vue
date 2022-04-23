@@ -7,7 +7,7 @@
     </div>
     <div v-for="song in topSongs" :key="song.id" class="row px-3">
       <div class="col">
-        <top-song
+        <song
           :album-art-uri="song.albumArtUri"
           :seconds="song.duration"
           :song-id="song.id"
@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import TopSong from "@/components/artist/TopSong.vue";
+import Song from "@/components/Song.vue";
 
 export default {
-  components: { TopSong },
+  components: { Song },
   props: {
     topSongs: Array,
   },

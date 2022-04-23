@@ -22,4 +22,5 @@ export const API_URIS = {
   getArtist: (id) => uriBase + `/artist/${id}`,
   getArtistAlbums: (id) => uriBase + `/artist/${id}/albums`,
   getRelatedArtists: (id) => uriBase + `/artist/${id}/related`,
+  getAlbum: (id) => uriBase + `/album/${id}`,
 };

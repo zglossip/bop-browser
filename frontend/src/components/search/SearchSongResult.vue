@@ -37,11 +37,11 @@ export default {
 
     const genres = computed(() => getGenres(props.songResult.albumGenres));
 
-    const loadSong = (songId, albumId) => {
+    const loadSong = (albumId, songId) => {
       router.push({
-        name: "Song",
-        params: { albumId },
-        query: { songId },
+        name: "Album",
+        params: { id: albumId },
+        queries: { songId },
       });
     };
 
