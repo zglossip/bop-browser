@@ -1,9 +1,6 @@
 package com.zglossip.bopbrowser.domains.adaptor.deezer;
 
-import com.zglossip.bopbrowser.domains.AlbumStub;
-import com.zglossip.bopbrowser.domains.Artist;
-import com.zglossip.bopbrowser.domains.ArtistStub;
-import com.zglossip.bopbrowser.domains.SongStub;
+import com.zglossip.bopbrowser.domains.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -12,6 +9,17 @@ public class ArtistDeezerAdaptor extends ArtistStubDeezerAdaptor implements Arti
   private List<? extends SongStub> topSongList;
   private List<? extends AlbumStub> topAlbumList;
   private List<? extends ArtistStub> relatedArtistList;
+  private List<? extends Genre> genreList;
+
+  @Override
+  public List<? extends Genre> getGenreList() {
+    return genreList;
+  }
+
+  @Override
+  public void setGenreList(final List<? extends Genre> genreList) {
+    this.genreList = genreList;
+  }
 
   @Override
   public List<? extends SongStub> getTopSongList() {
@@ -56,7 +64,7 @@ public class ArtistDeezerAdaptor extends ArtistStubDeezerAdaptor implements Arti
     }
     final ArtistDeezerAdaptor that = (ArtistDeezerAdaptor) o;
     return Objects.equals(topSongList, that.topSongList) && Objects.equals(topAlbumList, that.topAlbumList) &&
-           Objects.equals(relatedArtistList, that.relatedArtistList);
+           Objects.equals(relatedArtistList, that.relatedArtistList) && Objects.equals(genreList, that.genreList);
   }
 
   @Override
