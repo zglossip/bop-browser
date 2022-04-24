@@ -12,7 +12,6 @@
 .bb-artist-stub {
   :hover {
     //TODO: No magic colors
-    //box-shadow: 0px 0px 1px 1px mediumpurple;
     background-color: mediumpurple;
     cursor: pointer;
   }
@@ -26,6 +25,11 @@
 .bb-track-image {
   width: 3.5rem;
   object-fit: cover;
+}
+
+.bb-selected-song .card{
+  //TODO: No magic colors
+  border: 5px mediumpurple solid !important;
 }
 
 img {

@@ -14,6 +14,8 @@ public interface SongStub extends MusicCategory {
 
   URI getAlbumArtUri();
 
+  Integer getAlbumId();
+
   URI getPreviewUri();
 
   Integer getTrackPosition();

@@ -13,6 +13,8 @@
           :seconds="song.duration"
           :song-id="song.id"
           :title="song.title"
+          :album-id="song.albumId"
+          display-as-link
           class="mb-2"
         />
       </div>

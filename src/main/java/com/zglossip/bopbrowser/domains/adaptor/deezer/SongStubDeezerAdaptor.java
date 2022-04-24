@@ -30,6 +30,15 @@ public class SongStubDeezerAdaptor extends DeezerSong implements SongStub {
   }
 
   @Override
+  public Integer getAlbumId() {
+    if (Objects.isNull(getAlbum())) {
+      return null;
+    }
+
+    return getAlbum().getId();
+  }
+
+  @Override
   public URI getPreviewUri() {
     return getPreview();
   }
