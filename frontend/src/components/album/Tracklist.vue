@@ -5,6 +5,7 @@
     :album-art-uri="song.albumArtUri"
     :album-id="albumId"
     :position="song.trackPosition"
+    :preview-uri="song.previewUri"
     :seconds="song.duration"
     :song-id="song.id"
     :title="song.title"

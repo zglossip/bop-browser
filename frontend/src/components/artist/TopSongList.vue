@@ -9,6 +9,7 @@
       <div class="col">
         <song
           :album-art-uri="song.albumArtUri"
+          :preview-uri="song.previewUri"
           :seconds="song.duration"
           :song-id="song.id"
           :title="song.title"
