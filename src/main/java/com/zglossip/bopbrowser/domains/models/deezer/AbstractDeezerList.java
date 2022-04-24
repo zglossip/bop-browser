@@ -1,10 +1,14 @@
 package com.zglossip.bopbrowser.domains.models.deezer;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
 public abstract class AbstractDeezerList<T> {
   private List<T> data;
+  private URI prev;
+  private URI next;
+  private Integer total;
 
   public List<T> getData() {
     return data;
@@ -12,6 +16,30 @@ public abstract class AbstractDeezerList<T> {
 
   public void setData(final List<T> data) {
     this.data = data;
+  }
+
+  public URI getPrev() {
+    return prev;
+  }
+
+  public void setPrev(final URI prev) {
+    this.prev = prev;
+  }
+
+  public URI getNext() {
+    return next;
+  }
+
+  public void setNext(final URI next) {
+    this.next = next;
+  }
+
+  public Integer getTotal() {
+    return total;
+  }
+
+  public void setTotal(final Integer total) {
+    this.total = total;
   }
 
   @Override

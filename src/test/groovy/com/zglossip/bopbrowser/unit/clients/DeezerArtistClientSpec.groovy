@@ -70,6 +70,28 @@ class DeezerArtistClientSpec extends Specification {
     id = 123
   }
 
+  def 'Get artist albums (multi page)'() {
+    given:
+    List<AlbumStubDeezerAdaptor> expected1 = [new AlbumStubDeezerAdaptor(id: 1), new AlbumStubDeezerAdaptor(id: 2)]
+    List<AlbumStubDeezerAdaptor> expected2 = [new AlbumStubDeezerAdaptor(id: 3), new AlbumStubDeezerAdaptor(id: 4)]
+    List<AlbumStubDeezerAdaptor> expected3 = [new AlbumStubDeezerAdaptor(id: 5)]
+
+    when:
+    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
+
+    then:
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerAlbumList.class) >> new DeezerAlbumList(data: expected1, next: nextUrl1)
+    1 * apiUtil.getRequest(nextUrl1, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected2, next: nextUrl2)
+    1 * apiUtil.getRequest(nextUrl2, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected3)
+    0 * apiUtil.getRequest(_, DeezerAlbumList.class)
+    result.equals(expected1 + expected2 + expected3)
+
+    where:
+    id = 123
+    nextUrl1 = new URI("url1.com")
+    nextUrl2 = new URI("url2.com")
+  }
+
   def 'Get artist albums (empty data)'() {
     given:
     List<AlbumStubDeezerAdaptor> expected = []
