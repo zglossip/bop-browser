@@ -1,4 +1,18 @@
+@import "colors";
 @import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  background-color: $bb-light;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+
+  &:hover, &:active {
+    color: $bb-main;
+  }
+}
 
 .bb-search {
   width: 10rem !important;
@@ -6,13 +20,13 @@
 
 .card {
   border: 0 !important;
+  background-color: transparent ;
 }
 
 .bb-album-stub,
 .bb-artist-stub {
   :hover {
-    //TODO: No magic colors
-    background-color: mediumpurple;
+    background-color: $bb-secondary;
     cursor: pointer;
   }
 }
@@ -28,8 +42,7 @@
 }
 
 .bb-selected-song .card{
-  //TODO: No magic colors
-  border: 5px mediumpurple solid !important;
+  border: 5px $bb-secondary solid !important;
 }
 
 img {

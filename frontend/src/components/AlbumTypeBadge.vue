@@ -1,5 +1,5 @@
 <template>
-  <span class="badge bg-secondary">
+  <span class="badge bg-primary">
     {{ type }}
   </span>
 </template>
