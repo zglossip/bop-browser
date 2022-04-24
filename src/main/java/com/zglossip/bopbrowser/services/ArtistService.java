@@ -5,6 +5,7 @@ import com.zglossip.bopbrowser.clients.DeezerArtistClient;
 import com.zglossip.bopbrowser.clients.DeezerSearchClient;
 import com.zglossip.bopbrowser.domains.*;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistDeezerAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.SongStubDeezerAdaptor;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ArtistService extends AbstractService<ArtistStub> {
 
   public Artist getArtistInfo(final int id, final int numberOfGenres, final int numberOfTracks, final int numberOfAlbums,
                               final int numberOfArtists) {
-    final Artist artist = deezerArtistClient.getArtistInfo(id);
+    final ArtistDeezerAdaptor artist = deezerArtistClient.getArtistInfo(id);
 
     if (artist == null) {
       return null;

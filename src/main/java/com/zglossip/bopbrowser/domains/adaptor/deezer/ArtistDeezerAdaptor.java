@@ -16,7 +16,6 @@ public class ArtistDeezerAdaptor extends ArtistStubDeezerAdaptor implements Arti
     return genreList;
   }
 
-  @Override
   public void setGenreList(final List<? extends Genre> genreList) {
     this.genreList = genreList;
   }
@@ -26,7 +25,6 @@ public class ArtistDeezerAdaptor extends ArtistStubDeezerAdaptor implements Arti
     return topSongList;
   }
 
-  @Override
   public void setTopSongList(final List<? extends SongStub> topSongList) {
     this.topSongList = topSongList;
   }
@@ -36,7 +34,6 @@ public class ArtistDeezerAdaptor extends ArtistStubDeezerAdaptor implements Arti
     return topAlbumList;
   }
 
-  @Override
   public void setTopAlbumList(final List<? extends AlbumStub> topAlbumList) {
     this.topAlbumList = topAlbumList;
   }
@@ -46,7 +43,6 @@ public class ArtistDeezerAdaptor extends ArtistStubDeezerAdaptor implements Arti
     return relatedArtistList;
   }
 
-  @Override
   public void setRelatedArtistList(final List<? extends ArtistStub> relatedArtistList) {
     this.relatedArtistList = relatedArtistList;
   }
