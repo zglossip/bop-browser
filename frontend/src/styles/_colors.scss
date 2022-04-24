@@ -1,0 +1,15 @@
+$bb-secondary: #CE49BF;
+$bb-main: #FF2E63;
+$bb-light: #EAEAEA;
+$bb-dark: #252A34;
+
+$theme-colors: (
+        "primary": $bb-main,
+        "secondary": $bb-secondary,
+        "success": #25ec9e,
+        "info": #256dec,
+        "warning": #fbe36b,
+        "danger": #f06b6b,
+        "light": $bb-light,
+        "dark": $bb-dark
+);
