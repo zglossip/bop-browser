@@ -6,11 +6,13 @@
     :picture-uri="albumResult.pictureUri"
     :record-type="albumResult.recordType"
     :title="albumResult.title"
+    class="h-100"
   />
 </template>
 
 <script>
 import AlbumStub from "@/components/AlbumStub.vue";
+import {getReleaseYear} from "@/util/util";
 
 export default {
   components: {
@@ -19,5 +21,8 @@ export default {
   props: {
     albumResult: Object,
   },
+  setup() {
+    return {getReleaseYear}
+  }
 };
 </script>

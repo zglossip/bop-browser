@@ -6,8 +6,8 @@
         <span class="card-text">{{ title }}</span>
         <span v-if="artistName" class="card-text">{{ artistName }}</span>
         <span v-if="genres" class="card-text">{{ genres }}</span>
-        <span class="card-text mb-auto">{{ releaseYear }}</span>
-        <span>
+        <span v-if="releaseYear" class="card-text">{{ releaseYear }}</span>
+        <span class="mt-auto">
           <album-type-badge :type="recordType.toUpperCase()" />
         </span>
       </div>
@@ -24,13 +24,13 @@ import { getGenres } from "@/util/util";
 export default {
   components: { AlbumTypeBadge },
   props: {
-    pictureUri: [String, URL],
-    title: String,
-    releaseYear: [Number, String],
-    recordType: String,
     albumId: Number,
     artistName: String,
     genreList: Array,
+    pictureUri: [String, URL],
+    recordType: String,
+    releaseYear: [Number, String],
+    title: String,
   },
   setup(props) {
     const router = useRouter();
