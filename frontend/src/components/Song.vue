@@ -11,29 +11,25 @@
         <span v-if="position" class="card-text">{{ position }}.&nbsp;</span>
         <span class="card-text me-auto">{{ title }}</span>
         <span class="card-text">{{ duration }}</span>
-        <audio :id="audioPlayerId" controls hidden>
-          <source :src="previewUri" />
-          Your browser does not support the audio element.
-        </audio>
-        <button
-          v-if="previewUri"
-          class="btn btn-secondary btn-sm ms-1"
-          type="button"
-          @click="handleAudioButton"
-        >
-          <font-awesome-icon :icon="isPlaying ? 'pause' : 'play'" size="xs" />
-        </button>
+        <audio-button
+          :add-classes="['ms-1']"
+          :audio-player-id="songId + '-audio'"
+          :preview-uri="previewUri"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import AudioButton from "@/components/AudioButton.vue";
+
+import { computed } from "vue";
 import { Duration } from "luxon";
 import { useRouter } from "vue-router";
 
 export default {
+  components: { AudioButton },
   props: {
     seconds: Number,
     title: String,
@@ -63,20 +59,7 @@ export default {
       return Duration.fromMillis(props.seconds * 1000).toFormat("mm:ss");
     });
 
-    const isPlaying = ref(false);
-
-    const audioPlayerId = ref(props.songId + "-audio");
-
-    const handleAudioButton = () => {
-      if (isPlaying.value) {
-        document.getElementById(audioPlayerId.value).pause();
-      } else {
-        document.getElementById(audioPlayerId.value).play();
-      }
-      isPlaying.value = !isPlaying.value;
-    };
-
-    return { openSong, duration, isPlaying, audioPlayerId, handleAudioButton };
+    return { openSong, duration };
   },
 };
 </script>
