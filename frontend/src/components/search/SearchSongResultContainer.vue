@@ -5,11 +5,12 @@
     </div>
   </div>
   <div class="row">
-    <div class="col">
-      <p v-if="isLoading">Loading...</p>
+    <div v-if="isLoading" class="col">
+      <p>Loading...</p>
+    </div>
+    <div v-else class="col">
       <search-song-result
         v-for="songResult in songResults"
-        v-else
         :key="songResult.id"
         :song-result="songResult"
         class="mb-2"

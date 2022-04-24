@@ -4,6 +4,8 @@
       <img :alt="title + ' Picture'" :src="pictureUri" class="card-img-top" />
       <div class="card-body d-flex flex-column p-0">
         <span class="card-text">{{ title }}</span>
+        <span v-if="artistName" class="card-text">{{ artistName }}</span>
+        <span v-if="genres" class="card-text">{{ genres }}</span>
         <span class="card-text mb-auto">{{ releaseYear }}</span>
         <span>
           <album-type-badge :type="recordType.toUpperCase()" />
@@ -16,6 +18,8 @@
 <script>
 import AlbumTypeBadge from "@/components/AlbumTypeBadge.vue";
 import { useRouter } from "vue-router";
+import { computed } from "vue";
+import { getGenres } from "@/util/util";
 
 export default {
   components: { AlbumTypeBadge },
@@ -25,8 +29,10 @@ export default {
     releaseYear: [Number, String],
     recordType: String,
     albumId: Number,
+    artistName: String,
+    genreList: Array,
   },
-  setup() {
+  setup(props) {
     const router = useRouter();
     const openAlbum = (id) => {
       router.push({
@@ -35,7 +41,11 @@ export default {
       });
     };
 
-    return { openAlbum };
+    const genres = computed(() =>
+      props.genreList ? getGenres(props.genreList) : ""
+    );
+
+    return { genres, openAlbum };
   },
 };
 </script>
