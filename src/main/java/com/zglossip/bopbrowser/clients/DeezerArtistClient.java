@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,8 +35,20 @@ public class DeezerArtistClient extends AbstractClient {
   }
 
   public List<AlbumStubDeezerAdaptor> getTopAlbums(final int id) {
-    final DeezerAlbumList results = getRequest(getTopAlbumsUri(id), DeezerAlbumList.class);
+    final List<AlbumStubDeezerAdaptor> stubList = new ArrayList<>();
 
+    DeezerAlbumList results = getRequest(getTopAlbumsUri(id), DeezerAlbumList.class);
+    stubList.addAll(getAlbumStubs(results));
+
+    while (results != null && results.getNext() != null) {
+      results = getRequest(results.getNext(), DeezerAlbumList.class);
+      stubList.addAll(getAlbumStubs(results));
+    }
+
+    return stubList;
+  }
+
+  private List<AlbumStubDeezerAdaptor> getAlbumStubs(final DeezerAlbumList results) {
     if (results == null || results.getData() == null) {
       return Collections.emptyList();
     }
