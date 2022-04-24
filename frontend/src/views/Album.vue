@@ -25,7 +25,11 @@
       </div>
       <div class="row">
         <div class="col">
-          <tracklist :album-id="album.id" :song-list="album.songList" />
+          <tracklist
+            :album-id="album.id"
+            :song-list="album.songList"
+            :selected-song-id="selectedSongId"
+          />
         </div>
       </div>
     </div>
@@ -73,6 +77,8 @@ export default {
       );
     });
 
+    const selectedSongId = ref(Number(route.query.songId));
+
     axios
       .get(API_URIS.getAlbum(route.params.id))
       .then((response) => {
@@ -87,7 +93,7 @@ export default {
         isLoading.value = false;
       });
 
-    return { album, isLoading, navigateToArtist, duration };
+    return { album, isLoading, navigateToArtist, duration, selectedSongId };
   },
 };
 </script>

@@ -11,8 +11,13 @@
       />
       <div class="card-body d-flex flex-column align-items-start">
         <div class="d-flex d-inline align-items-end">
-          <h2 class="card-title">{{ songResult.title }}</h2>
-          <span class="ms-1 pb-2">{{ duration }}</span>
+          <audio-button
+            :add-classes="['mb-2', 'me-2']"
+            :audio-player-id="songResult.id + '-audio'"
+            :preview-uri="songResult.previewUri"
+          />
+          <h2 class="card-title me-2">{{ songResult.title }}</h2>
+          <span class="card-text pb-2">{{ duration }}</span>
         </div>
         <span class="card-text mb-auto">{{ songResult.albumTitle }}</span>
         <span class="card-text">by {{ songResult.artistName }}</span>
@@ -23,12 +28,15 @@
 </template>
 
 <script>
+import AudioButton from "@/components/AudioButton.vue";
+
 import { useRouter } from "vue-router";
 import { computed } from "vue";
 import { Duration } from "luxon";
 import { getGenres } from "@/util/util.js";
 
 export default {
+  components: { AudioButton },
   props: {
     songResult: Object,
   },

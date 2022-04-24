@@ -19,10 +19,12 @@
       <div v-for="album in albums" :key="album.id" class="col-2">
         <album-stub
           :albumId="album.id"
+          :genre-list="album.genreList"
           :picture-uri="album.pictureUri"
           :recordType="album.recordType"
           :releaseYear="getReleaseYear(album.releaseDate)"
           :title="album.title"
+          class="h-100"
         />
       </div>
     </div>

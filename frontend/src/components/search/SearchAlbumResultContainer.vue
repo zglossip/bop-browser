@@ -5,15 +5,16 @@
     </div>
   </div>
   <div class="row">
-    <div class="col">
-      <p v-if="isLoading">Loading...</p>
-      <search-album-result
-        v-for="albumResult in albumResults"
-        v-else
-        :key="albumResult.id"
-        :album-result="albumResult"
-        class="mb-2"
-      />
+    <div v-if="isLoading" class="col">
+      <p>Loading...</p>
+    </div>
+    <div
+      v-for="albumResult in albumResults"
+      v-else
+      :key="albumResult.id"
+      class="col-xs-6 col-2"
+    >
+      <search-album-result :album-result="albumResult" class="mb-2" />
     </div>
   </div>
 </template>

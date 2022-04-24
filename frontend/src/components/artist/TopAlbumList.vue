@@ -9,6 +9,7 @@
       <div v-for="topAlbum in topAlbums" :key="topAlbum.id" class="col-3">
         <album-stub
           :album-id="topAlbum.id"
+          :genre-list="topAlbum.genreList"
           :picture-uri="topAlbum.pictureUri"
           :record-type="topAlbum.recordType"
           :release-year="getReleaseYear(topAlbum.releaseDate)"
