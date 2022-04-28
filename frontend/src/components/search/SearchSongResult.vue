@@ -1,7 +1,7 @@
 <template>
   <div class="bb-search-result">
     <div
-      class="card d-flex flex-row"
+      class="card d-flex flex-sm-row"
       @click="loadSong(songResult.albumId, songResult.id)"
     >
       <img
@@ -10,7 +10,7 @@
         class="img-fluid bb-search-image"
       />
       <div class="card-body d-flex flex-column align-items-start">
-        <div class="d-flex d-inline align-items-end">
+        <div class="d-sm-flex d-inline align-items-end">
           <audio-button
             :add-classes="['mb-2', 'me-2']"
             :audio-player-id="songResult.id + '-audio'"

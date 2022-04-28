@@ -7,7 +7,6 @@ import ArtistAlbums from "@/views/ArtistAlbums.vue";
 import RelatedArtists from "@/views/RelatedArtists.vue";
 
 const router = createRouter({
-  base: "BopBrowserFrontend",
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {

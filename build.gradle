@@ -4,6 +4,7 @@ plugins {
   id 'java'
   id 'groovy'
   id 'war'
+  id "com.microsoft.azure.azurewebapp" version "1.2.0"
 }
 
 group = 'com.zglossip'
@@ -34,4 +35,17 @@ dependencies {
 
 test {
   useJUnitPlatform()
+}
+
+azurewebapp {
+  subscription = '34be5dce-7f3d-4bda-96ac-86948a02ac5a'
+  resourceGroup = 'bopbrowser_group'
+  appName = 'bopbrowser'
+  pricingTier = 'F1'
+  region = 'centralus'
+  runtime {
+    os = 'Linux'
+    webContainer = 'Tomcat 8.5'
+    javaVersion = 'Java 11'
+  }
 }

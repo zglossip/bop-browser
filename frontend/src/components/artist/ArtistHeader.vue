@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <img :alt="name + 'Picture'" :src="pictureUri" class="card-img-top" />
-    <div class="card-body">
+    <div class="card-body ps-0">
       <h1 class="card-title">{{ name }}</h1>
       <p class="card-text">{{ genres }}</p>
     </div>

@@ -13,7 +13,13 @@ export const MUSIC_CATEGORIES = {
   },
 };
 
-const uriBase = "/BopBrowser/api/v1";
+let uriBase;
+// eslint-disable-next-line no-undef
+if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
+  uriBase = "/BopBrowser/api/v1";
+} else {
+  uriBase = "/api/v1";
+}
 
 export const API_URIS = {
   searchArtist: (query) => uriBase + `/artist/search?query=${query}`,
