@@ -9,7 +9,7 @@
       <div
         v-for="topAlbum in topAlbums"
         :key="topAlbum.id"
-        class="col-6 col-sm-3"
+        class="col-6 col-md-3"
       >
         <album-stub
           :album-id="topAlbum.id"

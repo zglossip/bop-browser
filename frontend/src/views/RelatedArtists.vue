@@ -16,7 +16,7 @@
     </div>
     <div v-if="isLoading" class="row">Loading...</div>
     <div v-else class="row">
-      <div v-for="artist in relatedArtists" :key="artist.id" class="col-2">
+      <div v-for="artist in relatedArtists" :key="artist.id" class="col-md-2">
         <artist-stub
           :artist-id="artist.id"
           :name="artist.name"

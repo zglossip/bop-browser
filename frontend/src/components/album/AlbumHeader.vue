@@ -1,5 +1,5 @@
 <template>
-  <div class="card d-flex flex-sm-row">
+  <div class="card d-flex flex-md-row">
     <img :alt="name" :src="pictureUri" class="img-fluid" />
     <div class="card-body d-flex flex-column align-items-start">
       <h1 class="card-title">{{ name }}</h1>
