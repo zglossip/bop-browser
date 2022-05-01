@@ -6,7 +6,7 @@ import com.zglossip.bopbrowser.domains.SongStub;
 import java.util.List;
 import java.util.Objects;
 
-public class AlbumDeezerAdaptor extends AlbumStubDeezerAdaptor implements Album {
+public class DeezerAlbumToAlbumAdaptor extends DeezerAlbumToAlbumStubAdaptor implements Album {
 
   private List<? extends SongStub> songList;
 
@@ -30,7 +30,7 @@ public class AlbumDeezerAdaptor extends AlbumStubDeezerAdaptor implements Album 
     if (!super.equals(o)) {
       return false;
     }
-    final AlbumDeezerAdaptor that = (AlbumDeezerAdaptor) o;
+    final DeezerAlbumToAlbumAdaptor that = (DeezerAlbumToAlbumAdaptor) o;
     return Objects.equals(songList, that.songList);
   }
 

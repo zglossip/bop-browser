@@ -2,9 +2,9 @@ package com.zglossip.bopbrowser.unit.services
 
 import com.zglossip.bopbrowser.clients.DeezerSearchClient
 import com.zglossip.bopbrowser.domains.Song
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.SongDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
 import com.zglossip.bopbrowser.services.AlbumService
 import com.zglossip.bopbrowser.services.SongService
@@ -27,16 +27,16 @@ class SongServiceSpec extends Specification {
 
   def 'Search artists'() {
     given:
-    def expected = [new SongDeezerAdaptor(id: 3, album: new AlbumStubDeezerAdaptor(id: 1)), new SongDeezerAdaptor(id: 4)]
+    def expected = [new DeezerSongToSongAdaptor(id: 3, album: new DeezerAlbumToAlbumStubAdaptor(id: 1)), new DeezerSongToSongAdaptor(id: 4)]
 
     when:
     List<Song> results = songService.search(query)
 
     then:
     1 * deezerSearchClient.searchSongs(query) >> expected
-    1 * albumService.getAlbumStub(1) >> new AlbumStubDeezerAdaptor(id: 1, genres: new DeezerGenreList(data: [new GenreDeezerAdaptor(id: 100)]))
+    1 * albumService.getAlbumStub(1) >> new DeezerAlbumToAlbumStubAdaptor(id: 1, genres: new DeezerGenreList(data: [new DeezerGenreToGenreAdaptor(id: 100)]))
     results.equals(expected)
-    results.get(0).getAlbumGenres() == [new GenreDeezerAdaptor(id: 100)]
+    results.get(0).getAlbumGenres() == [new DeezerGenreToGenreAdaptor(id: 100)]
     results.get(1).getAlbumGenres() == []
 
     where:

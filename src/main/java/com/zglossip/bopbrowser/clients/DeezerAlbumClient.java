@@ -1,7 +1,7 @@
 package com.zglossip.bopbrowser.clients;
 
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
 import com.zglossip.bopbrowser.util.ApiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,12 +20,12 @@ public class DeezerAlbumClient extends AbstractClient {
     super(apiUtil);
   }
 
-  public AlbumDeezerAdaptor getAlbumInfo(final int id) {
-    return getRequest(getAlbumInfoUri(id), AlbumDeezerAdaptor.class);
+  public DeezerAlbumToAlbumAdaptor getAlbumInfo(final int id) {
+    return getRequest(getAlbumInfoUri(id), DeezerAlbumToAlbumAdaptor.class);
   }
 
-  public AlbumStubDeezerAdaptor getAlbumStub(final int id) {
-    return getRequest(getAlbumInfoUri(id), AlbumStubDeezerAdaptor.class);
+  public DeezerAlbumToAlbumStubAdaptor getAlbumStub(final int id) {
+    return getRequest(getAlbumInfoUri(id), DeezerAlbumToAlbumStubAdaptor.class);
   }
 
   private URI getAlbumInfoUri(final int id) {

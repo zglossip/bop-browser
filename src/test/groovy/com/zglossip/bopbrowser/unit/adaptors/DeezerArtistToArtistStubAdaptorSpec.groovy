@@ -1,10 +1,10 @@
 package com.zglossip.bopbrowser.unit.adaptors
 
 
-import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAdaptor
 import spock.lang.Specification
 
-class ArtistStubDeezerAdaptorSpec extends Specification {
+class DeezerArtistToArtistStubAdaptorSpec extends Specification {
 
   def 'Get pictureUri'() {
     given:
@@ -17,7 +17,7 @@ class ArtistStubDeezerAdaptorSpec extends Specification {
     result == pictureUri
 
     where:
-    artistStub = new ArtistStubDeezerAdaptor()
+    artistStub = new DeezerArtistToArtistStubAdaptor()
     pictureUri = new URI("thisisntarealURI.org.co.uk.gov.edu.com")
   }
 
@@ -32,7 +32,7 @@ class ArtistStubDeezerAdaptorSpec extends Specification {
     result == pictureUri
 
     where:
-    artistStub = new ArtistStubDeezerAdaptor()
+    artistStub = new DeezerArtistToArtistStubAdaptor()
     pictureUri = null
   }
 
@@ -47,7 +47,7 @@ class ArtistStubDeezerAdaptorSpec extends Specification {
     result == pictureUri
 
     where:
-    artistStub = new ArtistStubDeezerAdaptor()
+    artistStub = new DeezerArtistToArtistStubAdaptor()
     pictureUri = new URI("thisisntarealURI.org.co.uk.gov.edu.com")
   }
 
@@ -62,7 +62,7 @@ class ArtistStubDeezerAdaptorSpec extends Specification {
     result == pictureUri
 
     where:
-    artistStub = new ArtistStubDeezerAdaptor()
+    artistStub = new DeezerArtistToArtistStubAdaptor()
     pictureUri = null
   }
 

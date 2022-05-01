@@ -5,8 +5,8 @@ import com.zglossip.bopbrowser.clients.DeezerAlbumClient
 import com.zglossip.bopbrowser.clients.DeezerSearchClient
 import com.zglossip.bopbrowser.domains.Album
 import com.zglossip.bopbrowser.domains.AlbumStub
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSong
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList
 import com.zglossip.bopbrowser.services.AlbumService
@@ -34,7 +34,7 @@ class AlbumServiceSpec extends Specification {
 
   def 'Get album info'() {
     given:
-    def expected = new AlbumDeezerAdaptor(id: id, tracklist: tracklist)
+    def expected = new DeezerAlbumToAlbumAdaptor(id: id, tracklist: tracklist)
 
     when:
     Album result = albumService.getAlbumInfo(id)
@@ -53,7 +53,7 @@ class AlbumServiceSpec extends Specification {
 
   def 'Get album info (no tracklist)'() {
     given:
-    def expected = new AlbumDeezerAdaptor(id: id)
+    def expected = new DeezerAlbumToAlbumAdaptor(id: id)
 
     when:
     Album result = albumService.getAlbumInfo(id)
@@ -92,7 +92,7 @@ class AlbumServiceSpec extends Specification {
 
     where:
     id = 100
-    expected = new AlbumStubDeezerAdaptor(id: id)
+    expected = new DeezerAlbumToAlbumStubAdaptor(id: id)
   }
 
   def 'Get album stub (null)'() {
@@ -110,7 +110,7 @@ class AlbumServiceSpec extends Specification {
 
   def 'Search album'() {
     given:
-    def expected = [new AlbumStubDeezerAdaptor(id: 1), new AlbumStubDeezerAdaptor(id: 2)]
+    def expected = [new DeezerAlbumToAlbumStubAdaptor(id: 1), new DeezerAlbumToAlbumStubAdaptor(id: 2)]
 
     when:
     List<AlbumStub> results = albumService.search(query)

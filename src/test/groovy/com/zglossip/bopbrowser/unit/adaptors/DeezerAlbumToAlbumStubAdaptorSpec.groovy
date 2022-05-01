@@ -1,13 +1,13 @@
 package com.zglossip.bopbrowser.unit.adaptors
 
 import com.zglossip.bopbrowser.domains.Genre
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
 import spock.lang.Specification
 
-class AlbumStubDeezerAdaptorSpec extends Specification {
+class DeezerAlbumToAlbumStubAdaptorSpec extends Specification {
 
   def 'Get pictureUri'() {
     given:
@@ -20,7 +20,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == pictureUri
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     pictureUri = new URI("thisisntarealURI.org.co.uk.gov.edu.com")
   }
 
@@ -35,7 +35,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == pictureUri
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     pictureUri = null
   }
 
@@ -50,7 +50,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == pictureUri
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     pictureUri = new URI("thisisntarealURI.org.co.uk.gov.edu.com")
   }
 
@@ -65,18 +65,18 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == pictureUri
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     pictureUri = null
   }
 
   def 'Get genres'() {
     given:
-    albumStub.setGenres(new DeezerGenreList(data: [new GenreDeezerAdaptor(id: 0, name: genreName1), new GenreDeezerAdaptor(id: 1, name: genreName2)]))
+    albumStub.setGenres(new DeezerGenreList(data: [new DeezerGenreToGenreAdaptor(id: 0, name: genreName1), new DeezerGenreToGenreAdaptor(id: 1, name: genreName2)]))
 
     and:
     List<Genre> expected = []
     [genreName1, genreName2].eachWithIndex { name, id ->
-      Genre genre = new GenreDeezerAdaptor()
+      Genre genre = new DeezerGenreToGenreAdaptor()
       genre.setId(id)
       genre.setName(name)
       expected << genre
@@ -89,7 +89,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     results == expected
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     genreName1 = 'Test name 1'
     genreName2 = 'Test name 2'
   }
@@ -108,7 +108,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     results == expected
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
   }
 
   def 'Get genres (null data)'() {
@@ -125,7 +125,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     results == expected
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
   }
 
   def 'Get genres (null)'() {
@@ -136,17 +136,17 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     results == []
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
   }
 
   def 'Get downloaded genres'() {
     given:
-    albumStub.setDownloadedGenres([new GenreDeezerAdaptor(id: 0, name: genreName1), new GenreDeezerAdaptor(id: 1, name: genreName2)])
+    albumStub.setDownloadedGenres([new DeezerGenreToGenreAdaptor(id: 0, name: genreName1), new DeezerGenreToGenreAdaptor(id: 1, name: genreName2)])
 
     and:
     List<Genre> expected = []
     [genreName1, genreName2].eachWithIndex { name, id ->
-      Genre genre = new GenreDeezerAdaptor()
+      Genre genre = new DeezerGenreToGenreAdaptor()
       genre.setId(id)
       genre.setName(name)
       expected << genre
@@ -159,20 +159,20 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     results == expected
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     genreName1 = 'Test name 1'
     genreName2 = 'Test name 2'
   }
 
   def 'Get genres (with downloaded genres)'() {
     given:
-    albumStub.setGenres(new DeezerGenreList(data: [new GenreDeezerAdaptor(id: 0, name: genreName1), new GenreDeezerAdaptor(id: 1, name: genreName2)]))
-    albumStub.setDownloadedGenres([new GenreDeezerAdaptor(id: 1, name: 'bad genre'), new GenreDeezerAdaptor(id: 2, name: 'bad genre 2')])
+    albumStub.setGenres(new DeezerGenreList(data: [new DeezerGenreToGenreAdaptor(id: 0, name: genreName1), new DeezerGenreToGenreAdaptor(id: 1, name: genreName2)]))
+    albumStub.setDownloadedGenres([new DeezerGenreToGenreAdaptor(id: 1, name: 'bad genre'), new DeezerGenreToGenreAdaptor(id: 2, name: 'bad genre 2')])
 
     and:
     List<Genre> expected = []
     [genreName1, genreName2].eachWithIndex { name, id ->
-      Genre genre = new GenreDeezerAdaptor()
+      Genre genre = new DeezerGenreToGenreAdaptor()
       genre.setId(id)
       genre.setName(name)
       expected << genre
@@ -185,7 +185,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     results == expected
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     genreName1 = 'Test name 1'
     genreName2 = 'Test name 2'
   }
@@ -202,7 +202,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == artistId
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     artistId = 100
   }
 
@@ -218,7 +218,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == null
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
   }
 
   def 'Get artist ID (null artist)'() {
@@ -229,7 +229,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == null
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
   }
 
   def 'Get artist name'() {
@@ -244,7 +244,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == artistName
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
     artistName = 'Test McTesty'
   }
 
@@ -260,7 +260,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == null
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
   }
 
   def 'Get artist name (null artist)'() {
@@ -271,7 +271,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
     result == null
 
     where:
-    albumStub = new AlbumStubDeezerAdaptor()
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
   }
 
 }

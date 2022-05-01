@@ -4,9 +4,9 @@ import com.zglossip.bopbrowser.clients.BasicClient;
 import com.zglossip.bopbrowser.clients.DeezerArtistClient;
 import com.zglossip.bopbrowser.clients.DeezerSearchClient;
 import com.zglossip.bopbrowser.domains.*;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.SongStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongStubAdaptor;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class ArtistService extends AbstractService<ArtistStub> {
 
   public Artist getArtistInfo(final int id, final int numberOfGenres, final int numberOfTracks, final int numberOfAlbums,
                               final int numberOfArtists) {
-    final ArtistDeezerAdaptor artist = deezerArtistClient.getArtistInfo(id);
+    final DeezerArtistToArtistAdaptor artist = deezerArtistClient.getArtistInfo(id);
 
     if (artist == null) {
       return null;
@@ -74,7 +74,7 @@ public class ArtistService extends AbstractService<ArtistStub> {
       return Collections.emptyList();
     }
 
-    return result.getData().stream().map(SongStubDeezerAdaptor::clone).collect(Collectors.toList());
+    return result.getData().stream().map(DeezerSongToSongStubAdaptor::clone).collect(Collectors.toList());
   }
 
   private List<? extends Genre> getTopGenres(final List<? extends AlbumStub> topAlbums, final int numberOfGenres) {
@@ -82,7 +82,7 @@ public class ArtistService extends AbstractService<ArtistStub> {
       return Collections.emptyList();
     }
 
-    final List<AlbumStubDeezerAdaptor> convertedList = topAlbums.stream().map(a -> (AlbumStubDeezerAdaptor) a).collect(Collectors.toList());
+    final List<DeezerAlbumToAlbumStubAdaptor> convertedList = topAlbums.stream().map(a -> (DeezerAlbumToAlbumStubAdaptor) a).collect(Collectors.toList());
 
     genreService.populateAlbumStubGenre(convertedList);
 

@@ -5,9 +5,9 @@ import com.zglossip.bopbrowser.clients.DeezerAlbumClient;
 import com.zglossip.bopbrowser.clients.DeezerSearchClient;
 import com.zglossip.bopbrowser.domains.Album;
 import com.zglossip.bopbrowser.domains.AlbumStub;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.SongStubDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongStubAdaptor;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class AlbumService extends AbstractService<AlbumStub> {
   }
 
   public Album getAlbumInfo(final int id) {
-    final AlbumDeezerAdaptor album = deezerAlbumClient.getAlbumInfo(id);
+    final DeezerAlbumToAlbumAdaptor album = deezerAlbumClient.getAlbumInfo(id);
 
     if (Objects.isNull(album)) {
       return null;
@@ -43,7 +43,7 @@ public class AlbumService extends AbstractService<AlbumStub> {
     final DeezerSongList songList = basicClient.getRequest(album.getTracklist(), DeezerSongList.class);
 
     if (Objects.nonNull(songList) && Objects.nonNull(songList.getData())) {
-      album.setSongList(songList.getData().stream().map(SongStubDeezerAdaptor::clone).collect(Collectors.toList()));
+      album.setSongList(songList.getData().stream().map(DeezerSongToSongStubAdaptor::clone).collect(Collectors.toList()));
     }
 
     return album;
@@ -55,7 +55,7 @@ public class AlbumService extends AbstractService<AlbumStub> {
 
   @Override
   public List<? extends AlbumStub> search(final String query) {
-    final List<AlbumStubDeezerAdaptor> searchResults = deezerSearchClient.searchAlbums(query);
+    final List<DeezerAlbumToAlbumStubAdaptor> searchResults = deezerSearchClient.searchAlbums(query);
     genreService.populateAlbumStubGenre(searchResults);
     return searchResults;
   }

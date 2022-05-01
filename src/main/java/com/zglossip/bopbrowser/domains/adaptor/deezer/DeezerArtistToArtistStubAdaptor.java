@@ -5,18 +5,18 @@ import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist;
 
 import java.net.URI;
 
-public class ArtistStubDeezerAdaptor extends DeezerArtist implements ArtistStub {
+public class DeezerArtistToArtistStubAdaptor extends DeezerArtist implements ArtistStub {
 
-  private ArtistStubDeezerAdaptor(final DeezerArtist deezerArtist) {
+  private DeezerArtistToArtistStubAdaptor(final DeezerArtist deezerArtist) {
     super(deezerArtist);
   }
 
-  public ArtistStubDeezerAdaptor() {
+  public DeezerArtistToArtistStubAdaptor() {
     super();
   }
 
-  public static ArtistStubDeezerAdaptor clone(final DeezerArtist deezerArtist) {
-    return new ArtistStubDeezerAdaptor(deezerArtist);
+  public static DeezerArtistToArtistStubAdaptor clone(final DeezerArtist deezerArtist) {
+    return new DeezerArtistToArtistStubAdaptor(deezerArtist);
   }
 
   @Override

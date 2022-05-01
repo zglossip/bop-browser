@@ -8,18 +8,18 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class SongDeezerAdaptor extends SongStubDeezerAdaptor implements Song {
+public class DeezerSongToSongAdaptor extends DeezerSongToSongStubAdaptor implements Song {
 
-  private SongDeezerAdaptor(final DeezerSong deezerSong) {
+  private DeezerSongToSongAdaptor(final DeezerSong deezerSong) {
     super(deezerSong);
   }
 
-  public SongDeezerAdaptor() {
+  public DeezerSongToSongAdaptor() {
     super();
   }
 
-  public static SongDeezerAdaptor clone(final DeezerSong deezerSong) {
-    return new SongDeezerAdaptor(deezerSong);
+  public static DeezerSongToSongAdaptor clone(final DeezerSong deezerSong) {
+    return new DeezerSongToSongAdaptor(deezerSong);
   }
 
   @Override

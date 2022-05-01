@@ -1,7 +1,7 @@
 package com.zglossip.bopbrowser.unit.clients
 
 import com.zglossip.bopbrowser.clients.DeezerGenreClient
-import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor
 import com.zglossip.bopbrowser.util.ApiUtil
 import spock.lang.Specification
 import spock.lang.Subject
@@ -22,13 +22,13 @@ class DeezerGenreClientSpec extends Specification {
 
   def 'Get artist info'() {
     given:
-    GenreDeezerAdaptor expected = new GenreDeezerAdaptor(id: id)
+    DeezerGenreToGenreAdaptor expected = new DeezerGenreToGenreAdaptor(id: id)
 
     when:
-    GenreDeezerAdaptor result = client.getGenre(id)
+    DeezerGenreToGenreAdaptor result = client.getGenre(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(client.GENRE_URI, id)), GenreDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(client.GENRE_URI, id)), DeezerGenreToGenreAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -37,13 +37,13 @@ class DeezerGenreClientSpec extends Specification {
 
   def 'Get artist info (null result)'() {
     given:
-    GenreDeezerAdaptor expected = null
+    DeezerGenreToGenreAdaptor expected = null
 
     when:
-    GenreDeezerAdaptor result = client.getGenre(id)
+    DeezerGenreToGenreAdaptor result = client.getGenre(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(client.GENRE_URI, id)), GenreDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(client.GENRE_URI, id)), DeezerGenreToGenreAdaptor.class) >> expected
     result.equals(expected)
 
     where:

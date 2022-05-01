@@ -1,23 +1,27 @@
 package com.zglossip.bopbrowser.domains.adaptor.deezer;
 
+import com.zglossip.bopbrowser.domains.ArtistStub;
 import com.zglossip.bopbrowser.domains.SongStub;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSong;
 
 import java.net.URI;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
-public class SongStubDeezerAdaptor extends DeezerSong implements SongStub {
+public class DeezerSongToSongStubAdaptor extends DeezerSong implements SongStub {
 
-  protected SongStubDeezerAdaptor(final DeezerSong deezerSong) {
+  protected DeezerSongToSongStubAdaptor(final DeezerSong deezerSong) {
     super(deezerSong);
   }
 
-  public SongStubDeezerAdaptor() {
+  public DeezerSongToSongStubAdaptor() {
     super();
   }
 
-  public static SongStubDeezerAdaptor clone(final DeezerSong deezerSong) {
-    return new SongStubDeezerAdaptor(deezerSong);
+  public static DeezerSongToSongStubAdaptor clone(final DeezerSong deezerSong) {
+    return new DeezerSongToSongStubAdaptor(deezerSong);
   }
 
   @Override
@@ -50,5 +54,14 @@ public class SongStubDeezerAdaptor extends DeezerSong implements SongStub {
   @Override
   public URI getPreviewUri() {
     return getPreview();
+  }
+
+  @Override
+  public List<? extends ArtistStub> getFeaturingList() {
+    if (Objects.isNull(getContributors())) {
+      return Collections.emptyList();
+    }
+
+    return getContributors().stream().map(DeezerArtistToArtistStubAdaptor::clone).collect(Collectors.toList());
   }
 }
