@@ -62,6 +62,15 @@ public class DeezerSongToSongStubAdaptor extends DeezerSong implements SongStub 
       return Collections.emptyList();
     }
 
-    return getContributors().stream().map(DeezerArtistToArtistStubAdaptor::clone).collect(Collectors.toList());
+    return getContributors().stream().map(deezerArtist -> {
+      if (Objects.isNull(getArtist()) || getArtist().getId() == 0) {
+        return null;
+      }
+
+      if (Objects.equals(getArtist().getId(), deezerArtist.getId())) {
+        return null;
+      }
+      return DeezerArtistToArtistStubAdaptor.clone(deezerArtist);
+    }).filter(Objects::nonNull).collect(Collectors.toList());
   }
 }

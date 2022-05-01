@@ -7,10 +7,13 @@ import com.zglossip.bopbrowser.domains.Album
 import com.zglossip.bopbrowser.domains.AlbumStub
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongStubAdaptor
+import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSong
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList
 import com.zglossip.bopbrowser.services.AlbumService
 import com.zglossip.bopbrowser.services.GenreService
+import com.zglossip.bopbrowser.services.SongContributorService
 import spock.lang.Specification
 import spock.lang.Subject
 
@@ -21,34 +24,49 @@ class AlbumServiceSpec extends Specification {
 
   DeezerAlbumClient deezerAlbumClient
   DeezerSearchClient deezerSearchClient
+  SongContributorService songContributorService
   BasicClient basicClient
   GenreService genreService
 
   def setup() {
     deezerAlbumClient = Mock(DeezerAlbumClient)
     deezerSearchClient = Mock(DeezerSearchClient)
+    songContributorService = Mock(SongContributorService)
     basicClient = Mock(BasicClient)
     genreService = Mock(GenreService)
-    albumService = new AlbumService(deezerAlbumClient, deezerSearchClient, basicClient, genreService)
+    albumService = new AlbumService(deezerAlbumClient, deezerSearchClient, songContributorService, basicClient, genreService)
   }
 
   def 'Get album info'() {
     given:
-    def expected = new DeezerAlbumToAlbumAdaptor(id: id, tracklist: tracklist)
+    def album = new DeezerAlbumToAlbumAdaptor(id: id, tracklist: tracklist)
+
+    and:
+    def expected = new DeezerAlbumToAlbumAdaptor(id: id, tracklist: tracklist, songList: songList)
 
     when:
     Album result = albumService.getAlbumInfo(id)
 
     then:
-    1 * deezerAlbumClient.getAlbumInfo(id) >> expected
-    1 * basicClient.getRequest(tracklist, DeezerSongList.class) >> new DeezerSongList(data: songList)
+    1 * deezerAlbumClient.getAlbumInfo(id) >> album
+    1 * basicClient.getRequest(tracklist, DeezerSongList.class) >> new DeezerSongList(data: [new DeezerSong(id: songId1),
+                                                                                             new DeezerSong(id: songId2)])
+    1 * songContributorService.getSongListWithContributors([new DeezerSong(id: songId1),
+                                                            new DeezerSong(id: songId2)]) >> [song1, song2]
     result.equals(expected)
-    result.getSongList().equals(songList)
 
     where:
     id = 123
     tracklist = new URI("test")
-    songList = [new DeezerSong(id: 1), new DeezerSong(id: 3)]
+    songId1 = 1
+    songId2 = 2
+    artist1 = new DeezerArtist(id: 100)
+    artist2 = new DeezerArtist(id: 200)
+    contributerList1 = [artist1]
+    contributerList2 = [artist1, artist2]
+    song1 = new DeezerSongToSongStubAdaptor(id: songId1, contributors: contributerList1)
+    song2 = new DeezerSongToSongStubAdaptor(id: songId2, contributors: contributerList2)
+    songList = [song1, song2]
   }
 
   def 'Get album info (no tracklist)'() {

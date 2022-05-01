@@ -15,22 +15,26 @@ public class SongService extends AbstractService<Song> {
 
   private final DeezerSearchClient deezerSearchClient;
   private final AlbumService albumService;
+  private final SongContributorService songContributorService;
 
   @Autowired
-  public SongService(final DeezerSearchClient deezerSearchClient, final AlbumService albumService) {
+  public SongService(final DeezerSearchClient deezerSearchClient, final AlbumService albumService,
+                     final SongContributorService songContributorService) {
     this.deezerSearchClient = deezerSearchClient;
     this.albumService = albumService;
+    this.songContributorService = songContributorService;
   }
 
   @Override
   public List<? extends Song> search(final String query) {
     final List<DeezerSongToSongAdaptor> results = deezerSearchClient.searchSongs(query);
-    results.forEach(song -> {
+    final List<DeezerSongToSongAdaptor> filledResults = songContributorService.getSongListWithContributors(results);
+    filledResults.forEach(song -> {
       if (song.getAlbum() != null) {
         final AlbumStub album = albumService.getAlbumStub(song.getAlbumId());
         song.setAlbum((DeezerAlbumToAlbumStubAdaptor) album);
       }
     });
-    return results;
+    return filledResults;
   }
 }

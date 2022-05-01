@@ -7,7 +7,7 @@ import com.zglossip.bopbrowser.domains.Album;
 import com.zglossip.bopbrowser.domains.AlbumStub;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongStubAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,14 +21,16 @@ public class AlbumService extends AbstractService<AlbumStub> {
 
   private final DeezerAlbumClient deezerAlbumClient;
   private final DeezerSearchClient deezerSearchClient;
+  private final SongContributorService songContributorService;
   private final BasicClient basicClient;
   private final GenreService genreService;
 
   @Autowired
   public AlbumService(final DeezerAlbumClient deezerAlbumClient, final DeezerSearchClient deezerSearchClient,
-                      final BasicClient basicClient, final GenreService genreService) {
+                      final SongContributorService songContributorService, final BasicClient basicClient, final GenreService genreService) {
     this.deezerAlbumClient = deezerAlbumClient;
     this.deezerSearchClient = deezerSearchClient;
+    this.songContributorService = songContributorService;
     this.basicClient = basicClient;
     this.genreService = genreService;
   }
@@ -43,7 +45,9 @@ public class AlbumService extends AbstractService<AlbumStub> {
     final DeezerSongList songList = basicClient.getRequest(album.getTracklist(), DeezerSongList.class);
 
     if (Objects.nonNull(songList) && Objects.nonNull(songList.getData())) {
-      album.setSongList(songList.getData().stream().map(DeezerSongToSongStubAdaptor::clone).collect(Collectors.toList()));
+      album.setSongList(songContributorService.getSongListWithContributors(songList.getData().stream()
+                                                                                   .map(DeezerSongToSongAdaptor::clone)
+                                                                                   .collect(Collectors.toList())));
     }
 
     return album;
