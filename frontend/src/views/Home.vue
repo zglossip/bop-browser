@@ -28,7 +28,13 @@
         </p>
         <p>
           All music data provided by
-          <a href="https://developers.deezer.com/" target="_blank"> Deezer </a>
+          <a href="https://developers.deezer.com/" target="_blank">
+            <img
+              src="/Deezer_Logo_RVB_Black.svg"
+              alt="Deezer"
+              style="max-height: 0.7rem"
+            />
+          </a>
         </p>
       </div>
       <div class="col col-md-3" />
