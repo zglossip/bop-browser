@@ -7,14 +7,14 @@
       </div>
       <div v-else>
         <div class="row mb-4 gx-5">
-          <div class="col-4">
+          <div class="col-md-4">
             <artist-header
               :genres="genres"
               :name="artist.name"
               :picture-uri="artist.pictureUri"
             />
           </div>
-          <div class="col-8">
+          <div class="col-md-8">
             <div class="row mb-5">
               <div class="col">
                 <top-song-list :top-songs="artist.topSongList" />

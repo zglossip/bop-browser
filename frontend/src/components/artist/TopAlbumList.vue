@@ -6,7 +6,11 @@
       </div>
     </div>
     <div class="row gx-3">
-      <div v-for="topAlbum in topAlbums" :key="topAlbum.id" class="col-3">
+      <div
+        v-for="topAlbum in topAlbums"
+        :key="topAlbum.id"
+        class="col-6 col-md-3"
+      >
         <album-stub
           :album-id="topAlbum.id"
           :genre-list="topAlbum.genreList"

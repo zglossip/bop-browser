@@ -3,7 +3,8 @@
   "version": "0.0.1-SNAPSHOT",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --base=/",
+    "build:dev": "vite build --base=BopBrowser/",
     "preview": "vite preview --port 5050",
     "test:unit": "vitest --environment jsdom",
     "test:e2e": "start-server-and-test preview http://127.0.0.1:5050/ 'cypress open'",

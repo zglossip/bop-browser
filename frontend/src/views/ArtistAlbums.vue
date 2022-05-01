@@ -16,7 +16,7 @@
     </div>
     <div v-if="isLoading" class="row">Loading...</div>
     <div v-else class="row">
-      <div v-for="album in albums" :key="album.id" class="col-2">
+      <div v-for="album in albums" :key="album.id" class="col-md-2">
         <album-stub
           :albumId="album.id"
           :genre-list="album.genreList"

@@ -9,7 +9,7 @@
       <div
         v-for="relatedArtist in relatedArtists"
         :key="relatedArtist.id"
-        class="col-3"
+        class="col-6 col-md-3"
       >
         <artist-stub
           :artist-id="relatedArtist.id"
