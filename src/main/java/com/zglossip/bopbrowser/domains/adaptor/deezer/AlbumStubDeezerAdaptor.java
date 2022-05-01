@@ -28,7 +28,12 @@ public class AlbumStubDeezerAdaptor extends DeezerAlbum implements AlbumStub {
 
   @Override
   public URI getPictureUri() {
-    return getCoverMedium();
+    return getCoverBig();
+  }
+
+  @Override
+  public URI getBigPictureUri() {
+    return getCoverXl();
   }
 
   @Override

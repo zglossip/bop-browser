@@ -11,7 +11,7 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
 
   def 'Get pictureUri'() {
     given:
-    albumStub.setCoverMedium(pictureUri)
+    albumStub.setCoverBig(pictureUri)
 
     when:
     URI result = albumStub.getPictureUri()
@@ -26,10 +26,40 @@ class AlbumStubDeezerAdaptorSpec extends Specification {
 
   def 'Get pictureUri null'() {
     given:
-    albumStub.setCover(pictureUri)
+    albumStub.setCoverBig(pictureUri)
 
     when:
     URI result = albumStub.getPictureUri()
+
+    then:
+    result == pictureUri
+
+    where:
+    albumStub = new AlbumStubDeezerAdaptor()
+    pictureUri = null
+  }
+
+  def 'Get big pictureUri'() {
+    given:
+    albumStub.setCoverXl(pictureUri)
+
+    when:
+    URI result = albumStub.getBigPictureUri()
+
+    then:
+    result == pictureUri
+
+    where:
+    albumStub = new AlbumStubDeezerAdaptor()
+    pictureUri = new URI("thisisntarealURI.org.co.uk.gov.edu.com")
+  }
+
+  def 'Get big pictureUri null'() {
+    given:
+    albumStub.setCoverXl(pictureUri)
+
+    when:
+    URI result = albumStub.getBigPictureUri()
 
     then:
     result == pictureUri

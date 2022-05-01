@@ -11,4 +11,6 @@ public interface ArtistStub extends MusicCategory {
   String getName();
 
   URI getPictureUri();
+
+  URI getBigPictureUri();
 }

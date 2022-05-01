@@ -8,7 +8,7 @@ class SongStubDeezerAdaptorSpec extends Specification {
 
   def 'Get album art URI'() {
     given:
-    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor(coverMedium: albumArtUri)
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor(coverBig: albumArtUri)
     songStub.setAlbum(album)
 
     when:
@@ -40,6 +40,48 @@ class SongStubDeezerAdaptorSpec extends Specification {
   def 'Get album art URI (null album)'() {
     when:
     URI result = songStub.getAlbumArtUri()
+
+    then:
+    result == null
+
+    where:
+    songStub = new SongStubDeezerAdaptor()
+  }
+
+  def 'Get big album art URI'() {
+    given:
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor(coverXl: albumArtUri)
+    songStub.setAlbum(album)
+
+    when:
+    URI result = songStub.getBigAlbumArtUri()
+
+    then:
+    result == albumArtUri
+
+    where:
+    songStub = new SongStubDeezerAdaptor()
+    albumArtUri = new URI('notreal.org')
+  }
+
+  def 'Get big album art URI (null URI)'() {
+    given:
+    AlbumStubDeezerAdaptor album = new AlbumStubDeezerAdaptor()
+    songStub.setAlbum(album)
+
+    when:
+    URI result = songStub.getBigAlbumArtUri()
+
+    then:
+    result == null
+
+    where:
+    songStub = new SongStubDeezerAdaptor()
+  }
+
+  def 'Get big album art URI (null album)'() {
+    when:
+    URI result = songStub.getBigAlbumArtUri()
 
     then:
     result == null

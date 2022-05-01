@@ -26,7 +26,16 @@ public class SongStubDeezerAdaptor extends DeezerSong implements SongStub {
       return null;
     }
 
-    return getAlbum().getCoverMedium();
+    return getAlbum().getCoverBig();
+  }
+
+  @Override
+  public URI getBigAlbumArtUri() {
+    if (Objects.isNull(getAlbum())) {
+      return null;
+    }
+
+    return getAlbum().getCoverXl();
   }
 
   @Override
