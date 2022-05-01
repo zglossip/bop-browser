@@ -20,7 +20,18 @@
           <span class="card-text pb-2">{{ duration }}</span>
         </div>
         <span class="card-text mb-auto">{{ songResult.albumTitle }}</span>
-        <span class="card-text">by {{ songResult.artistName }}</span>
+        <span class="card-text">
+          by
+          <a href="#" @click.stop="loadArtist(songResult.artistId)">
+            {{ songResult.artistName }}
+          </a>
+          <span v-for="featured in songResult.featuringList" :key="featured.id"
+            >,
+            <a href="#" @click.stop="loadArtist(featured.id)">
+              {{ featured.name }}
+            </a>
+          </span>
+        </span>
         <span class="card-text">{{ genres }}</span>
       </div>
     </div>
@@ -53,13 +64,20 @@ export default {
       });
     };
 
+    const loadArtist = (id) => {
+      router.push({
+        name: "Artist",
+        params: { id },
+      });
+    };
+
     const duration = computed(() => {
       return Duration.fromMillis(props.songResult.duration * 1000).toFormat(
         "mm:ss"
       );
     });
 
-    return { genres, loadSong, duration };
+    return { genres, loadSong, loadArtist, duration };
   },
 };
 </script>

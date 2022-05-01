@@ -12,6 +12,7 @@
       :seconds="song.duration"
       :song-id="song.id"
       :title="song.title"
+      :featuring-list="song.featuringList"
     />
   </div>
 </template>
