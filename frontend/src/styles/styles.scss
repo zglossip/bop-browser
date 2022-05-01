@@ -13,6 +13,11 @@ a {
   }
 }
 
+.btn-link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 .bb-search {
   width: 10rem !important;
 }

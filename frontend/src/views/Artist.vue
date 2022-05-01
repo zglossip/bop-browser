@@ -12,6 +12,8 @@
               :genres="genres"
               :name="artist.name"
               :picture-uri="artist.pictureUri"
+              :big-picture-uri="artist.bigPictureUri"
+              :artist-id="artist.id"
             />
           </div>
           <div class="col-md-8">
