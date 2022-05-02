@@ -10,13 +10,27 @@
       <span v-if="position" class="card-text">{{ position }}.&nbsp;</span>
       <a
         v-if="displayAsLink"
-        class="card-text me-auto"
+        :class="[featuringList.length > 0 ? 'me-1' : 'me-auto']"
         href="#"
         @click.stop="openSong($event, albumId, songId)"
-        >{{ title }}</a
       >
-      <span v-else class="card-text me-auto">{{ title }}</span>
-      <span class="card-text">{{ duration }}</span>
+        {{ title }}
+      </a>
+      <span v-else :class="[featuringList.length > 0 ? 'me-1' : 'me-auto']">
+        {{ title }}
+      </span>
+      <span v-if="featuringList.length > 0" class="me-1">|</span>
+      <span
+        v-for="(featured, id) in featuringList"
+        :key="featured.id"
+        :class="[id === featuringList.length - 1 ? 'me-auto' : '']"
+      >
+        <span v-if="id !== 0">, </span>
+        <a href="#" @click.stop="loadArtist(featured.id)">
+          {{ featured.name }}
+        </a>
+      </span>
+      <span>{{ duration }}</span>
       <audio-button
         :add-classes="['ms-1']"
         :audio-player-id="songId + '-audio'"
@@ -44,6 +58,7 @@ export default {
     albumId: Number,
     previewUri: [String, URL],
     displayAsLink: Boolean,
+    featuringList: Array,
   },
   setup(props) {
     const router = useRouter();
@@ -57,6 +72,13 @@ export default {
       });
     };
 
+    const loadArtist = (id) => {
+      router.push({
+        name: "Artist",
+        params: { id },
+      });
+    };
+
     const duration = computed(() => {
       //If duration longer or equal to an hour
       if (props.seconds >= 3600) {
@@ -65,7 +87,7 @@ export default {
       return Duration.fromMillis(props.seconds * 1000).toFormat("mm:ss");
     });
 
-    return { openSong, duration };
+    return { loadArtist, openSong, duration };
   },
 };
 </script>

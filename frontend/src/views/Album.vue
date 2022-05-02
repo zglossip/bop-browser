@@ -19,7 +19,9 @@
             :genre-list="album.genreList"
             :name="album.title"
             :picture-uri="album.pictureUri"
+            :big-picture-uri="album.bigPictureUri"
             :release-date="album.releaseDate"
+            :album-id="album.id"
           />
         </div>
       </div>

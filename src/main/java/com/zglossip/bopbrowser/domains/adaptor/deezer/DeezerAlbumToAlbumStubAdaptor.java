@@ -10,25 +10,30 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class AlbumStubDeezerAdaptor extends DeezerAlbum implements AlbumStub {
+public class DeezerAlbumToAlbumStubAdaptor extends DeezerAlbum implements AlbumStub {
 
   private List<? extends Genre> downloadedGenres;
 
-  protected AlbumStubDeezerAdaptor(final DeezerAlbum deezerAlbum) {
+  protected DeezerAlbumToAlbumStubAdaptor(final DeezerAlbum deezerAlbum) {
     super(deezerAlbum);
   }
 
-  public AlbumStubDeezerAdaptor() {
+  public DeezerAlbumToAlbumStubAdaptor() {
     super();
   }
 
-  public static AlbumStubDeezerAdaptor clone(final DeezerAlbum deezerAlbum) {
-    return new AlbumStubDeezerAdaptor(deezerAlbum);
+  public static DeezerAlbumToAlbumStubAdaptor clone(final DeezerAlbum deezerAlbum) {
+    return new DeezerAlbumToAlbumStubAdaptor(deezerAlbum);
   }
 
   @Override
   public URI getPictureUri() {
-    return getCoverMedium();
+    return getCoverBig();
+  }
+
+  @Override
+  public URI getBigPictureUri() {
+    return getCoverXl();
   }
 
   @Override
@@ -37,7 +42,7 @@ public class AlbumStubDeezerAdaptor extends DeezerAlbum implements AlbumStub {
       return getDownloadedGenres();
     }
 
-    return getGenres().getData().stream().map(GenreDeezerAdaptor::new).collect(Collectors.toList());
+    return getGenres().getData().stream().map(DeezerGenreToGenreAdaptor::new).collect(Collectors.toList());
   }
 
   private List<? extends Genre> getDownloadedGenres() {

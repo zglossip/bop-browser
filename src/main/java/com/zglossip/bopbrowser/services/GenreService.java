@@ -2,8 +2,8 @@ package com.zglossip.bopbrowser.services;
 
 import com.zglossip.bopbrowser.clients.DeezerGenreClient;
 import com.zglossip.bopbrowser.domains.Genre;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor;
 import com.zglossip.bopbrowser.exceptions.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,30 +30,30 @@ public class GenreService extends AbstractService<Genre> {
     throw new NotImplementedException("No way to search genres yet.");
   }
 
-  public void populateAlbumStubGenre(final List<AlbumStubDeezerAdaptor> albumList) {
-    final Map<Integer, GenreDeezerAdaptor> genreMap = getGenreMapForAlbums(albumList.stream()
-                                                                                    .filter(a -> Objects.isNull(a.getGenres()) ||
+  public void populateAlbumStubGenre(final List<DeezerAlbumToAlbumStubAdaptor> albumList) {
+    final Map<Integer, DeezerGenreToGenreAdaptor> genreMap = getGenreMapForAlbums(albumList.stream()
+                                                                                           .filter(a -> Objects.isNull(a.getGenres()) ||
                                                                                                  Objects.isNull(a.getGenres().getData()))
-                                                                                    .collect(Collectors.toList()));
+                                                                                           .collect(Collectors.toList()));
     albumList.stream().filter(a -> Objects.isNull(a.getGenres()) || Objects.isNull(a.getGenres().getData()))
              .forEach(album -> album.setDownloadedGenres(getGenreList(genreMap, album.getGenreId())));
   }
 
-  private List<GenreDeezerAdaptor> getGenreList(final Map<Integer, GenreDeezerAdaptor> genreMap, final Integer genreId) {
-    final GenreDeezerAdaptor genre = genreMap.get(genreId);
+  private List<DeezerGenreToGenreAdaptor> getGenreList(final Map<Integer, DeezerGenreToGenreAdaptor> genreMap, final Integer genreId) {
+    final DeezerGenreToGenreAdaptor genre = genreMap.get(genreId);
     if (genre == null) {
       return Collections.emptyList();
     }
     return Collections.singletonList(genre);
   }
 
-  private Map<Integer, GenreDeezerAdaptor> getGenreMapForAlbums(final List<AlbumStubDeezerAdaptor> albumList) {
+  private Map<Integer, DeezerGenreToGenreAdaptor> getGenreMapForAlbums(final List<DeezerAlbumToAlbumStubAdaptor> albumList) {
     return albumList.stream()
-                    .map(AlbumStubDeezerAdaptor::getGenreId)
+                    .map(DeezerAlbumToAlbumStubAdaptor::getGenreId)
                     .filter(Objects::nonNull)
                     .distinct()
                     .map(deezerGenreClient::getGenre)
                     .filter(Objects::nonNull)
-                    .collect(Collectors.toMap(GenreDeezerAdaptor::getId, Function.identity()));
+                    .collect(Collectors.toMap(DeezerGenreToGenreAdaptor::getId, Function.identity()));
   }
 }

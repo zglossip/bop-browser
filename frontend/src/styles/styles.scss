@@ -6,11 +6,16 @@ body {
 }
 
 a {
-  color: black;
+  color: rgba(0, 0, 0, 0.5);
 
   &:hover, &:active {
     color: $bb-main;
   }
+}
+
+.btn-link:focus {
+  outline: none;
+  box-shadow: none;
 }
 
 .bb-search {
@@ -19,7 +24,7 @@ a {
 
 .card {
   border: 0 !important;
-  background-color: transparent ;
+  background-color: transparent;
 }
 
 .bb-album-stub,
@@ -52,7 +57,7 @@ a {
   object-fit: cover;
 }
 
-.bb-selected-song .card{
+.bb-selected-song .card {
   border: 5px $bb-secondary solid !important;
 }
 

@@ -1,9 +1,9 @@
 package com.zglossip.bopbrowser.unit.clients
 
 import com.zglossip.bopbrowser.clients.DeezerSearchClient
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.SongDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.*
 import com.zglossip.bopbrowser.util.ApiUtil
 import spock.lang.Specification
@@ -27,11 +27,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search artists'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = [new ArtistStubDeezerAdaptor(id: 1), new ArtistStubDeezerAdaptor(id: 3)]
+    List<DeezerArtistToArtistStubAdaptor> expected = [new DeezerArtistToArtistStubAdaptor(id: 1), new DeezerArtistToArtistStubAdaptor(id: 3)]
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<ArtistStubDeezerAdaptor> results = searchClient.searchArtists(query)
+    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList(data: expected)
@@ -43,11 +43,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search artists (empty data)'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = []
+    List<DeezerArtistToArtistStubAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<ArtistStubDeezerAdaptor> results = searchClient.searchArtists(query)
+    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList(data: expected)
@@ -59,11 +59,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search artists (null data)'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = []
+    List<DeezerArtistToArtistStubAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<ArtistStubDeezerAdaptor> results = searchClient.searchArtists(query)
+    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList()
@@ -75,11 +75,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search artists (null results)'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = []
+    List<DeezerArtistToArtistStubAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<ArtistStubDeezerAdaptor> results = searchClient.searchArtists(query)
+    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> null
@@ -91,11 +91,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search albums'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = [new DeezerAlbum(id: 1), new DeezerAlbum(id: 3)]
+    List<DeezerAlbumToAlbumStubAdaptor> expected = [new DeezerAlbum(id: 1), new DeezerAlbum(id: 3)]
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<AlbumStubDeezerAdaptor> results = searchClient.searchAlbums(query)
+    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected)
@@ -107,11 +107,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search albums (empty data)'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = []
+    List<DeezerAlbumToAlbumStubAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<AlbumStubDeezerAdaptor> results = searchClient.searchAlbums(query)
+    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected)
@@ -123,11 +123,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search albums (null data)'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = []
+    List<DeezerAlbumToAlbumStubAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<AlbumStubDeezerAdaptor> results = searchClient.searchAlbums(query)
+    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList()
@@ -139,11 +139,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search albums (null results)'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = []
+    List<DeezerAlbumToAlbumStubAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<AlbumStubDeezerAdaptor> results = searchClient.searchAlbums(query)
+    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> null
@@ -155,11 +155,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search songs'() {
     given:
-    List<SongDeezerAdaptor> expected = [new DeezerSong(id: 1), new DeezerSong(id: 3)]
+    List<DeezerSongToSongAdaptor> expected = [new DeezerSong(id: 1), new DeezerSong(id: 3)]
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<SongDeezerAdaptor> results = searchClient.searchSongs(query)
+    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList(data: expected)
@@ -171,11 +171,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search songs (empty data)'() {
     given:
-    List<SongDeezerAdaptor> expected = []
+    List<DeezerSongToSongAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<SongDeezerAdaptor> results = searchClient.searchSongs(query)
+    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList(data: expected)
@@ -187,11 +187,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search songs (null data)'() {
     given:
-    List<SongDeezerAdaptor> expected = []
+    List<DeezerSongToSongAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<SongDeezerAdaptor> results = searchClient.searchSongs(query)
+    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList()
@@ -203,11 +203,11 @@ class DeezerSearchClientSpec extends Specification {
 
   def 'Search songs (null results)'() {
     given:
-    List<SongDeezerAdaptor> expected = []
+    List<DeezerSongToSongAdaptor> expected = []
     URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
 
     when:
-    List<SongDeezerAdaptor> results = searchClient.searchSongs(query)
+    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> null

@@ -2,16 +2,13 @@ package com.zglossip.bopbrowser.domains.models.deezer;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.SongDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor;
 
 import java.math.BigDecimal;
 import java.net.URI;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public
@@ -89,12 +86,12 @@ class DeezerSong implements Comparable<DeezerSong> {
   private BigDecimal gain;
   @JsonAlias("available_countries")
   private Collection<String> availableCountries;
-  private SongDeezerAdaptor alternative;
-  private DeezerArtistList contributers;
+  private DeezerSongToSongAdaptor alternative;
+  private List<DeezerArtist> contributors;
   @JsonAlias("md5_image")
   private String md5Image;
-  private ArtistStubDeezerAdaptor artist;
-  private AlbumStubDeezerAdaptor album;
+  private DeezerArtistToArtistStubAdaptor artist;
+  private DeezerAlbumToAlbumStubAdaptor album;
 
   public DeezerSong() {
 
@@ -121,7 +118,7 @@ class DeezerSong implements Comparable<DeezerSong> {
     gain = deezerSong.getGain();
     availableCountries = deezerSong.getAvailableCountries();
     alternative = deezerSong.getAlternative();
-    contributers = deezerSong.getContributers();
+    contributors = deezerSong.getContributors();
     md5Image = deezerSong.getMd5Image();
     artist = deezerSong.getArtist();
     album = deezerSong.getAlbum();
@@ -287,20 +284,20 @@ class DeezerSong implements Comparable<DeezerSong> {
     this.availableCountries = availableCountries;
   }
 
-  public SongDeezerAdaptor getAlternative() {
+  public DeezerSongToSongAdaptor getAlternative() {
     return alternative;
   }
 
-  public void setAlternative(final SongDeezerAdaptor alternative) {
+  public void setAlternative(final DeezerSongToSongAdaptor alternative) {
     this.alternative = alternative;
   }
 
-  public DeezerArtistList getContributers() {
-    return contributers;
+  public List<DeezerArtist> getContributors() {
+    return contributors;
   }
 
-  public void setContributers(final DeezerArtistList contributers) {
-    this.contributers = contributers;
+  public void setContributors(final List<DeezerArtist> contributors) {
+    this.contributors = contributors;
   }
 
   public String getMd5Image() {
@@ -311,19 +308,19 @@ class DeezerSong implements Comparable<DeezerSong> {
     this.md5Image = md5Image;
   }
 
-  public ArtistStubDeezerAdaptor getArtist() {
+  public DeezerArtistToArtistStubAdaptor getArtist() {
     return artist;
   }
 
-  public void setArtist(final ArtistStubDeezerAdaptor artist) {
+  public void setArtist(final DeezerArtistToArtistStubAdaptor artist) {
     this.artist = artist;
   }
 
-  public AlbumStubDeezerAdaptor getAlbum() {
+  public DeezerAlbumToAlbumStubAdaptor getAlbum() {
     return album;
   }
 
-  public void setAlbum(final AlbumStubDeezerAdaptor album) {
+  public void setAlbum(final DeezerAlbumToAlbumStubAdaptor album) {
     this.album = album;
   }
 
@@ -347,7 +344,7 @@ class DeezerSong implements Comparable<DeezerSong> {
            Objects.equals(explicitContentCover, that.explicitContentCover) && Objects.equals(preview, that.preview) &&
            Objects.equals(bpm, that.bpm) && Objects.equals(gain, that.gain) &&
            Objects.equals(availableCountries, that.availableCountries) && Objects.equals(alternative, that.alternative) &&
-           Objects.equals(contributers, that.contributers) && Objects.equals(md5Image, that.md5Image) &&
+           Objects.equals(contributors, that.contributors) && Objects.equals(md5Image, that.md5Image) &&
            Objects.equals(artist, that.artist) && Objects.equals(album, that.album);
   }
 
@@ -356,7 +353,7 @@ class DeezerSong implements Comparable<DeezerSong> {
     return Objects.hash(id, readable, title, titleVersion, unseen, isrc, link, share, duration, trackPosition, diskNumber, rank,
                         releaseDate,
                         explicitLyrics, explicitContentLyrics, explicitContentCover, preview, bpm, gain, availableCountries, alternative,
-                        contributers, md5Image, artist, album);
+                        contributors, md5Image, artist, album);
   }
 
   @Override
@@ -383,7 +380,7 @@ class DeezerSong implements Comparable<DeezerSong> {
            ", gain=" + gain +
            ", availableCountries=" + availableCountries +
            ", alternative=" + alternative +
-           ", contributers=" + contributers +
+           ", contributors=" + contributors +
            ", md5Image='" + md5Image + '\'' +
            ", artist=" + artist +
            ", album=" + album +

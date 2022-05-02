@@ -1,8 +1,8 @@
 package com.zglossip.bopbrowser.unit.clients
 
 import com.zglossip.bopbrowser.clients.DeezerAlbumClient
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
 import com.zglossip.bopbrowser.util.ApiUtil
 import spock.lang.Specification
 import spock.lang.Subject
@@ -23,13 +23,13 @@ class DeezerAlbumClientSpec extends Specification {
 
   def 'Get album info'() {
     given:
-    AlbumDeezerAdaptor expected = new AlbumDeezerAdaptor(id: id)
+    DeezerAlbumToAlbumAdaptor expected = new DeezerAlbumToAlbumAdaptor(id: id)
 
     when:
-    AlbumDeezerAdaptor result = albumClient.getAlbumInfo(id)
+    DeezerAlbumToAlbumAdaptor result = albumClient.getAlbumInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), AlbumDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -38,13 +38,13 @@ class DeezerAlbumClientSpec extends Specification {
 
   def 'Get album info (null result)'() {
     given:
-    AlbumDeezerAdaptor expected = null
+    DeezerAlbumToAlbumAdaptor expected = null
 
     when:
-    AlbumDeezerAdaptor result = albumClient.getAlbumInfo(id)
+    DeezerAlbumToAlbumAdaptor result = albumClient.getAlbumInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), AlbumDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -53,13 +53,13 @@ class DeezerAlbumClientSpec extends Specification {
 
   def 'Get album stub'() {
     given:
-    AlbumStubDeezerAdaptor expected = new AlbumStubDeezerAdaptor(id: id)
+    DeezerAlbumToAlbumStubAdaptor expected = new DeezerAlbumToAlbumStubAdaptor(id: id)
 
     when:
-    AlbumStubDeezerAdaptor result = albumClient.getAlbumStub(id)
+    DeezerAlbumToAlbumStubAdaptor result = albumClient.getAlbumStub(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), AlbumStubDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumStubAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -68,13 +68,13 @@ class DeezerAlbumClientSpec extends Specification {
 
   def 'Get album stub (null)'() {
     given:
-    AlbumStubDeezerAdaptor expected = null
+    DeezerAlbumToAlbumStubAdaptor expected = null
 
     when:
-    AlbumStubDeezerAdaptor result = albumClient.getAlbumStub(id)
+    DeezerAlbumToAlbumStubAdaptor result = albumClient.getAlbumStub(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), AlbumStubDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumStubAdaptor.class) >> expected
     result.equals(expected)
 
     where:

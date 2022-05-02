@@ -14,6 +14,8 @@ public interface AlbumStub extends MusicCategory {
 
   URI getPictureUri();
 
+  URI getBigPictureUri();
+
   List<? extends Genre> getGenreList();
 
   String getRecordType();
