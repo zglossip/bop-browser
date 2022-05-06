@@ -7,13 +7,13 @@
       </div>
       <div v-else class="row mb-3">
         <div class="col">
-          <a href="#" @click="navigateToArtist(album.artistId)">
+          <a href="#" @click.prevent="navigateToArtist(album.artistId)">
             &#8592; {{ album.artistName }}
           </a>
         </div>
       </div>
       <div class="row mb-2">
-        <div class="col">
+        <div class="col-md-8 offset-md-2">
           <album-header
             :duration="duration"
             :genre-list="album.genreList"
@@ -22,11 +22,12 @@
             :big-picture-uri="album.bigPictureUri"
             :release-date="album.releaseDate"
             :album-id="album.id"
+            :artist-name="album.artistName"
           />
         </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-md-8 offset-md-2">
           <tracklist
             :album-id="album.id"
             :song-list="album.songList"

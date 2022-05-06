@@ -5,6 +5,7 @@ plugins {
   id 'groovy'
   id 'war'
   id "com.microsoft.azure.azurewebapp" version "1.2.0"
+  id "com.github.node-gradle.node" version "3.2.1"
 }
 
 group = 'com.zglossip'
@@ -47,5 +48,37 @@ azurewebapp {
     os = 'Linux'
     webContainer = 'Tomcat 8.5'
     javaVersion = 'Java 11'
+  }
+}
+
+node {
+  // Base URL for fetching node distributions (change if you have a mirror).
+  distBaseUrl = 'https://nodejs.org/dist'
+
+  // Set the work directory for unpacking node
+  workDir = file("${rootDir}/frontend")
+
+  // Set the work directory for NPM
+  npmWorkDir = file("${rootDir}/frontend")
+
+  // Set the work directory where node_modules should be located
+  nodeModulesDir = file("${rootDir}/frontend")
+}
+
+task npmBuild(type: NpmTask) {
+  doFirst {
+    delete 'src/main/resources/public'
+    delete "${rootDir}/frontend/dist"
+  }
+  //npmInstall
+  dependsOn { npmInstall }
+  //npm run build
+  args = ['run', 'build']
+  //copy from dist dir to main sourceSet
+  doLast {
+    copy {
+      from 'frontend/dist/'
+      into 'src/main/resources/public/'
+    }
   }
 }

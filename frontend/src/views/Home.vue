@@ -30,7 +30,7 @@
           All music data provided by
           <a href="https://developers.deezer.com/" target="_blank">
             <img
-              src="/Deezer_Logo_RVB_Black.svg"
+              src="/Deezer_Logo_RVB_White.svg"
               alt="Deezer"
               style="max-height: 0.7rem"
             />

@@ -2,7 +2,7 @@
   <div class="bb-search-result">
     <div
       class="card d-flex flex-md-row"
-      @click="loadSong(songResult.albumId, songResult.id)"
+      @click.prevent="loadSong(songResult.albumId, songResult.id)"
     >
       <img
         :alt="songResult.albumTitle"
@@ -27,7 +27,7 @@
           </a>
           <span v-for="featured in songResult.featuringList" :key="featured.id"
             >,
-            <a href="#" @click.stop="loadArtist(featured.id)">
+            <a href="#" @click.prevent="loadArtist(featured.id)">
               {{ featured.name }}
             </a>
           </span>

@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <a href="#" @click="back">&#8592; Back</a>
+        <a href="#" @click.prevent="back">&#8592; Back</a>
       </div>
     </div>
     <div class="row">
@@ -44,8 +44,7 @@ export default {
     const isLoading = ref(true);
     const relatedArtists = ref([]);
 
-    const back = (evt) => {
-      evt.preventDefault();
+    const back = () => {
       router.push({
         name: "Artist",
         params: {

@@ -21,7 +21,7 @@
               <h1>404</h1>
               <p>
                 Music category "{{ currentCategory }}" not found. Please return
-                <a href="/" @click="returnHome"> home </a>
+                <a href="/" @click.prevent="returnHome"> home </a>
               </p>
             </span>
           </div>
@@ -56,8 +56,7 @@ export default {
     const currentQuery = ref(route.query.q);
     const musicCategories = ref(MUSIC_CATEGORIES);
 
-    const returnHome = (evt) => {
-      evt.preventDefault();
+    const returnHome = () => {
       router.push({ name: "Home" });
     };
 

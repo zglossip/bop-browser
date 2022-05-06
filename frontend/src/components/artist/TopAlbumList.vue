@@ -24,7 +24,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <a href="#" @click="seeMoreAlbums($event, id)">See more...</a>
+        <a href="#" @click.prevent="seeMoreAlbums(id)">See more...</a>
       </div>
     </div>
   </div>
@@ -46,8 +46,7 @@ export default {
   setup() {
     const router = useRouter();
 
-    const seeMoreAlbums = (evt, id) => {
-      evt.preventDefault();
+    const seeMoreAlbums = (id) => {
       router.push({
         name: "ArtistAlbums",
         params: { id },
