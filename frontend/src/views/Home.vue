@@ -2,7 +2,11 @@
   <div class="container">
     <div class="row mb-2">
       <div class="col text-center mt-5">
-        <img src="/bb_logo.png" alt="Bop Browser" style="max-height: 20rem" />
+        <img
+          src="/bb_logo.png"
+          alt="Bop Browser"
+          style="max-height: 20rem; max-width: 90vw"
+        />
       </div>
     </div>
     <div class="row mb-5">

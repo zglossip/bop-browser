@@ -6,7 +6,7 @@
           style="width: 50px"
           src="/bb_logo_small_dark.png"
           alt="Bop Browser"
-          class="d-inline-block align-text-top mb-1"
+          class="d-inline-block align-text-top mb-md-2"
         />
       </a>
       <search-bar />
