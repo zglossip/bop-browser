@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <form class="col d-flex" method="get" @submit="onSubmit">
+      <form class="col d-flex" method="get" @submit.prevent="onSubmit">
         <select
           v-model="currentCategory"
           aria-label="Search type selection"
@@ -40,8 +40,7 @@ export default {
 
     const router = useRouter();
 
-    const onSubmit = (evt) => {
-      evt.preventDefault();
+    const onSubmit = () => {
       router.push({
         name: "Search",
         params: {

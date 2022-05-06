@@ -1,7 +1,7 @@
 <template>
   <div class="card d-flex flex-row">
     <img
-      v-if="albumArtUri"
+      v-if="displayAsLink"
       :src="albumArtUri"
       alt="Album Art"
       class="img-fluid bb-track-image"
@@ -12,7 +12,7 @@
         v-if="displayAsLink"
         :class="[featuringList.length > 0 ? 'me-1' : 'me-auto']"
         href="#"
-        @click.stop="openSong($event, albumId, songId)"
+        @click.prevent="openSong(albumId, songId)"
       >
         {{ title }}
       </a>
@@ -26,11 +26,11 @@
         :class="[id === featuringList.length - 1 ? 'me-auto' : '']"
       >
         <span v-if="id !== 0">, </span>
-        <a href="#" @click.stop="loadArtist(featured.id)">
+        <a href="#" @click.prevent="loadArtist(featured.id)">
           {{ featured.name }}
         </a>
       </span>
-      <span>{{ duration }}</span>
+      <span class="ms-3">{{ duration }}</span>
       <audio-button
         :add-classes="['ms-1']"
         :audio-player-id="songId + '-audio'"
@@ -63,8 +63,7 @@ export default {
   setup(props) {
     const router = useRouter();
 
-    const openSong = (evt, albumId, songId) => {
-      evt.preventDefault();
+    const openSong = (albumId, songId) => {
       router.push({
         name: "Album",
         params: { id: albumId },

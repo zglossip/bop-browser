@@ -1,5 +1,5 @@
 <template>
-  <div class="bb-artist-stub" @click="openArtist(artistId)">
+  <div class="bb-artist-stub" @click.prevent="openArtist(artistId)">
     <div class="card h-100 p-3">
       <img :alt="name + ' Picture'" :src="pictureUri" class="card-img-top" />
       <div class="card-body p-0">

@@ -20,7 +20,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <a href="#" @click="seeRelatedArtists($event, artistId)">See more...</a>
+        <a href="#" @click.prevent="seeRelatedArtists(artistId)">See more...</a>
       </div>
     </div>
   </div>
@@ -41,8 +41,7 @@ export default {
   setup() {
     const router = useRouter();
 
-    const seeRelatedArtists = (evt, id) => {
-      evt.preventDefault();
+    const seeRelatedArtists = (id) => {
       router.push({
         name: "RelatedArtists",
         params: { id },

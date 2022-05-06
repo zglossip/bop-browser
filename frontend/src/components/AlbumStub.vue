@@ -1,5 +1,5 @@
 <template>
-  <div class="bb-album-stub" @click="openAlbum(albumId)">
+  <div class="bb-album-stub" @click.prevent="openAlbum(albumId)">
     <div class="card h-100 p-3">
       <img :alt="title + ' Picture'" :src="pictureUri" class="card-img-top" />
       <div class="card-body d-flex flex-column p-0">

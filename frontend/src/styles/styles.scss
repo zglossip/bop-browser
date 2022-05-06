@@ -1,16 +1,18 @@
 @import "colors";
+@import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "bootswatch";
+//a {
+//  color: rgba(0, 0, 0, 0.5);
+//
+//  &:hover, &:active {
+//    color: $bb-main;
+//  }
+//}
 
 body {
-  background-color: $bb-light;
-}
-
-a {
-  color: rgba(0, 0, 0, 0.5);
-
-  &:hover, &:active {
-    color: $bb-main;
-  }
+  min-height: 100vh;
+  padding: 0;
 }
 
 .btn-link:focus {
@@ -30,7 +32,7 @@ a {
 .bb-album-stub,
 .bb-artist-stub {
   :hover {
-    background-color: $bb-secondary;
+    background-color: $primary;
     cursor: pointer;
   }
 }
@@ -41,14 +43,19 @@ a {
     object-fit: cover;
   }
 
+  .bb-album-header-image {
+    width: 20rem;
+    object-fit: cover;
+  }
+
   .bb-home-header {
-    margin-top: 30vh;
+    padding-top: 30vh;
   }
 }
 
 @include media-breakpoint-down(sm) {
   .bb-home-header {
-    margin-top: 10vh;
+    padding-top: 10vh;
   }
 }
 
@@ -58,7 +65,7 @@ a {
 }
 
 .bb-selected-song .card {
-  border: 5px $bb-secondary solid !important;
+  border: 5px $primary solid !important;
 }
 
 img {
