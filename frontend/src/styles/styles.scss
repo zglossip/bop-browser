@@ -40,16 +40,6 @@ body {
     width: 20rem;
     object-fit: cover;
   }
-
-  .bb-home-header {
-    padding-top: 30vh;
-  }
-}
-
-@include media-breakpoint-down(sm) {
-  .bb-home-header {
-    padding-top: 10vh;
-  }
 }
 
 .bb-track-image {
