@@ -3,7 +3,7 @@
     <div class="card h-100 p-3">
       <img :alt="name + ' Picture'" :src="pictureUri" class="card-img-top" />
       <div class="card-body p-0">
-        <p class="card-text">{{ name }}</p>
+        <p class="card-text fw-bolder fs-5">{{ name }}</p>
       </div>
     </div>
   </div>

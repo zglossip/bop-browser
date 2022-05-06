@@ -6,7 +6,7 @@
       alt="Album Art"
       class="img-fluid bb-track-image"
     />
-    <div class="card-body d-flex px-3 py-2 align-items-center">
+    <div class="card-body d-flex px-3 py-2 align-items-center text-nowrap">
       <span v-if="position" class="card-text">{{ position }}.&nbsp;</span>
       <a
         v-if="displayAsLink"

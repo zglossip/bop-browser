@@ -30,14 +30,14 @@ export default {
   setup(props) {
     const getSongContainerClasses = (id) => {
       if (!props.selectedSongId) {
-        return "";
+        return "bb-album-song";
       }
 
       if (props.selectedSongId === id) {
-        return "bb-selected-song";
+        return "bb-selected-song bb-album-song";
       }
 
-      return "";
+      return "bb-album-song";
     };
 
     return { getSongContainerClasses };
