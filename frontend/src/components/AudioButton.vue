@@ -1,5 +1,5 @@
 <template>
-  <audio :id="audioPlayerId" controls hidden>
+  <audio :id="audioPlayerId" ref="audio" controls hidden>
     <source :src="previewUri" />
     Your browser does not support the audio element.
   </audio>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { inject, ref } from "vue";
 
 export default {
   props: {
@@ -23,20 +23,31 @@ export default {
     addClasses: Array,
   },
   setup(props) {
+    const audio = ref(null);
+
+    const emitter = inject("emitter");
+    emitter.on("audio-playing", (audioPlayerId) => {
+      if (audio.value && props.audioPlayerId !== audioPlayerId) {
+        audio.value.pause();
+        isPlaying.value = false;
+      }
+    });
+
     const isPlaying = ref(false);
 
     const handleAudioButton = () => {
       if (isPlaying.value) {
-        document.getElementById(props.audioPlayerId).pause();
+        audio.value.pause();
       } else {
-        document.getElementById(props.audioPlayerId).play();
+        emitter.emit("audio-playing", props.audioPlayerId);
+        audio.value.play();
       }
       isPlaying.value = !isPlaying.value;
     };
 
     const classes = ["btn", "btn-secondary", "btn-sm", ...props.addClasses];
 
-    return { isPlaying, handleAudioButton, classes };
+    return { audio, isPlaying, handleAudioButton, classes };
   },
 };
 </script>
