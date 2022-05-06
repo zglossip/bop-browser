@@ -16,12 +16,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class GenreService extends AbstractService<Genre> {
+public class DeezerGenreService implements AbstractService<Genre> {
 
   private final DeezerGenreClient deezerGenreClient;
 
   @Autowired
-  public GenreService(final DeezerGenreClient deezerGenreClient) {
+  public DeezerGenreService(final DeezerGenreClient deezerGenreClient) {
     this.deezerGenreClient = deezerGenreClient;
   }
 
@@ -33,7 +33,8 @@ public class GenreService extends AbstractService<Genre> {
   public void populateAlbumStubGenre(final List<DeezerAlbumToAlbumStubAdaptor> albumList) {
     final Map<Integer, DeezerGenreToGenreAdaptor> genreMap = getGenreMapForAlbums(albumList.stream()
                                                                                            .filter(a -> Objects.isNull(a.getGenres()) ||
-                                                                                                 Objects.isNull(a.getGenres().getData()))
+                                                                                                        Objects.isNull(
+                                                                                                                a.getGenres().getData()))
                                                                                            .collect(Collectors.toList()));
     albumList.stream().filter(a -> Objects.isNull(a.getGenres()) || Objects.isNull(a.getGenres().getData()))
              .forEach(album -> album.setDownloadedGenres(getGenreList(genreMap, album.getGenreId())));

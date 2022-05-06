@@ -9,29 +9,29 @@ import com.zglossip.bopbrowser.domains.ArtistStub
 import com.zglossip.bopbrowser.domains.adaptor.deezer.*
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList
-import com.zglossip.bopbrowser.services.ArtistService
-import com.zglossip.bopbrowser.services.GenreService
+import com.zglossip.bopbrowser.services.DeezerGenreService
+import com.zglossip.bopbrowser.services.deezer.ArtistServiceDeezerImpl
 import spock.lang.Specification
 import spock.lang.Subject
 
 import java.util.stream.Collectors
 
-class ArtistServiceSpec extends Specification {
+class ArtistServiceDeezerImplSpec extends Specification {
 
   @Subject
-  ArtistService artistService
+  ArtistServiceDeezerImpl artistService
 
   DeezerArtistClient deezerArtistClient
   DeezerSearchClient deezerSearchClient
   BasicClient basicClient
-  GenreService genreService
+  DeezerGenreService genreService
 
   def setup() {
     deezerArtistClient = Mock(DeezerArtistClient)
     deezerSearchClient = Mock(DeezerSearchClient)
     basicClient = Mock(BasicClient)
-    genreService = Mock(GenreService)
-    artistService = new ArtistService(deezerArtistClient, deezerSearchClient, basicClient, genreService)
+    genreService = Mock(DeezerGenreService)
+    artistService = new ArtistServiceDeezerImpl(deezerArtistClient, deezerSearchClient, basicClient, genreService)
   }
 
   def 'Get artist info'() {

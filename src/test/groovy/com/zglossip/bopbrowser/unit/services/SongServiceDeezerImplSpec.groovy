@@ -7,26 +7,26 @@ import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAd
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
-import com.zglossip.bopbrowser.services.AlbumService
 import com.zglossip.bopbrowser.services.SongContributorService
-import com.zglossip.bopbrowser.services.SongService
+import com.zglossip.bopbrowser.services.deezer.AlbumServiceDeezerImpl
+import com.zglossip.bopbrowser.services.deezer.SongServiceDeezerImpl
 import spock.lang.Specification
 import spock.lang.Subject
 
-class SongServiceSpec extends Specification {
+class SongServiceDeezerImplSpec extends Specification {
 
   @Subject
-  SongService songService
+  SongServiceDeezerImpl songService
 
   DeezerSearchClient deezerSearchClient
-  AlbumService albumService
+  AlbumServiceDeezerImpl albumService
   SongContributorService songContributorService
 
   def setup() {
     deezerSearchClient = Mock(DeezerSearchClient)
-    albumService = Mock(AlbumService)
+    albumService = Mock(AlbumServiceDeezerImpl)
     songContributorService = Mock(SongContributorService)
-    songService = new SongService(deezerSearchClient, albumService, songContributorService)
+    songService = new SongServiceDeezerImpl(deezerSearchClient, albumService, songContributorService)
   }
 
   def 'Search songs'() {

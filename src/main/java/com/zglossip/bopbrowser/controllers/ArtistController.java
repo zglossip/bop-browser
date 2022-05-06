@@ -4,6 +4,7 @@ import com.zglossip.bopbrowser.domains.AlbumStub;
 import com.zglossip.bopbrowser.domains.Artist;
 import com.zglossip.bopbrowser.domains.ArtistStub;
 import com.zglossip.bopbrowser.services.ArtistService;
+import com.zglossip.bopbrowser.services.deezer.ArtistServiceDeezerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +14,8 @@ import java.util.List;
 @RequestMapping("/api/v1/artist")
 public class ArtistController extends AbstractController<ArtistService> {
   @Autowired
-  public ArtistController(final ArtistService artistService) {
-    super(artistService);
+  public ArtistController(final ArtistServiceDeezerImpl artistServiceDeezerImpl) {
+    super(artistServiceDeezerImpl);
   }
 
   @GetMapping("/{id}")
