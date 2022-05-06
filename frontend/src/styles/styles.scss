@@ -2,13 +2,6 @@
 @import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "bootswatch";
-//a {
-//  color: rgba(0, 0, 0, 0.5);
-//
-//  &:hover, &:active {
-//    color: $bb-main;
-//  }
-//}
 
 body {
   min-height: 100vh;
@@ -32,7 +25,7 @@ body {
 .bb-album-stub,
 .bb-artist-stub {
   :hover {
-    background-color: $primary;
+    background-color: darken($primary, 10);
     cursor: pointer;
   }
 }
@@ -70,4 +63,12 @@ body {
 
 img {
   border-radius: 7.5% !important;
+}
+
+.card-body {
+  color: $cyan !important;
+}
+
+.navbar-light .navbar-brand {
+  color: rgba($body-bg, 0.9) !important
 }

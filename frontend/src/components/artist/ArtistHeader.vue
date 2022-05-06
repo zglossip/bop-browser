@@ -16,6 +16,7 @@
 
 <script>
 import ZoomableImage from "@/components/ZoomableImage.vue";
+
 export default {
   components: { ZoomableImage },
   props: {

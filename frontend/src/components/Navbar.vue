@@ -1,9 +1,9 @@
 <template>
-  <nav class="navbar navbar-dark bg-dark">
+  <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" @click.prevent="returnHome"
-        >Bop Browser</a
-      >
+      <a class="navbar-brand" href="#" @click.prevent="returnHome">
+        Bop Browser
+      </a>
       <search-bar />
     </div>
   </nav>
