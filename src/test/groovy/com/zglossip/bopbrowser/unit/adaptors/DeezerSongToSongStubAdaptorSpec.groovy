@@ -2,6 +2,7 @@ package com.zglossip.bopbrowser.unit.adaptors
 
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongStubAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import spock.lang.Specification
@@ -229,6 +230,90 @@ class DeezerSongToSongStubAdaptorSpec extends Specification {
 
     where:
     songStub = new DeezerSongToSongStubAdaptor()
+  }
+
+  def 'Get artist ID'() {
+    given:
+    DeezerArtistToArtistStubAdaptor artist = new DeezerArtistToArtistStubAdaptor(id: artistId)
+    song.setArtist(artist)
+
+    when:
+    Integer result = song.getArtistId()
+
+    then:
+    result == artistId
+
+    where:
+    song = new DeezerSongToSongAdaptor()
+    artistId = 1234
+  }
+
+  def 'Get artist ID (null ID)'() {
+    given:
+    DeezerArtistToArtistStubAdaptor artist = new DeezerArtistToArtistStubAdaptor()
+    song.setArtist(artist)
+
+    when:
+    Integer result = song.getArtistId()
+
+    then:
+    result == null
+
+    where:
+    song = new DeezerSongToSongAdaptor()
+  }
+
+  def 'Get artist ID (null artist)'() {
+    when:
+    Integer result = song.getArtistId()
+
+    then:
+    result == null
+
+    where:
+    song = new DeezerSongToSongAdaptor()
+  }
+
+  def 'Get artist name'() {
+    given:
+    DeezerArtistToArtistStubAdaptor artist = new DeezerArtistToArtistStubAdaptor(name: artistName)
+    song.setArtist(artist)
+
+    when:
+    String result = song.getArtistName()
+
+    then:
+    result == artistName
+
+    where:
+    song = new DeezerSongToSongAdaptor()
+    artistName = 'Test name'
+  }
+
+  def 'Get artist name (null name)'() {
+    given:
+    DeezerArtistToArtistStubAdaptor artist = new DeezerArtistToArtistStubAdaptor()
+    song.setArtist(artist)
+
+    when:
+    String result = song.getArtistName()
+
+    then:
+    result == null
+
+    where:
+    song = new DeezerSongToSongAdaptor()
+  }
+
+  def 'Get artist name (null artist)'() {
+    when:
+    String result = song.getArtistName()
+
+    then:
+    result == null
+
+    where:
+    song = new DeezerSongToSongAdaptor()
   }
 
 }

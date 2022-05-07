@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <a href="#" @click.prevent="back">&#8592; Back</a>
+        <a :href="`#/artist/${artistId}`">&#8592; Back</a>
       </div>
     </div>
     <div class="row">
@@ -16,7 +16,11 @@
     </div>
     <div v-if="isLoading" class="row">Loading...</div>
     <div v-else class="row">
-      <div v-for="artist in relatedArtists" :key="artist.id" class="col-md-2">
+      <div
+        v-for="artist in relatedArtists"
+        :key="artist.id"
+        class="col-6 col-md-3"
+      >
         <artist-stub
           :artist-id="artist.id"
           :name="artist.name"
@@ -30,28 +34,19 @@
 import Navbar from "@/components/Navbar.vue";
 import ArtistStub from "@/components/ArtistStub.vue";
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import axios from "axios";
 import { API_URIS } from "../util/constants";
 
 export default {
   components: { ArtistStub, Navbar },
   setup() {
-    const router = useRouter();
     const route = useRoute();
 
     const artistName = ref("");
     const isLoading = ref(true);
     const relatedArtists = ref([]);
-
-    const back = () => {
-      router.push({
-        name: "Artist",
-        params: {
-          id: route.params.id,
-        },
-      });
-    };
+    const artistId = ref(route.params.id);
 
     axios
       .get(API_URIS.getRelatedArtists(route.params.id))
@@ -65,7 +60,7 @@ export default {
       })
       .finally(() => (isLoading.value = false));
 
-    return { artistName, isLoading, relatedArtists, back };
+    return { artistName, isLoading, relatedArtists, artistId };
   },
 };
 </script>

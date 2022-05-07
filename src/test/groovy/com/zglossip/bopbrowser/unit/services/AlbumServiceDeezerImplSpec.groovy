@@ -11,30 +11,30 @@ import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongStubAdapto
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSong
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList
-import com.zglossip.bopbrowser.services.AlbumService
-import com.zglossip.bopbrowser.services.GenreService
+import com.zglossip.bopbrowser.services.DeezerGenreService
 import com.zglossip.bopbrowser.services.SongContributorService
+import com.zglossip.bopbrowser.services.deezer.AlbumServiceDeezerImpl
 import spock.lang.Specification
 import spock.lang.Subject
 
-class AlbumServiceSpec extends Specification {
+class AlbumServiceDeezerImplSpec extends Specification {
 
   @Subject
-  AlbumService albumService
+  AlbumServiceDeezerImpl albumService
 
   DeezerAlbumClient deezerAlbumClient
   DeezerSearchClient deezerSearchClient
   SongContributorService songContributorService
   BasicClient basicClient
-  GenreService genreService
+  DeezerGenreService genreService
 
   def setup() {
     deezerAlbumClient = Mock(DeezerAlbumClient)
     deezerSearchClient = Mock(DeezerSearchClient)
     songContributorService = Mock(SongContributorService)
     basicClient = Mock(BasicClient)
-    genreService = Mock(GenreService)
-    albumService = new AlbumService(deezerAlbumClient, deezerSearchClient, songContributorService, basicClient, genreService)
+    genreService = Mock(DeezerGenreService)
+    albumService = new AlbumServiceDeezerImpl(deezerAlbumClient, deezerSearchClient, songContributorService, basicClient, genreService)
   }
 
   def 'Get album info'() {

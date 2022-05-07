@@ -3,9 +3,14 @@
 @import "../../node_modules/bootstrap/scss/bootstrap";
 @import "bootswatch";
 
+a {
+  cursor: pointer !important;
+}
+
 body {
   min-height: 100vh;
   padding: 0;
+  min-width: 50vw;
 }
 
 .btn-link:focus {
@@ -24,6 +29,8 @@ body {
 
 .bb-album-stub,
 .bb-artist-stub {
+  text-decoration: none !important;
+
   :hover {
     background-color: darken($primary, 10);
     cursor: pointer;
@@ -40,16 +47,6 @@ body {
     width: 20rem;
     object-fit: cover;
   }
-
-  .bb-home-header {
-    padding-top: 30vh;
-  }
-}
-
-@include media-breakpoint-down(sm) {
-  .bb-home-header {
-    padding-top: 10vh;
-  }
 }
 
 .bb-track-image {
@@ -58,7 +55,8 @@ body {
 }
 
 .bb-selected-song .card {
-  border: 5px $primary solid !important;
+  box-shadow: 0px 0px 5px $primary !important;
+  //margin: 0 .5rem 0 .5rem;
 }
 
 img {

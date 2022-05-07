@@ -65,7 +65,7 @@ node {
   nodeModulesDir = file("${rootDir}/frontend")
 }
 
-task npmBuild(type: NpmTask) {
+task buildFrontend(type: NpmTask) {
   doFirst {
     delete 'src/main/resources/public'
     delete "${rootDir}/frontend/dist"
@@ -81,4 +81,9 @@ task npmBuild(type: NpmTask) {
       into 'src/main/resources/public/'
     }
   }
+}
+
+task cleanFrontend {
+  delete 'src/main/resources/public'
+  delete "${rootDir}/frontend/dist"
 }

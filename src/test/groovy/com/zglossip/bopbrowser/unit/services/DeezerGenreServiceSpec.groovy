@@ -5,20 +5,20 @@ import com.zglossip.bopbrowser.clients.DeezerGenreClient
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
-import com.zglossip.bopbrowser.services.GenreService
+import com.zglossip.bopbrowser.services.DeezerGenreService
 import spock.lang.Specification
 import spock.lang.Subject
 
-class GenreServiceSpec extends Specification {
+class DeezerGenreServiceSpec extends Specification {
 
   @Subject
-  GenreService genreService
+  DeezerGenreService genreService
 
   DeezerGenreClient deezerGenreClient
 
   def setup() {
     deezerGenreClient = Mock(DeezerGenreClient)
-    genreService = new GenreService(deezerGenreClient)
+    genreService = new DeezerGenreService(deezerGenreClient)
   }
 
   def 'Populate album genre'() {

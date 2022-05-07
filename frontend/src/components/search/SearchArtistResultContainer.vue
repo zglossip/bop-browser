@@ -12,7 +12,7 @@
       v-for="artistResult in artistResults"
       v-else
       :key="artistResult.id"
-      class="col-md-2"
+      class="col-6 col-md-3"
     >
       <search-artist-result :artist-result="artistResult" class="mb-2" />
     </div>

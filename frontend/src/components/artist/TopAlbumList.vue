@@ -18,13 +18,15 @@
           :record-type="topAlbum.recordType"
           :release-year="getReleaseYear(topAlbum.releaseDate)"
           :title="topAlbum.title"
+          :artist-name="topAlbum.artistName"
+          :featuring-list="topAlbum.featuringList"
           class="h-100"
         />
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <a href="#" @click.prevent="seeMoreAlbums(id)">See more...</a>
+        <a :href="`#/artist/${id}/albums`">See more...</a>
       </div>
     </div>
   </div>
@@ -32,7 +34,6 @@
 
 <script>
 import AlbumStub from "@/components/AlbumStub.vue";
-import { useRouter } from "vue-router";
 import { getReleaseYear } from "@/util/util";
 
 export default {
@@ -44,16 +45,7 @@ export default {
     id: Number,
   },
   setup() {
-    const router = useRouter();
-
-    const seeMoreAlbums = (id) => {
-      router.push({
-        name: "ArtistAlbums",
-        params: { id },
-      });
-    };
-
-    return { getReleaseYear, seeMoreAlbums };
+    return { getReleaseYear };
   },
 };
 </script>

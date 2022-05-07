@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <a href="#" @click.prevent="back">&#8592; Back</a>
+        <a :href="`#/artist/${artistId}`" @click.prevent="back">&#8592; Back</a>
       </div>
     </div>
     <div class="row">
@@ -16,7 +16,7 @@
     </div>
     <div v-if="isLoading" class="row">Loading...</div>
     <div v-else class="row">
-      <div v-for="album in albums" :key="album.id" class="col-md-2">
+      <div v-for="album in albums" :key="album.id" class="col-6 col-md-3">
         <album-stub
           :albumId="album.id"
           :genre-list="album.genreList"
@@ -24,6 +24,8 @@
           :recordType="album.recordType"
           :releaseYear="getReleaseYear(album.releaseDate)"
           :title="album.title"
+          :artist-name="album.artistName"
+          :featuring-list="album.featuringList"
           class="h-100"
         />
       </div>
@@ -39,23 +41,15 @@ import { API_URIS } from "@/util/constants.js";
 
 import { ref } from "vue";
 import axios from "axios";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 export default {
   components: { AlbumStub, Navbar },
   setup() {
     const route = useRoute();
-    const router = useRouter();
     const isLoading = ref(true);
     const albums = ref([]);
-    const back = () => {
-      router.push({
-        name: "Artist",
-        params: {
-          id: route.params.id,
-        },
-      });
-    };
+    const artistId = ref(route.params.id);
 
     axios
       .get(API_URIS.getArtistAlbums(route.params.id))
@@ -69,7 +63,7 @@ export default {
       })
       .finally(() => (isLoading.value = false));
 
-    return { getReleaseYear, back, isLoading, albums };
+    return { getReleaseYear, isLoading, albums, artistId };
   },
 };
 </script>

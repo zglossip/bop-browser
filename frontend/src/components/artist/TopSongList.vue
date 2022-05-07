@@ -15,6 +15,8 @@
           :title="song.title"
           :album-id="song.albumId"
           :featuring-list="song.featuringList"
+          :artist-id="song.artistId"
+          :artist-name="song.artistName"
           display-as-link
           class="mb-2"
         />

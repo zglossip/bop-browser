@@ -9,7 +9,19 @@
     />
     <div class="card-body d-flex flex-column align-items-start">
       <h1 class="card-title">{{ name }}</h1>
-      <span class="card-text">{{ artistName }}</span>
+      <span class="card-text">
+        <a :href="`/#/artist/${artistId}`" class="me-2">
+          {{ artistName }}
+        </a>
+        <a
+          v-for="featured in featuringList"
+          :key="featured.id"
+          :href="`/#/artist/${featured.id}`"
+          class="me-2"
+        >
+          {{ featured.name }}
+        </a>
+      </span>
       <span class="card-text">{{ releaseYear }}</span>
       <span class="card-text">{{ genres }}</span>
       <span class="card-text">{{ duration }}</span>
@@ -32,6 +44,8 @@ export default {
     duration: String,
     albumId: [Number, String],
     artistName: String,
+    artistId: Number,
+    featuringList: Array,
   },
   setup(props) {
     const releaseYear = getReleaseYear(props.releaseDate);

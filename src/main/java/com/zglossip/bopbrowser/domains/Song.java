@@ -8,11 +8,5 @@ import java.util.List;
 public interface Song extends SongStub {
   String getAlbumTitle();
 
-  Integer getAlbumId();
-
   List<? extends Genre> getAlbumGenres();
-
-  Integer getArtistId();
-
-  String getArtistName();
 }

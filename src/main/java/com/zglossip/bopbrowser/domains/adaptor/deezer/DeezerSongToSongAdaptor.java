@@ -48,22 +48,4 @@ public class DeezerSongToSongAdaptor extends DeezerSongToSongStubAdaptor impleme
 
     return getAlbum().getGenreList();
   }
-
-  @Override
-  public Integer getArtistId() {
-    if (Objects.isNull(getArtist()) || getArtist().getId() == 0) {
-      return null;
-    }
-
-    return getArtist().getId();
-  }
-
-  @Override
-  public String getArtistName() {
-    if (Objects.isNull(getArtist())) {
-      return null;
-    }
-
-    return getArtist().getName();
-  }
 }

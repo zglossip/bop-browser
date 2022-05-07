@@ -1,41 +1,57 @@
 <template>
-  <div class="card d-flex flex-row">
-    <img
-      v-if="displayAsLink"
-      :src="albumArtUri"
-      alt="Album Art"
-      class="img-fluid bb-track-image"
-    />
-    <div class="card-body d-flex px-3 py-2 align-items-center text-nowrap">
-      <span v-if="position" class="card-text">{{ position }}.&nbsp;</span>
-      <a
-        v-if="displayAsLink"
-        :class="[featuringList.length > 0 ? 'me-1' : 'me-auto']"
-        href="#"
-        @click.prevent="openSong(albumId, songId)"
+  <div class="card p-2">
+    <div class="row">
+      <div class="col-auto" v-if="displayAsLink">
+        <img
+          :src="albumArtUri"
+          alt="Album Art"
+          class="img-fluid bb-track-image"
+        />
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col">
+            <span v-if="position" class="card-text">{{ position }}.&nbsp;</span>
+            <a
+              v-if="displayAsLink"
+              class="card-text fw-bolder"
+              :href="`#/album/${albumId}?songId=${songId}`"
+            >
+              {{ title }}
+            </a>
+            <span v-else class="card-text fw-bolder">
+              {{ title }}
+            </span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <span class="card-text">
+              <a :href="`#/artist/${artistId}`" class="me-2">
+                {{ artistName }}
+              </a>
+              <a
+                v-for="featured in featuringList"
+                :key="featured.id"
+                :href="`#/artist/${artistId}`"
+                class="me-2"
+              >
+                {{ featured.name }}
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="col-md-auto col-sm-12 col-xs-12 d-flex justify-content-end align-items-center"
       >
-        {{ title }}
-      </a>
-      <span v-else :class="[featuringList.length > 0 ? 'me-1' : 'me-auto']">
-        {{ title }}
-      </span>
-      <span v-if="featuringList.length > 0" class="me-1">|</span>
-      <span
-        v-for="(featured, id) in featuringList"
-        :key="featured.id"
-        :class="[id === featuringList.length - 1 ? 'me-auto' : '']"
-      >
-        <span v-if="id !== 0">, </span>
-        <a href="#" @click.prevent="loadArtist(featured.id)">
-          {{ featured.name }}
-        </a>
-      </span>
-      <span class="ms-3">{{ duration }}</span>
-      <audio-button
-        :add-classes="['ms-1']"
-        :audio-player-id="songId + '-audio'"
-        :preview-uri="previewUri"
-      />
+        <span class="ms-3">{{ duration }}</span>
+        <audio-button
+          :add-classes="['ms-1']"
+          :audio-player-id="songId + '-audio'"
+          :preview-uri="previewUri"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -45,7 +61,6 @@ import AudioButton from "@/components/AudioButton.vue";
 
 import { computed } from "vue";
 import { Duration } from "luxon";
-import { useRouter } from "vue-router";
 
 export default {
   components: { AudioButton },
@@ -58,26 +73,11 @@ export default {
     albumId: Number,
     previewUri: [String, URL],
     displayAsLink: Boolean,
+    artistId: Number,
+    artistName: String,
     featuringList: Array,
   },
   setup(props) {
-    const router = useRouter();
-
-    const openSong = (albumId, songId) => {
-      router.push({
-        name: "Album",
-        params: { id: albumId },
-        query: { songId },
-      });
-    };
-
-    const loadArtist = (id) => {
-      router.push({
-        name: "Artist",
-        params: { id },
-      });
-    };
-
     const duration = computed(() => {
       //If duration longer or equal to an hour
       if (props.seconds >= 3600) {
@@ -86,7 +86,7 @@ export default {
       return Duration.fromMillis(props.seconds * 1000).toFormat("mm:ss");
     });
 
-    return { loadArtist, openSong, duration };
+    return { duration };
   },
 };
 </script>

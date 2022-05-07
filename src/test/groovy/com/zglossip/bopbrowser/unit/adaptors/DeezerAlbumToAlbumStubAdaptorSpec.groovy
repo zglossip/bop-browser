@@ -2,6 +2,7 @@ package com.zglossip.bopbrowser.unit.adaptors
 
 import com.zglossip.bopbrowser.domains.Genre
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
@@ -269,6 +270,116 @@ class DeezerAlbumToAlbumStubAdaptorSpec extends Specification {
 
     then:
     result == null
+
+    where:
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
+  }
+
+  def 'Get featured artists'() {
+    given:
+    albumStub.setArtist(new DeezerArtistToArtistStubAdaptor(id: mainId))
+    albumStub.setContributors([new DeezerArtist(id: mainId), new DeezerArtist(id: featId)])
+
+    and:
+    def expected = [new DeezerArtistToArtistStubAdaptor(id: featId)]
+
+    when:
+    def result = albumStub.getFeaturingList()
+
+    then:
+    result.equals(expected)
+
+    where:
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
+    mainId = 100
+    featId = 200
+  }
+
+  def 'Get featured artists (only main)'() {
+    given:
+    albumStub.setArtist(new DeezerArtistToArtistStubAdaptor(id: mainId))
+    albumStub.setContributors([new DeezerArtist(id: mainId)])
+
+    and:
+    def expected = []
+
+    when:
+    def result = albumStub.getFeaturingList()
+
+    then:
+    result.equals(expected)
+
+    where:
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
+    mainId = 100
+  }
+
+  def 'Get featured artists (null artist)'() {
+    given:
+    albumStub.setContributors([new DeezerArtist(id: mainId), new DeezerArtist(id: featId)])
+
+    and:
+    def expected = []
+
+    when:
+    def result = albumStub.getFeaturingList()
+
+    then:
+    result.equals(expected)
+
+    where:
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
+    mainId = 100
+    featId = 200
+  }
+
+  def 'Get featured artists (empty contributors)'() {
+    given:
+    albumStub.setArtist(new DeezerArtistToArtistStubAdaptor(id: mainId))
+    albumStub.setContributors([])
+
+    and:
+    def expected = []
+
+    when:
+    def result = albumStub.getFeaturingList()
+
+    then:
+    result.equals(expected)
+
+    where:
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
+    mainId = 100
+    featId = 200
+  }
+
+  def 'Get featured artists (null contributors)'() {
+    given:
+    albumStub.setArtist(new DeezerArtistToArtistStubAdaptor(id: mainId))
+
+    and:
+    def expected = []
+
+    when:
+    def result = albumStub.getFeaturingList()
+
+    then:
+    result.equals(expected)
+
+    where:
+    albumStub = new DeezerAlbumToAlbumStubAdaptor()
+    mainId = 100
+  }
+
+  def 'Get featured artists (null both)'() {
+    given:
+    def expected = []
+
+    when:
+    def result = albumStub.getFeaturingList()
+
+    then:
+    result.equals(expected)
 
     where:
     albumStub = new DeezerAlbumToAlbumStubAdaptor()

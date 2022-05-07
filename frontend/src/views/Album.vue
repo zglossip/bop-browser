@@ -3,11 +3,11 @@
     <navbar class="mb-3" />
     <div class="container">
       <div v-if="isLoading" class="row">
-        <div class="col">Loading...</div>
+        <div class="col-md-8 offset-md-2">Loading...</div>
       </div>
       <div v-else class="row mb-3">
-        <div class="col">
-          <a href="#" @click.prevent="navigateToArtist(album.artistId)">
+        <div class="col-md-8 offset-md-2">
+          <a :href="`#/artist/${album.artistId}`">
             &#8592; {{ album.artistName }}
           </a>
         </div>
@@ -23,6 +23,8 @@
             :release-date="album.releaseDate"
             :album-id="album.id"
             :artist-name="album.artistName"
+            :artist-id="album.artistId"
+            :featuring-list="album.featuringList"
           />
         </div>
       </div>
@@ -44,7 +46,7 @@ import Navbar from "@/components/Navbar.vue";
 import AlbumHeader from "@/components/album/AlbumHeader.vue";
 import Tracklist from "@/components/album/Tracklist.vue";
 import { computed, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import axios from "axios";
 import { API_URIS } from "@/util/constants";
 import { Duration } from "luxon";
@@ -53,16 +55,9 @@ export default {
   components: { AlbumHeader, Tracklist, Navbar },
   setup() {
     const route = useRoute();
-    const router = useRouter();
 
     const album = ref({});
     const isLoading = ref(true);
-    const navigateToArtist = (artistId) => {
-      router.push({
-        name: "Artist",
-        params: { id: artistId },
-      });
-    };
 
     const duration = computed(() => {
       const albumLength = album.value.songList.reduce(
@@ -96,7 +91,7 @@ export default {
         isLoading.value = false;
       });
 
-    return { album, isLoading, navigateToArtist, duration, selectedSongId };
+    return { album, isLoading, duration, selectedSongId };
   },
 };
 </script>
