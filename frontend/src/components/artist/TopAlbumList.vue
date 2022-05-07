@@ -18,6 +18,8 @@
           :record-type="topAlbum.recordType"
           :release-year="getReleaseYear(topAlbum.releaseDate)"
           :title="topAlbum.title"
+          :artist-name="topAlbum.artistName"
+          :featuring-list="topAlbum.featuringList"
           class="h-100"
         />
       </div>

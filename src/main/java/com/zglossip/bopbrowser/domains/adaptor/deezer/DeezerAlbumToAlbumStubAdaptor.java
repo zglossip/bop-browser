@@ -1,6 +1,7 @@
 package com.zglossip.bopbrowser.domains.adaptor.deezer;
 
 import com.zglossip.bopbrowser.domains.AlbumStub;
+import com.zglossip.bopbrowser.domains.ArtistStub;
 import com.zglossip.bopbrowser.domains.Genre;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbum;
 
@@ -72,5 +73,23 @@ public class DeezerAlbumToAlbumStubAdaptor extends DeezerAlbum implements AlbumS
     }
 
     return getArtist().getName();
+  }
+
+  @Override
+  public List<? extends ArtistStub> getFeaturingList() {
+    if (Objects.isNull(getContributors())) {
+      return Collections.emptyList();
+    }
+
+    return getContributors().stream().map(deezerArtist -> {
+      if (Objects.isNull(getArtist()) || getArtist().getId() == 0) {
+        return null;
+      }
+
+      if (Objects.equals(getArtist().getId(), deezerArtist.getId())) {
+        return null;
+      }
+      return DeezerArtistToArtistStubAdaptor.clone(deezerArtist);
+    }).filter(Objects::nonNull).collect(Collectors.toList());
   }
 }

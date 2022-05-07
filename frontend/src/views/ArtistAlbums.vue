@@ -24,6 +24,8 @@
           :recordType="album.recordType"
           :releaseYear="getReleaseYear(album.releaseDate)"
           :title="album.title"
+          :artist-name="album.artistName"
+          :featuring-list="album.featuringList"
           class="h-100"
         />
       </div>

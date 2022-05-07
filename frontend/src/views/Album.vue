@@ -23,6 +23,8 @@
             :release-date="album.releaseDate"
             :album-id="album.id"
             :artist-name="album.artistName"
+            :artist-id="album.artistId"
+            :featuring-list="album.featuringList"
           />
         </div>
       </div>

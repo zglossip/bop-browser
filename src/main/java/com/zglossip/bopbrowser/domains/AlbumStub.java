@@ -25,4 +25,6 @@ public interface AlbumStub extends MusicCategory {
   String getArtistName();
 
   Date getReleaseDate();
+
+  List<? extends ArtistStub> getFeaturingList();
 }
