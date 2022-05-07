@@ -45,7 +45,12 @@ export default {
       isPlaying.value = !isPlaying.value;
     };
 
-    const classes = ["btn", "btn-secondary", "btn-sm", ...props.addClasses];
+    const classes = [
+      "btn",
+      "btn-secondary",
+      "btn-sm",
+      ...(props.addClasses ? props.addClasses : []),
+    ];
 
     return { audio, isPlaying, handleAudioButton, classes };
   },

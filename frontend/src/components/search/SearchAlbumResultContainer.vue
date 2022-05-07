@@ -12,7 +12,7 @@
       v-for="albumResult in albumResults"
       v-else
       :key="albumResult.id"
-      class="col-md-2"
+      class="col-6 col-md-3"
     >
       <search-album-result :album-result="albumResult" class="mb-2" />
     </div>

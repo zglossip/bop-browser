@@ -42,7 +42,9 @@
           </div>
         </div>
       </div>
-      <div class="col-auto d-flex justify-content-end align-items-center">
+      <div
+        class="col-md-auto col-sm-12 col-xs-12 d-flex justify-content-end align-items-center"
+      >
         <span class="ms-3">{{ duration }}</span>
         <audio-button
           :add-classes="['ms-1']"
