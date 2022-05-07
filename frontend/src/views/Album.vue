@@ -3,10 +3,10 @@
     <navbar class="mb-3" />
     <div class="container">
       <div v-if="isLoading" class="row">
-        <div class="col">Loading...</div>
+        <div class="col-md-8 offset-md-2">Loading...</div>
       </div>
       <div v-else class="row mb-3">
-        <div class="col">
+        <div class="col-md-8 offset-md-2">
           <a href="#" @click.prevent="navigateToArtist(album.artistId)">
             &#8592; {{ album.artistName }}
           </a>

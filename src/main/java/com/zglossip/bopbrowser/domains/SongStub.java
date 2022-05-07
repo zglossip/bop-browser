@@ -24,4 +24,8 @@ public interface SongStub extends MusicCategory {
   Integer getTrackPosition();
 
   List<? extends ArtistStub> getFeaturingList();
+
+  Integer getArtistId();
+
+  String getArtistName();
 }

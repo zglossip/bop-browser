@@ -49,7 +49,8 @@ body {
 }
 
 .bb-selected-song .card {
-  border: 5px $primary solid !important;
+  box-shadow: 0px 0px 5px $primary !important;
+  //margin: 0 .5rem 0 .5rem;
 }
 
 img {

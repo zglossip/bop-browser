@@ -13,6 +13,8 @@
       :song-id="song.id"
       :title="song.title"
       :featuring-list="song.featuringList"
+      :artist-id="song.artistId"
+      :artist-name="song.artistName"
     />
   </div>
 </template>
