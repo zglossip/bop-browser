@@ -1,5 +1,5 @@
 <template>
-  <div class="bb-album-stub" @click.prevent="openAlbum(albumId)">
+  <a :href="`#/album/${albumId}`" class="bb-album-stub">
     <div class="card h-100 p-3">
       <img :alt="title + ' Picture'" :src="pictureUri" class="card-img-top" />
       <div class="card-body d-flex flex-column p-0">
@@ -21,12 +21,11 @@
         </span>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
 import AlbumTypeBadge from "@/components/AlbumTypeBadge.vue";
-import { useRouter } from "vue-router";
 import { computed } from "vue";
 import { getGenres } from "@/util/util";
 
@@ -43,19 +42,11 @@ export default {
     featuringList: Array,
   },
   setup(props) {
-    const router = useRouter();
-    const openAlbum = (id) => {
-      router.push({
-        name: "Album",
-        params: { id },
-      });
-    };
-
     const genres = computed(() =>
       props.genreList ? getGenres(props.genreList) : ""
     );
 
-    return { genres, openAlbum };
+    return { genres };
   },
 };
 </script>

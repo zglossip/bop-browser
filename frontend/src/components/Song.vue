@@ -15,8 +15,7 @@
             <a
               v-if="displayAsLink"
               class="card-text fw-bolder"
-              href="#"
-              @click.prevent="openSong(albumId, songId)"
+              :href="`#/album/${albumId}?songId=${songId}`"
             >
               {{ title }}
             </a>
@@ -28,15 +27,14 @@
         <div class="row">
           <div class="col">
             <span class="card-text">
-              <a href="#" @click.prevent="loadArtist(artistId)" class="me-2">
+              <a :href="`#/artist/${artistId}`" class="me-2">
                 {{ artistName }}
               </a>
               <a
                 v-for="featured in featuringList"
                 :key="featured.id"
-                href="#"
+                :href="`#/artist/${artistId}`"
                 class="me-2"
-                @click.prevent="loadArtist(featured.id)"
               >
                 {{ featured.name }}
               </a>
@@ -61,7 +59,6 @@ import AudioButton from "@/components/AudioButton.vue";
 
 import { computed } from "vue";
 import { Duration } from "luxon";
-import { useRouter } from "vue-router";
 
 export default {
   components: { AudioButton },
@@ -79,23 +76,6 @@ export default {
     featuringList: Array,
   },
   setup(props) {
-    const router = useRouter();
-
-    const openSong = (albumId, songId) => {
-      router.push({
-        name: "Album",
-        params: { id: albumId },
-        query: { songId },
-      });
-    };
-
-    const loadArtist = (id) => {
-      router.push({
-        name: "Artist",
-        params: { id },
-      });
-    };
-
     const duration = computed(() => {
       //If duration longer or equal to an hour
       if (props.seconds >= 3600) {
@@ -104,7 +84,7 @@ export default {
       return Duration.fromMillis(props.seconds * 1000).toFormat("mm:ss");
     });
 
-    return { loadArtist, openSong, duration };
+    return { duration };
   },
 };
 </script>

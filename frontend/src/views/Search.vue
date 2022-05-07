@@ -21,7 +21,7 @@
               <h1>404</h1>
               <p>
                 Music category "{{ currentCategory }}" not found. Please return
-                <a href="/" @click.prevent="returnHome"> home </a>
+                <a href="#"> home </a>
               </p>
             </span>
           </div>
@@ -40,7 +40,7 @@ import SearchSongResultContainer from "@/components/search/SearchSongResultConta
 import { MUSIC_CATEGORIES } from "@/util/constants.js";
 
 import { ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 export default {
   components: {
@@ -51,16 +51,11 @@ export default {
   },
   setup() {
     const route = useRoute();
-    const router = useRouter();
     const currentCategory = ref(route.params.category);
     const currentQuery = ref(route.query.q);
     const musicCategories = ref(MUSIC_CATEGORIES);
 
-    const returnHome = () => {
-      router.push({ name: "Home" });
-    };
-
-    return { currentCategory, currentQuery, musicCategories, returnHome };
+    return { currentCategory, currentQuery, musicCategories };
   },
 };
 </script>

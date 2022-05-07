@@ -3,7 +3,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <a href="#" @click.prevent="back">&#8592; Back</a>
+        <a :href="`#/artist/${artistId}`" @click.prevent="back">&#8592; Back</a>
       </div>
     </div>
     <div class="row">
@@ -41,23 +41,15 @@ import { API_URIS } from "@/util/constants.js";
 
 import { ref } from "vue";
 import axios from "axios";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 
 export default {
   components: { AlbumStub, Navbar },
   setup() {
     const route = useRoute();
-    const router = useRouter();
     const isLoading = ref(true);
     const albums = ref([]);
-    const back = () => {
-      router.push({
-        name: "Artist",
-        params: {
-          id: route.params.id,
-        },
-      });
-    };
+    const artistId = ref(route.params.id);
 
     axios
       .get(API_URIS.getArtistAlbums(route.params.id))
@@ -71,7 +63,7 @@ export default {
       })
       .finally(() => (isLoading.value = false));
 
-    return { getReleaseYear, back, isLoading, albums };
+    return { getReleaseYear, isLoading, albums, artistId };
   },
 };
 </script>
