@@ -3,8 +3,8 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img
-          style="width: 50px"
-          src="/bb_logo_small_dark.png"
+          style="width: 50px; height: 50px"
+          src="@/assets/bb_logo_small_dark.png"
           alt="Bop Browser"
           class="d-inline-block align-text-top mb-md-2"
         />

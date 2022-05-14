@@ -33,7 +33,7 @@
               <a
                 v-for="featured in featuringList"
                 :key="featured.id"
-                :href="`#/artist/${artistId}`"
+                :href="`#/artist/${featured.id}`"
                 class="me-2"
               >
                 {{ featured.name }}

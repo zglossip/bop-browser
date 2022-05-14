@@ -3,7 +3,7 @@
     <div class="row mb-2">
       <div class="col text-center mt-5">
         <img
-          src="/bb_logo.png"
+          src="@/assets/bb_logo.png"
           alt="Bop Browser"
           style="max-height: 20rem; max-width: 90vw"
         />
@@ -34,7 +34,7 @@
           All music data provided by
           <a href="https://developers.deezer.com/" target="_blank">
             <img
-              src="/Deezer_Logo_RVB_White.svg"
+              src="@/assets/Deezer_Logo_RVB_White.svg"
               alt="Deezer"
               style="max-height: 0.7rem"
             />
