@@ -3,10 +3,11 @@ package com.zglossip.bopbrowser.services.deezer;
 import com.zglossip.bopbrowser.clients.BasicClient;
 import com.zglossip.bopbrowser.clients.DeezerArtistClient;
 import com.zglossip.bopbrowser.clients.DeezerSearchClient;
-import com.zglossip.bopbrowser.domains.*;
+import com.zglossip.bopbrowser.domains.SearchResults;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongStubAdaptor;
+import com.zglossip.bopbrowser.domains.categories.*;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList;
 import com.zglossip.bopbrowser.services.ArtistService;
 import com.zglossip.bopbrowser.services.DeezerGenreService;
@@ -66,8 +67,8 @@ public class ArtistServiceDeezerImpl implements ArtistService {
   }
 
   @Override
-  public List<? extends ArtistStub> search(final String query) {
-    return deezerSearchClient.searchArtists(query);
+  public SearchResults<? extends ArtistStub> search(final String query, final int index, final int limit) {
+    return deezerSearchClient.searchArtists(query, index, limit);
   }
 
   private List<? extends SongStub> getTopSongs(final URI uri) {

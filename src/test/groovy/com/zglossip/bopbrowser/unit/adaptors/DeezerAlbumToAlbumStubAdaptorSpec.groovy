@@ -1,9 +1,9 @@
 package com.zglossip.bopbrowser.unit.adaptors
 
-import com.zglossip.bopbrowser.domains.Genre
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor
+import com.zglossip.bopbrowser.domains.categories.Genre
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
 import spock.lang.Specification

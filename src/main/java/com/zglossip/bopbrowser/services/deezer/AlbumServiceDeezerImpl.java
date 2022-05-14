@@ -3,11 +3,12 @@ package com.zglossip.bopbrowser.services.deezer;
 import com.zglossip.bopbrowser.clients.BasicClient;
 import com.zglossip.bopbrowser.clients.DeezerAlbumClient;
 import com.zglossip.bopbrowser.clients.DeezerSearchClient;
-import com.zglossip.bopbrowser.domains.Album;
-import com.zglossip.bopbrowser.domains.AlbumStub;
+import com.zglossip.bopbrowser.domains.SearchResults;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor;
+import com.zglossip.bopbrowser.domains.categories.Album;
+import com.zglossip.bopbrowser.domains.categories.AlbumStub;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList;
 import com.zglossip.bopbrowser.services.AlbumService;
 import com.zglossip.bopbrowser.services.DeezerGenreService;
@@ -15,7 +16,6 @@ import com.zglossip.bopbrowser.services.SongContributorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
@@ -64,9 +64,9 @@ public class AlbumServiceDeezerImpl implements AlbumService {
   }
 
   @Override
-  public List<? extends AlbumStub> search(final String query) {
-    final List<DeezerAlbumToAlbumStubAdaptor> searchResults = deezerSearchClient.searchAlbums(query);
-    deezerGenreService.populateAlbumStubGenre(searchResults);
+  public SearchResults<? extends AlbumStub> search(final String query, final int index, final int limit) {
+    final SearchResults<DeezerAlbumToAlbumStubAdaptor> searchResults = deezerSearchClient.searchAlbums(query, index, limit);
+    deezerGenreService.populateAlbumStubGenre(searchResults.getData());
     return searchResults;
   }
 }

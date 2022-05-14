@@ -3,10 +3,11 @@ package com.zglossip.bopbrowser.unit.services
 import com.zglossip.bopbrowser.clients.BasicClient
 import com.zglossip.bopbrowser.clients.DeezerArtistClient
 import com.zglossip.bopbrowser.clients.DeezerSearchClient
-import com.zglossip.bopbrowser.domains.AlbumStub
-import com.zglossip.bopbrowser.domains.Artist
-import com.zglossip.bopbrowser.domains.ArtistStub
+import com.zglossip.bopbrowser.domains.SearchResults
 import com.zglossip.bopbrowser.domains.adaptor.deezer.*
+import com.zglossip.bopbrowser.domains.categories.AlbumStub
+import com.zglossip.bopbrowser.domains.categories.Artist
+import com.zglossip.bopbrowser.domains.categories.ArtistStub
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenreList
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList
 import com.zglossip.bopbrowser.services.DeezerGenreService
@@ -164,34 +165,38 @@ class ArtistServiceDeezerImplSpec extends Specification {
 
   def 'Search artists'() {
     given:
-    def artists = [new DeezerArtistToArtistStubAdaptor(id: 3), new DeezerArtistToArtistStubAdaptor(id: 4)]
+    def artists = new SearchResults<>(data: [new DeezerArtistToArtistStubAdaptor(id: 3), new DeezerArtistToArtistStubAdaptor(id: 4)])
 
-    def expected = [new DeezerArtistToArtistStubAdaptor(id: 3), new DeezerArtistToArtistStubAdaptor(id: 4)]
+    def expected = new SearchResults<>(data: [new DeezerArtistToArtistStubAdaptor(id: 3), new DeezerArtistToArtistStubAdaptor(id: 4)])
 
     when:
-    List<ArtistStub> results = artistService.search(query)
+    SearchResults<ArtistStub> results = artistService.search(query, index, limit)
 
     then:
-    1 * deezerSearchClient.searchArtists(query) >> artists
+    1 * deezerSearchClient.searchArtists(query, index, limit) >> artists
     results.equals(expected)
 
     where:
     query = 'Test Test'
+    index = 1
+    limit = 2
   }
 
   def 'Search artists (empty)'() {
     given:
-    def expected = []
+    def expected = new SearchResults<>(data: [], total: 0)
 
     when:
-    List<ArtistStub> results = artistService.search(query)
+    SearchResults<ArtistStub> results = artistService.search(query, index, limit)
 
     then:
-    1 * deezerSearchClient.searchArtists(query) >> expected
+    1 * deezerSearchClient.searchArtists(query, index, limit) >> expected
     results.equals(expected)
 
     where:
     query = 'Test Test'
+    index = 1
+    limit = 2
   }
 
 }
