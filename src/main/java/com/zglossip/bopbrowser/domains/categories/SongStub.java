@@ -1,4 +1,4 @@
-package com.zglossip.bopbrowser.domains;
+package com.zglossip.bopbrowser.domains.categories;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 

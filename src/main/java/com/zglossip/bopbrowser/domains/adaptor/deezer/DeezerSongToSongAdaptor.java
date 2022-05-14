@@ -1,7 +1,7 @@
 package com.zglossip.bopbrowser.domains.adaptor.deezer;
 
-import com.zglossip.bopbrowser.domains.Genre;
-import com.zglossip.bopbrowser.domains.Song;
+import com.zglossip.bopbrowser.domains.categories.Genre;
+import com.zglossip.bopbrowser.domains.categories.Song;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSong;
 
 import java.util.Collections;

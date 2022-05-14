@@ -1,8 +1,8 @@
 package com.zglossip.bopbrowser.controllers;
 
-import com.zglossip.bopbrowser.domains.AlbumStub;
-import com.zglossip.bopbrowser.domains.Artist;
-import com.zglossip.bopbrowser.domains.ArtistStub;
+import com.zglossip.bopbrowser.domains.categories.AlbumStub;
+import com.zglossip.bopbrowser.domains.categories.Artist;
+import com.zglossip.bopbrowser.domains.categories.ArtistStub;
 import com.zglossip.bopbrowser.services.ArtistService;
 import com.zglossip.bopbrowser.services.deezer.ArtistServiceDeezerImpl;
 import org.springframework.beans.factory.annotation.Autowired;

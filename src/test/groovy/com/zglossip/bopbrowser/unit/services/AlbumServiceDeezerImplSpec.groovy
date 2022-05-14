@@ -3,11 +3,12 @@ package com.zglossip.bopbrowser.unit.services
 import com.zglossip.bopbrowser.clients.BasicClient
 import com.zglossip.bopbrowser.clients.DeezerAlbumClient
 import com.zglossip.bopbrowser.clients.DeezerSearchClient
-import com.zglossip.bopbrowser.domains.Album
-import com.zglossip.bopbrowser.domains.AlbumStub
+import com.zglossip.bopbrowser.domains.SearchResults
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongStubAdaptor
+import com.zglossip.bopbrowser.domains.categories.Album
+import com.zglossip.bopbrowser.domains.categories.AlbumStub
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSong
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSongList
@@ -128,14 +129,14 @@ class AlbumServiceDeezerImplSpec extends Specification {
 
   def 'Search album'() {
     given:
-    def expected = [new DeezerAlbumToAlbumStubAdaptor(id: 1), new DeezerAlbumToAlbumStubAdaptor(id: 2)]
+    def expected = new SearchResults<>(data: [new DeezerAlbumToAlbumStubAdaptor(id: 1), new DeezerAlbumToAlbumStubAdaptor(id: 2)])
 
     when:
-    List<AlbumStub> results = albumService.search(query, index, limit)
+    SearchResults<AlbumStub> results = albumService.search(query, index, limit)
 
     then:
     1 * deezerSearchClient.searchAlbums(query, index, limit) >> expected
-    1 * genreService.populateAlbumStubGenre(expected)
+    1 * genreService.populateAlbumStubGenre(expected.getData())
     results.equals(expected)
 
     where:
@@ -146,10 +147,10 @@ class AlbumServiceDeezerImplSpec extends Specification {
 
   def 'Search album (empty)'() {
     given:
-    def expected = []
+    def expected = new SearchResults<>(data: [], total: 0)
 
     when:
-    List<AlbumStub> results = albumService.search(query, index, limit)
+    SearchResults<AlbumStub> results = albumService.search(query, index, limit)
 
     then:
     1 * deezerSearchClient.searchAlbums(query, index, limit) >> expected

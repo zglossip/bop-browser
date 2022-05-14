@@ -1,5 +1,6 @@
 package com.zglossip.bopbrowser.clients;
 
+import com.zglossip.bopbrowser.domains.SearchResults;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor;
@@ -16,7 +17,6 @@ import java.net.URI;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
-import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.zglossip.bopbrowser.util.ApiUtil.generateUri;
@@ -35,34 +35,46 @@ public class DeezerSearchClient extends AbstractClient {
     super(apiUtil);
   }
 
-  public List<DeezerArtistToArtistStubAdaptor> searchArtists(final String query, final int index, final int limit) {
+  public SearchResults<DeezerArtistToArtistStubAdaptor> searchArtists(final String query, final int index, final int limit) {
     final DeezerArtistList result = getRequest(getSearchArtistsUri(query, index, limit), DeezerArtistList.class);
 
     if (result == null || result.getData() == null) {
-      return Collections.emptyList();
+      return new SearchResults<>(Collections.emptyList());
     }
 
-    return result.getData().stream().map(DeezerArtistToArtistStubAdaptor::clone).collect(Collectors.toList());
+    final SearchResults<DeezerArtistToArtistStubAdaptor> searchResults = new SearchResults<>();
+    searchResults.setTotal(result.getTotal() == null ? 0 : result.getTotal());
+    searchResults.setData(result.getData().stream().map(DeezerArtistToArtistStubAdaptor::clone).collect(Collectors.toList()));
+
+    return searchResults;
   }
 
-  public List<DeezerAlbumToAlbumStubAdaptor> searchAlbums(final String query, final int index, final int limit) {
+  public SearchResults<DeezerAlbumToAlbumStubAdaptor> searchAlbums(final String query, final int index, final int limit) {
     final DeezerAlbumList result = getRequest(getSearchAlbumsUri(query, index, limit), DeezerAlbumList.class);
 
     if (result == null || result.getData() == null) {
-      return Collections.emptyList();
+      return new SearchResults<>(Collections.emptyList());
     }
 
-    return result.getData().stream().map(DeezerAlbumToAlbumStubAdaptor::clone).collect(Collectors.toList());
+    final SearchResults<DeezerAlbumToAlbumStubAdaptor> searchResults = new SearchResults<>();
+    searchResults.setTotal(result.getTotal() == null ? 0 : result.getTotal());
+    searchResults.setData(result.getData().stream().map(DeezerAlbumToAlbumStubAdaptor::clone).collect(Collectors.toList()));
+
+    return searchResults;
   }
 
-  public List<DeezerSongToSongAdaptor> searchSongs(final String query, final int index, final int limit) {
+  public SearchResults<DeezerSongToSongAdaptor> searchSongs(final String query, final int index, final int limit) {
     final DeezerSongList result = getRequest(getSearchSongsUri(query, index, limit), DeezerSongList.class);
 
     if (result == null || result.getData() == null) {
-      return Collections.emptyList();
+      return new SearchResults<>(Collections.emptyList());
     }
 
-    return result.getData().stream().map(DeezerSongToSongAdaptor::clone).collect(Collectors.toList());
+    final SearchResults<DeezerSongToSongAdaptor> searchResults = new SearchResults<>();
+    searchResults.setTotal(result.getTotal() == null ? 0 : result.getTotal());
+    searchResults.setData(result.getData().stream().map(DeezerSongToSongAdaptor::clone).collect(Collectors.toList()));
+
+    return searchResults;
   }
 
   private URI getSearchArtistsUri(final String query, final int index, final int limit) {

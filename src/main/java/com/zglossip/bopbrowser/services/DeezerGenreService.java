@@ -1,9 +1,10 @@
 package com.zglossip.bopbrowser.services;
 
 import com.zglossip.bopbrowser.clients.DeezerGenreClient;
-import com.zglossip.bopbrowser.domains.Genre;
+import com.zglossip.bopbrowser.domains.SearchResults;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor;
+import com.zglossip.bopbrowser.domains.categories.Genre;
 import com.zglossip.bopbrowser.exceptions.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class DeezerGenreService implements AbstractService<Genre> {
   }
 
   @Override
-  public List<? extends Genre> search(final String query, final int index, final int limit) {
+  public SearchResults<? extends Genre> search(final String query, final int index, final int limit) {
     throw new NotImplementedException("No way to search genres yet.");
   }
 

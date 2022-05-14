@@ -1,6 +1,6 @@
 package com.zglossip.bopbrowser.domains.adaptor.deezer;
 
-import com.zglossip.bopbrowser.domains.Genre;
+import com.zglossip.bopbrowser.domains.categories.Genre;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerGenre;
 
 public class DeezerGenreToGenreAdaptor extends DeezerGenre implements Genre {

@@ -1,6 +1,6 @@
 package com.zglossip.bopbrowser.domains.adaptor.deezer;
 
-import com.zglossip.bopbrowser.domains.*;
+import com.zglossip.bopbrowser.domains.categories.*;
 
 import java.util.List;
 import java.util.Objects;

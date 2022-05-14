@@ -1,7 +1,7 @@
 package com.zglossip.bopbrowser.domains.adaptor.deezer;
 
-import com.zglossip.bopbrowser.domains.ArtistStub;
-import com.zglossip.bopbrowser.domains.SongStub;
+import com.zglossip.bopbrowser.domains.categories.ArtistStub;
+import com.zglossip.bopbrowser.domains.categories.SongStub;
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerSong;
 
 import java.net.URI;

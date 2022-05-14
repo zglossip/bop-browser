@@ -1,8 +1,8 @@
 package com.zglossip.bopbrowser.services;
 
-import com.zglossip.bopbrowser.domains.AlbumStub;
-import com.zglossip.bopbrowser.domains.Artist;
-import com.zglossip.bopbrowser.domains.ArtistStub;
+import com.zglossip.bopbrowser.domains.categories.AlbumStub;
+import com.zglossip.bopbrowser.domains.categories.Artist;
+import com.zglossip.bopbrowser.domains.categories.ArtistStub;
 
 import java.util.List;
 

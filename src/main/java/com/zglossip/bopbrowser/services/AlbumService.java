@@ -1,7 +1,7 @@
 package com.zglossip.bopbrowser.services;
 
-import com.zglossip.bopbrowser.domains.Album;
-import com.zglossip.bopbrowser.domains.AlbumStub;
+import com.zglossip.bopbrowser.domains.categories.Album;
+import com.zglossip.bopbrowser.domains.categories.AlbumStub;
 
 public interface AlbumService extends AbstractService<AlbumStub> {
 
