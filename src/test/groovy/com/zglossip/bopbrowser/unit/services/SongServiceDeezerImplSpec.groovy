@@ -38,10 +38,10 @@ class SongServiceDeezerImplSpec extends Specification {
     ), new DeezerSongToSongAdaptor(id: 4)]
 
     when:
-    List<Song> results = songService.search(query)
+    List<Song> results = songService.search(query, index, limit)
 
     then:
-    1 * deezerSearchClient.searchSongs(query) >> [new DeezerSongToSongAdaptor(id: 3, album: new DeezerAlbumToAlbumStubAdaptor(id: 1)), new DeezerSongToSongAdaptor(id: 4)]
+    1 * deezerSearchClient.searchSongs(query, index, limit) >> [new DeezerSongToSongAdaptor(id: 3, album: new DeezerAlbumToAlbumStubAdaptor(id: 1)), new DeezerSongToSongAdaptor(id: 4)]
     1 * albumService.getAlbumStub(1) >> new DeezerAlbumToAlbumStubAdaptor(id: 1, genres: new DeezerGenreList(data: [new DeezerGenreToGenreAdaptor(id: 100)]))
     1 * songContributorService.getSongListWithContributors([new DeezerSongToSongAdaptor(id: 3, album: new DeezerAlbumToAlbumStubAdaptor(id: 1)), new DeezerSongToSongAdaptor(id: 4)]) >> expected
     results.equals(expected)
@@ -50,6 +50,8 @@ class SongServiceDeezerImplSpec extends Specification {
 
     where:
     query = 'Test Test'
+    index = 1
+    limit = 2
   }
 
   def 'Search artists (empty)'() {
@@ -57,15 +59,17 @@ class SongServiceDeezerImplSpec extends Specification {
     def expected = []
 
     when:
-    List<Song> results = songService.search(query)
+    List<Song> results = songService.search(query, index, limit)
 
     then:
-    1 * deezerSearchClient.searchSongs(query) >> expected
+    1 * deezerSearchClient.searchSongs(query, index, limit) >> expected
     1 * songContributorService.getSongListWithContributors(expected) >> expected
     results.equals(expected)
 
     where:
     query = 'Test Test'
+    index = 1
+    limit = 2
   }
 
 }

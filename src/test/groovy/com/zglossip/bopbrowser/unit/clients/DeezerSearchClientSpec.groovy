@@ -28,10 +28,13 @@ class DeezerSearchClientSpec extends Specification {
   def 'Search artists'() {
     given:
     List<DeezerArtistToArtistStubAdaptor> expected = [new DeezerArtistToArtistStubAdaptor(id: 1), new DeezerArtistToArtistStubAdaptor(id: 3)]
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query)
+    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList(data: expected)
@@ -39,15 +42,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search artists (empty data)'() {
     given:
     List<DeezerArtistToArtistStubAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query)
+    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList(data: expected)
@@ -55,15 +63,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search artists (null data)'() {
     given:
     List<DeezerArtistToArtistStubAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query)
+    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> new DeezerArtistList()
@@ -71,15 +84,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search artists (null results)'() {
     given:
     List<DeezerArtistToArtistStubAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query)
+    List<DeezerArtistToArtistStubAdaptor> results = searchClient.searchArtists(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerArtistList.class) >> null
@@ -87,15 +105,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search albums'() {
     given:
     List<DeezerAlbumToAlbumStubAdaptor> expected = [new DeezerAlbum(id: 1), new DeezerAlbum(id: 3)]
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query)
+    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected)
@@ -103,15 +126,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search albums (empty data)'() {
     given:
     List<DeezerAlbumToAlbumStubAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query)
+    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected)
@@ -119,15 +147,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search albums (null data)'() {
     given:
     List<DeezerAlbumToAlbumStubAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query)
+    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> new DeezerAlbumList()
@@ -135,15 +168,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search albums (null results)'() {
     given:
     List<DeezerAlbumToAlbumStubAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query)
+    List<DeezerAlbumToAlbumStubAdaptor> results = searchClient.searchAlbums(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerAlbumList.class) >> null
@@ -151,15 +189,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search songs'() {
     given:
     List<DeezerSongToSongAdaptor> expected = [new DeezerSong(id: 1), new DeezerSong(id: 3)]
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query)
+    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList(data: expected)
@@ -167,15 +210,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search songs (empty data)'() {
     given:
     List<DeezerSongToSongAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query)
+    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList(data: expected)
@@ -183,15 +231,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search songs (null data)'() {
     given:
     List<DeezerSongToSongAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query)
+    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> new DeezerSongList()
@@ -199,15 +252,20 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search songs (null results)'() {
     given:
     List<DeezerSongToSongAdaptor> expected = []
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL, URLEncoder.encode(query, StandardCharsets.UTF_8.toString())))
+    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL,
+        URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
+        index,
+        limit))
 
     when:
-    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query)
+    List<DeezerSongToSongAdaptor> results = searchClient.searchSongs(query, index, limit)
 
     then:
     1 * apiUtil.getRequest(expectedUri, DeezerSongList.class) >> null
@@ -215,6 +273,8 @@ class DeezerSearchClientSpec extends Specification {
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
 }

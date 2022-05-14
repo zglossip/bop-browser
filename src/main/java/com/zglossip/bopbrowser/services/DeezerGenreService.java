@@ -26,7 +26,7 @@ public class DeezerGenreService implements AbstractService<Genre> {
   }
 
   @Override
-  public List<? extends Genre> search(final String query) {
+  public List<? extends Genre> search(final String query, final int index, final int limit) {
     throw new NotImplementedException("No way to search genres yet.");
   }
 

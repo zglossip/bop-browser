@@ -14,7 +14,8 @@ public abstract class AbstractController<K extends AbstractService> {
   }
 
   @GetMapping("/search")
-  public List<?> search(@RequestParam(defaultValue = "") final String query) {
-    return service.search(query);
+  public List<?> search(@RequestParam(defaultValue = "") final String query, @RequestParam(defaultValue = "0") final int index,
+                        @RequestParam(defaultValue = "25") final int limit) {
+    return service.search(query, index, limit);
   }
 }

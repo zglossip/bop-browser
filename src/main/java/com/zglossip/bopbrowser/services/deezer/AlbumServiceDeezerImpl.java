@@ -64,8 +64,8 @@ public class AlbumServiceDeezerImpl implements AlbumService {
   }
 
   @Override
-  public List<? extends AlbumStub> search(final String query) {
-    final List<DeezerAlbumToAlbumStubAdaptor> searchResults = deezerSearchClient.searchAlbums(query);
+  public List<? extends AlbumStub> search(final String query, final int index, final int limit) {
+    final List<DeezerAlbumToAlbumStubAdaptor> searchResults = deezerSearchClient.searchAlbums(query, index, limit);
     deezerGenreService.populateAlbumStubGenre(searchResults);
     return searchResults;
   }

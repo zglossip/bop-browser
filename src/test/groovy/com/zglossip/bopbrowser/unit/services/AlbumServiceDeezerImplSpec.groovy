@@ -131,15 +131,17 @@ class AlbumServiceDeezerImplSpec extends Specification {
     def expected = [new DeezerAlbumToAlbumStubAdaptor(id: 1), new DeezerAlbumToAlbumStubAdaptor(id: 2)]
 
     when:
-    List<AlbumStub> results = albumService.search(query)
+    List<AlbumStub> results = albumService.search(query, index, limit)
 
     then:
-    1 * deezerSearchClient.searchAlbums(query) >> expected
+    1 * deezerSearchClient.searchAlbums(query, index, limit) >> expected
     1 * genreService.populateAlbumStubGenre(expected)
     results.equals(expected)
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
   def 'Search album (empty)'() {
@@ -147,14 +149,16 @@ class AlbumServiceDeezerImplSpec extends Specification {
     def expected = []
 
     when:
-    List<AlbumStub> results = albumService.search(query)
+    List<AlbumStub> results = albumService.search(query, index, limit)
 
     then:
-    1 * deezerSearchClient.searchAlbums(query) >> expected
+    1 * deezerSearchClient.searchAlbums(query, index, limit) >> expected
     results.equals(expected)
 
     where:
     query = 'Test query'
+    index = 1
+    limit = 2
   }
 
 }

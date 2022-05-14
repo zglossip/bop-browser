@@ -66,8 +66,8 @@ public class ArtistServiceDeezerImpl implements ArtistService {
   }
 
   @Override
-  public List<? extends ArtistStub> search(final String query) {
-    return deezerSearchClient.searchArtists(query);
+  public List<? extends ArtistStub> search(final String query, final int index, final int limit) {
+    return deezerSearchClient.searchArtists(query, index, limit);
   }
 
   private List<? extends SongStub> getTopSongs(final URI uri) {

@@ -169,14 +169,16 @@ class ArtistServiceDeezerImplSpec extends Specification {
     def expected = [new DeezerArtistToArtistStubAdaptor(id: 3), new DeezerArtistToArtistStubAdaptor(id: 4)]
 
     when:
-    List<ArtistStub> results = artistService.search(query)
+    List<ArtistStub> results = artistService.search(query, index, limit)
 
     then:
-    1 * deezerSearchClient.searchArtists(query) >> artists
+    1 * deezerSearchClient.searchArtists(query, index, limit) >> artists
     results.equals(expected)
 
     where:
     query = 'Test Test'
+    index = 1
+    limit = 2
   }
 
   def 'Search artists (empty)'() {
@@ -184,14 +186,16 @@ class ArtistServiceDeezerImplSpec extends Specification {
     def expected = []
 
     when:
-    List<ArtistStub> results = artistService.search(query)
+    List<ArtistStub> results = artistService.search(query, index, limit)
 
     then:
-    1 * deezerSearchClient.searchArtists(query) >> expected
+    1 * deezerSearchClient.searchArtists(query, index, limit) >> expected
     results.equals(expected)
 
     where:
     query = 'Test Test'
+    index = 1
+    limit = 2
   }
 
 }

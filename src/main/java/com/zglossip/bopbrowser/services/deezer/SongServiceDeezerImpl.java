@@ -29,8 +29,8 @@ public class SongServiceDeezerImpl implements SongService {
   }
 
   @Override
-  public List<? extends Song> search(final String query) {
-    final List<DeezerSongToSongAdaptor> results = deezerSearchClient.searchSongs(query);
+  public List<? extends Song> search(final String query, final int index, final int limit) {
+    final List<DeezerSongToSongAdaptor> results = deezerSearchClient.searchSongs(query, index, limit);
     final List<DeezerSongToSongAdaptor> filledResults = songContributorService.getSongListWithContributors(results);
     filledResults.forEach(song -> {
       if (song.getAlbum() != null) {
