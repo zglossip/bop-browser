@@ -20,12 +20,12 @@ public class ArtistControllerBenchmark extends AbstractBenchmark {
   private static ArtistController artistController;
 
   @Autowired
-  void setArtistService(final ArtistController artistService) {
+  void setArtistController(final ArtistController artistController) {
     ArtistControllerBenchmark.artistController = artistController;
   }
 
   @Benchmark
   public void testSearch() {
-    artistController.search("Test");
+    artistController.search("Test", 0, 25);
   }
 }
