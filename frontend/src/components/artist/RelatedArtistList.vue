@@ -9,7 +9,7 @@
       <div
         v-for="relatedArtist in relatedArtists"
         :key="relatedArtist.id"
-        class="col-3"
+        class="col-6 col-md-3"
       >
         <artist-stub
           :artist-id="relatedArtist.id"
@@ -20,7 +20,7 @@
     </div>
     <div class="row">
       <div class="col">
-        <a href="#" @click="seeRelatedArtists($event, artistId)">See more...</a>
+        <a :href="`#/artist/${artistId}/related`">See more...</a>
       </div>
     </div>
   </div>
@@ -28,7 +28,6 @@
 
 <script>
 import ArtistStub from "@/components/ArtistStub.vue";
-import { useRouter } from "vue-router";
 
 export default {
   components: {
@@ -37,19 +36,6 @@ export default {
   props: {
     relatedArtists: Array,
     artistId: Number,
-  },
-  setup() {
-    const router = useRouter();
-
-    const seeRelatedArtists = (evt, id) => {
-      evt.preventDefault();
-      router.push({
-        name: "RelatedArtists",
-        params: { id },
-      });
-    };
-
-    return { seeRelatedArtists };
   },
 };
 </script>

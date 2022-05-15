@@ -1,9 +1,9 @@
 package com.zglossip.bopbrowser.unit.clients
 
 import com.zglossip.bopbrowser.clients.DeezerArtistClient
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumStubDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistDeezerAdaptor
-import com.zglossip.bopbrowser.domains.adaptor.deezer.ArtistStubDeezerAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistAdaptor
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerArtistToArtistStubAdaptor
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerAlbumList
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtist
 import com.zglossip.bopbrowser.domains.models.deezer.DeezerArtistList
@@ -27,13 +27,13 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get artist info'() {
     given:
-    ArtistDeezerAdaptor expected = new ArtistDeezerAdaptor(id: id)
+    DeezerArtistToArtistAdaptor expected = new DeezerArtistToArtistAdaptor(id: id)
 
     when:
-    ArtistDeezerAdaptor result = artistClient.getArtistInfo(id)
+    DeezerArtistToArtistAdaptor result = artistClient.getArtistInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.ARTIST_INFO_URI, id)), ArtistDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.ARTIST_INFO_URI, id)), DeezerArtistToArtistAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -42,13 +42,13 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get artist info (null result)'() {
     given:
-    ArtistDeezerAdaptor expected = null
+    DeezerArtistToArtistAdaptor expected = null
 
     when:
-    ArtistDeezerAdaptor result = artistClient.getArtistInfo(id)
+    DeezerArtistToArtistAdaptor result = artistClient.getArtistInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.ARTIST_INFO_URI, id)), ArtistDeezerAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.ARTIST_INFO_URI, id)), DeezerArtistToArtistAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -57,10 +57,10 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get artist albums'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = [new AlbumStubDeezerAdaptor(id: 1), new AlbumStubDeezerAdaptor(id: 2)]
+    List<DeezerAlbumToAlbumStubAdaptor> expected = [new DeezerAlbumToAlbumStubAdaptor(id: 1), new DeezerAlbumToAlbumStubAdaptor(id: 2)]
 
     when:
-    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
+    List<DeezerAlbumToAlbumStubAdaptor> result = artistClient.getTopAlbums(id)
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerAlbumList.class) >> new DeezerAlbumList(data: expected)
@@ -70,12 +70,34 @@ class DeezerArtistClientSpec extends Specification {
     id = 123
   }
 
-  def 'Get artist albums (empty data)'() {
+  def 'Get artist albums (multi page)'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = []
+    List<DeezerAlbumToAlbumStubAdaptor> expected1 = [new DeezerAlbumToAlbumStubAdaptor(id: 1), new DeezerAlbumToAlbumStubAdaptor(id: 2)]
+    List<DeezerAlbumToAlbumStubAdaptor> expected2 = [new DeezerAlbumToAlbumStubAdaptor(id: 3), new DeezerAlbumToAlbumStubAdaptor(id: 4)]
+    List<DeezerAlbumToAlbumStubAdaptor> expected3 = [new DeezerAlbumToAlbumStubAdaptor(id: 5)]
 
     when:
-    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
+    List<DeezerAlbumToAlbumStubAdaptor> result = artistClient.getTopAlbums(id)
+
+    then:
+    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerAlbumList.class) >> new DeezerAlbumList(data: expected1, next: nextUrl1)
+    1 * apiUtil.getRequest(nextUrl1, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected2, next: nextUrl2)
+    1 * apiUtil.getRequest(nextUrl2, DeezerAlbumList.class) >> new DeezerAlbumList(data: expected3)
+    0 * apiUtil.getRequest(_, DeezerAlbumList.class)
+    result.equals(expected1 + expected2 + expected3)
+
+    where:
+    id = 123
+    nextUrl1 = new URI("url1.com")
+    nextUrl2 = new URI("url2.com")
+  }
+
+  def 'Get artist albums (empty data)'() {
+    given:
+    List<DeezerAlbumToAlbumStubAdaptor> expected = []
+
+    when:
+    List<DeezerAlbumToAlbumStubAdaptor> result = artistClient.getTopAlbums(id)
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerAlbumList.class) >> new DeezerAlbumList(data: expected)
@@ -87,10 +109,10 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get artist albums (null data)'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = []
+    List<DeezerAlbumToAlbumStubAdaptor> expected = []
 
     when:
-    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
+    List<DeezerAlbumToAlbumStubAdaptor> result = artistClient.getTopAlbums(id)
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerAlbumList.class) >> new DeezerAlbumList()
@@ -102,10 +124,10 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get artist albums (null result)'() {
     given:
-    List<AlbumStubDeezerAdaptor> expected = []
+    List<DeezerAlbumToAlbumStubAdaptor> expected = []
 
     when:
-    List<AlbumStubDeezerAdaptor> result = artistClient.getTopAlbums(id)
+    List<DeezerAlbumToAlbumStubAdaptor> result = artistClient.getTopAlbums(id)
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.TOP_ALBUMS_URI, id)), DeezerAlbumList.class) >> null
@@ -117,10 +139,10 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get related artists'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = [new DeezerArtist(id: 1), new DeezerArtist(id: 2)]
+    List<DeezerArtistToArtistStubAdaptor> expected = [new DeezerArtist(id: 1), new DeezerArtist(id: 2)]
 
     when:
-    List<ArtistStubDeezerAdaptor> result = artistClient.getRelatedArtists(id)
+    List<DeezerArtistToArtistStubAdaptor> result = artistClient.getRelatedArtists(id)
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerArtistList.class) >> new DeezerArtistList(data: expected)
@@ -132,10 +154,10 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get related artists (empty data)'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = []
+    List<DeezerArtistToArtistStubAdaptor> expected = []
 
     when:
-    List<ArtistStubDeezerAdaptor> result = artistClient.getRelatedArtists(id)
+    List<DeezerArtistToArtistStubAdaptor> result = artistClient.getRelatedArtists(id)
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerArtistList.class) >> new DeezerArtistList(data: expected)
@@ -147,10 +169,10 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get related artists (null data)'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = []
+    List<DeezerArtistToArtistStubAdaptor> expected = []
 
     when:
-    List<ArtistStubDeezerAdaptor> result = artistClient.getRelatedArtists(id)
+    List<DeezerArtistToArtistStubAdaptor> result = artistClient.getRelatedArtists(id)
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerArtistList.class) >> new DeezerArtistList()
@@ -162,10 +184,10 @@ class DeezerArtistClientSpec extends Specification {
 
   def 'Get related artists (null result)'() {
     given:
-    List<ArtistStubDeezerAdaptor> expected = []
+    List<DeezerArtistToArtistStubAdaptor> expected = []
 
     when:
-    List<ArtistStubDeezerAdaptor> result = artistClient.getRelatedArtists(id)
+    List<DeezerArtistToArtistStubAdaptor> result = artistClient.getRelatedArtists(id)
 
     then:
     1 * apiUtil.getRequest(new URI(BASE_URI + String.format(artistClient.RELATED_ARTISTS_URI, id)), DeezerArtistList.class) >> null

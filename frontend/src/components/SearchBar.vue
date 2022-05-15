@@ -1,29 +1,25 @@
 <template>
-  <div>
-    <div class="row">
-      <form class="col d-flex" method="get" @submit="onSubmit">
-        <select
-          v-model="currentCategory"
-          aria-label="Search type selection"
-          class="form-select me-2 bb-search"
-        >
-          <option
-            v-for="category in musicCategories"
-            :key="category.value"
-            :value="category.value"
-          >
-            {{ category.label }}
-          </option>
-        </select>
-        <div class="input-group">
-          <input v-model="currentQuery" class="form-control" />
-          <button class="btn btn-secondary" type="button" @click="onSubmit">
-            Search
-          </button>
-        </div>
-      </form>
+  <form class="d-flex" method="get" @submit.prevent="onSubmit">
+    <select
+      v-model="currentCategory"
+      aria-label="Search type selection"
+      class="form-select me-2 bb-search"
+    >
+      <option
+        v-for="category in musicCategories"
+        :key="category.value"
+        :value="category.value"
+      >
+        {{ category.label }}
+      </option>
+    </select>
+    <div class="input-group">
+      <input v-model="currentQuery" class="form-control" />
+      <button class="btn btn-secondary" type="button" @click="onSubmit">
+        Search
+      </button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -40,8 +36,7 @@ export default {
 
     const router = useRouter();
 
-    const onSubmit = (evt) => {
-      evt.preventDefault();
+    const onSubmit = () => {
       router.push({
         name: "Search",
         params: {

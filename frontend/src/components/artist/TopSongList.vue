@@ -9,9 +9,15 @@
       <div class="col">
         <song
           :album-art-uri="song.albumArtUri"
+          :preview-uri="song.previewUri"
           :seconds="song.duration"
           :song-id="song.id"
           :title="song.title"
+          :album-id="song.albumId"
+          :featuring-list="song.featuringList"
+          :artist-id="song.artistId"
+          :artist-name="song.artistName"
+          display-as-link
           class="mb-2"
         />
       </div>

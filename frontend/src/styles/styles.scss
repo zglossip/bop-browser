@@ -1,4 +1,22 @@
+@import "colors";
+@import "variables";
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "bootswatch";
+
+a {
+  cursor: pointer !important;
+}
+
+body {
+  min-height: 100vh;
+  padding: 0;
+  min-width: 50vw;
+}
+
+.btn-link:focus {
+  outline: none;
+  box-shadow: none;
+}
 
 .bb-search {
   width: 10rem !important;
@@ -6,23 +24,29 @@
 
 .card {
   border: 0 !important;
+  background-color: transparent;
 }
 
-.bb-search-result,
-.bb-song,
 .bb-album-stub,
 .bb-artist-stub {
+  text-decoration: none !important;
+
   :hover {
-    //TODO: No magic colors
-    //box-shadow: 0px 0px 1px 1px mediumpurple;
-    background-color: mediumpurple;
+    background-color: darken($primary, 10);
     cursor: pointer;
   }
 }
 
-.bb-search-image {
-  width: 10rem;
-  object-fit: cover;
+@include media-breakpoint-up(sm) {
+  .bb-search-image {
+    width: 10rem;
+    object-fit: cover;
+  }
+
+  .bb-album-header-image {
+    width: 20rem;
+    object-fit: cover;
+  }
 }
 
 .bb-track-image {
@@ -30,6 +54,23 @@
   object-fit: cover;
 }
 
+.bb-selected-song .card {
+  box-shadow: 0px 0px 5px $primary !important;
+  //margin: 0 .5rem 0 .5rem;
+}
+
 img {
   border-radius: 7.5% !important;
+}
+
+.card-body {
+  color: $cyan !important;
+}
+
+.navbar-light .navbar-brand {
+  color: rgba($body-bg, 0.9) !important
+}
+
+.bb-song:hover {
+  background-color: darken($primary, 10);
 }

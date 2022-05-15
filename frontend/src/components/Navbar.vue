@@ -1,7 +1,14 @@
 <template>
-  <nav class="navbar navbar-dark bg-dark">
+  <nav class="navbar navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#" @click="returnHome">Bop Browser</a>
+      <a class="navbar-brand" href="#">
+        <img
+          style="width: 50px; height: 50px"
+          src="@/assets/bb_logo_small_dark.png"
+          alt="Bop Browser"
+          class="d-inline-block align-text-top mb-md-2"
+        />
+      </a>
       <search-bar />
     </div>
   </nav>
@@ -9,19 +16,8 @@
 
 <script>
 import SearchBar from "@/components/SearchBar.vue";
-import { useRouter } from "vue-router";
 
 export default {
   components: { SearchBar },
-  setup() {
-    const router = useRouter();
-
-    const returnHome = (evt) => {
-      evt.preventDefault();
-      router.push({ name: "Home" });
-    };
-
-    return { returnHome };
-  },
 };
 </script>

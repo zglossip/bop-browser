@@ -2,40 +2,53 @@
   <div>
     <navbar class="mb-3" />
     <div class="container">
-      <div v-if="isLoading" class="row">
-        <div class="col">Loading...</div>
-      </div>
-      <div v-else>
-        <div class="row mb-4 gx-5">
-          <div class="col-4">
-            <artist-header
-              :genres="genres"
-              :name="artist.name"
-              :picture-uri="artist.pictureUri"
-            />
-          </div>
-          <div class="col-8">
-            <div class="row mb-5">
-              <div class="col">
-                <top-song-list :top-songs="artist.topSongList" />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <top-album-list
-                  :id="artist.id"
-                  :top-albums="artist.topAlbumList"
-                />
-              </div>
+      <div v-if="isError">
+        <div class="row">
+          <div class="col">
+            <div class="alert alert-danger" role="alert">
+              There was an error loading the artist. Please try again.
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <related-artist-list
-              :artist-id="artist.id"
-              :related-artists="artist.relatedArtistList"
-            />
+      </div>
+      <div v-else>
+        <div v-if="isLoading" class="row">
+          <div class="col">Loading...</div>
+        </div>
+        <div v-else>
+          <div class="row mb-4 gx-5">
+            <div class="col-md-4">
+              <artist-header
+                :genres="genres"
+                :name="artist.name"
+                :picture-uri="artist.pictureUri"
+                :big-picture-uri="artist.bigPictureUri"
+                :artist-id="artist.id"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="row mb-5">
+                <div class="col">
+                  <top-song-list :top-songs="artist.topSongList" />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <top-album-list
+                    :id="artist.id"
+                    :top-albums="artist.topAlbumList"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <related-artist-list
+                :artist-id="artist.id"
+                :related-artists="artist.relatedArtistList"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -68,6 +81,7 @@ export default {
     const route = useRoute();
 
     const isLoading = ref(true);
+    const isError = ref(false);
     const artist = ref({});
 
     const genres = computed(() => getGenres(artist.value.genreList));
@@ -79,14 +93,10 @@ export default {
           artist.value = response.data;
         }
       })
-      .catch(() => {
-        //TODO: Handle error
-      })
-      .finally(() => {
-        isLoading.value = false;
-      });
+      .catch(() => (isError.value = true))
+      .finally(() => (isLoading.value = false));
 
-    return { isLoading, artist, genres };
+    return { isLoading, isError, artist, genres };
   },
 };
 </script>

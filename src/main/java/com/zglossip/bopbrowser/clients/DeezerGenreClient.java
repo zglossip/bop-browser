@@ -1,6 +1,6 @@
 package com.zglossip.bopbrowser.clients;
 
-import com.zglossip.bopbrowser.domains.adaptor.deezer.GenreDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerGenreToGenreAdaptor;
 import com.zglossip.bopbrowser.util.ApiUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,8 @@ public class DeezerGenreClient extends AbstractClient {
     super(apiUtil);
   }
 
-  public GenreDeezerAdaptor getGenre(final int id) {
-    return getRequest(getGenreUri(id), GenreDeezerAdaptor.class);
+  public DeezerGenreToGenreAdaptor getGenre(final int id) {
+    return getRequest(getGenreUri(id), DeezerGenreToGenreAdaptor.class);
   }
 
   private URI getGenreUri(final int id) {

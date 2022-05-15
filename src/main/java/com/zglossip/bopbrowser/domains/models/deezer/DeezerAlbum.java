@@ -2,11 +2,12 @@ package com.zglossip.bopbrowser.domains.models.deezer;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.zglossip.bopbrowser.domains.adaptor.deezer.AlbumDeezerAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumAdaptor;
 
 import java.net.URI;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -40,7 +41,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   @JsonAlias("record_type")
   private String recordType;
   private Boolean available;
-  private AlbumDeezerAdaptor alternative;
+  private DeezerAlbumToAlbumAdaptor alternative;
   private URI tracklist;
   @JsonAlias("explicit_lyrics")
   private Boolean explicitLyrics;
@@ -48,7 +49,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   private Boolean explicitContentLyrics;
   @JsonAlias("explicit_content_cover")
   private Boolean explicitContentCover;
-  private DeezerArtistList contributers;
+  private List<DeezerArtist> contributors;
   private DeezerArtist artist;
   protected final Comparator<DeezerAlbum> comparator = Comparator.comparing(DeezerAlbum::getId, Comparator.naturalOrder())
                                                                  .thenComparing(DeezerAlbum::getTitle,
@@ -127,7 +128,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     explicitLyrics = deezerAlbum.isExplicitLyrics();
     explicitContentLyrics = deezerAlbum.isExplicitContentLyrics();
     explicitContentCover = deezerAlbum.isExplicitContentCover();
-    contributers = deezerAlbum.getContributers();
+    contributors = deezerAlbum.getContributors();
     artist = deezerAlbum.getArtist();
     tracks = deezerAlbum.getTracks();
   }
@@ -296,11 +297,11 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.available = available;
   }
 
-  public AlbumDeezerAdaptor getAlternative() {
+  public DeezerAlbumToAlbumAdaptor getAlternative() {
     return alternative;
   }
 
-  public void setAlternative(final AlbumDeezerAdaptor alternative) {
+  public void setAlternative(final DeezerAlbumToAlbumAdaptor alternative) {
     this.alternative = alternative;
   }
 
@@ -336,12 +337,12 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
     this.explicitContentCover = explicitContentCover;
   }
 
-  public DeezerArtistList getContributers() {
-    return contributers;
+  public List<DeezerArtist> getContributors() {
+    return contributors;
   }
 
-  public void setContributers(final DeezerArtistList contributers) {
-    this.contributers = contributers;
+  public void setContributors(final List<DeezerArtist> contributors) {
+    this.contributors = contributors;
   }
 
   public DeezerArtist getArtist() {
@@ -382,7 +383,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
            Objects.equals(tracklist, that.tracklist) && Objects.equals(explicitLyrics, that.explicitLyrics) &&
            Objects.equals(explicitContentLyrics, that.explicitContentLyrics) &&
            Objects.equals(explicitContentCover, that.explicitContentCover) &&
-           Objects.equals(contributers, that.contributers) && Objects.equals(artist, that.artist) &&
+           Objects.equals(contributors, that.contributors) && Objects.equals(artist, that.artist) &&
            Objects.equals(tracks, that.tracks);
   }
 
@@ -390,7 +391,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
   public int hashCode() {
     return Objects.hash(id, title, upc, link, share, cover, coverSmall, coverMedium, coverBig, coverXl, md5Image, genreId, genres, label,
                         nbTracks, duration, fans, releaseDate, recordType, available, alternative, tracklist, explicitLyrics,
-                        explicitContentLyrics, explicitContentCover, contributers, artist, tracks);
+                        explicitContentLyrics, explicitContentCover, contributors, artist, tracks);
   }
 
   @Override
@@ -421,7 +422,7 @@ public class DeezerAlbum implements Comparable<DeezerAlbum> {
            ", explicitLyrics=" + explicitLyrics +
            ", explicitContentLyrics=" + explicitContentLyrics +
            ", explicitContentCover=" + explicitContentCover +
-           ", contributers=" + contributers +
+           ", contributors=" + contributors +
            ", artist=" + artist +
            ", tracks=" + tracks +
            '}';
