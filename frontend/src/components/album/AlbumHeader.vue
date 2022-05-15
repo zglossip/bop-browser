@@ -10,7 +10,7 @@
     <div class="card-body d-flex flex-column align-items-start">
       <h1 class="card-title">{{ name }}</h1>
       <span class="card-text">
-        <a :href="`/#/artist/${artistId}`" class="me-2">
+        <a :href="`#/artist/${artistId}`" class="me-2">
           {{ artistName }}
         </a>
         <a

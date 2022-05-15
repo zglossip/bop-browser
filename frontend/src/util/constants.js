@@ -22,9 +22,12 @@ if (!process.env.NODE_ENV || process.env.NODE_ENV === "development") {
 }
 
 export const API_URIS = {
-  searchArtist: (query) => uriBase + `/artist/search?query=${query}`,
-  searchAlbum: (query) => uriBase + `/album/search?query=${query}`,
-  searchSong: (query) => uriBase + `/song/search?query=${query}`,
+  searchArtist: (query, limit, index) =>
+    uriBase + `/artist/search?query=${query}&limit=${limit}&index=${index}`,
+  searchAlbum: (query, limit, index) =>
+    uriBase + `/album/search?query=${query}&limit=${limit}&index=${index}`,
+  searchSong: (query, limit, index) =>
+    uriBase + `/song/search?query=${query}&limit=${limit}&index=${index}`,
   getArtist: (id) => uriBase + `/artist/${id}`,
   getArtistAlbums: (id) => uriBase + `/artist/${id}/albums`,
   getRelatedArtists: (id) => uriBase + `/artist/${id}/related`,

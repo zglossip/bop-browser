@@ -70,3 +70,7 @@ img {
 .navbar-light .navbar-brand {
   color: rgba($body-bg, 0.9) !important
 }
+
+.bb-song:hover {
+  background-color: darken($primary, 10);
+}

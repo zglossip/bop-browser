@@ -7,14 +7,17 @@
           <search-artist-result-container
             v-if="currentCategory === musicCategories.ARTIST.value"
             :query="currentQuery"
+            :cur-page="curPage"
           />
           <search-album-result-container
             v-else-if="currentCategory === musicCategories.ALBUM.value"
             :query="currentQuery"
+            :cur-page="curPage"
           />
           <search-song-result-container
             v-else-if="currentCategory === musicCategories.SONG.value"
             :query="currentQuery"
+            :cur-page="curPage"
           />
           <div v-else>
             <span>
@@ -53,9 +56,10 @@ export default {
     const route = useRoute();
     const currentCategory = ref(route.params.category);
     const currentQuery = ref(route.query.q);
+    const curPage = ref(route.query.curPage ? route.query.curPage : 1);
     const musicCategories = ref(MUSIC_CATEGORIES);
 
-    return { currentCategory, currentQuery, musicCategories };
+    return { currentCategory, currentQuery, curPage, musicCategories };
   },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-2">
+  <div class="card p-2 bb-song">
     <div class="row">
       <div class="col-auto" v-if="displayAsLink">
         <img
