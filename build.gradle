@@ -95,8 +95,8 @@ task cleanFrontend {
 }
 
 jmh {
-  warmupIterations = 3
   iterations = 3
+  //TODO: Article claimed no forks and single-thread is necessary for Spring, but idk...test this out
   fork = 0
   threads = 1
   forceGC = true

@@ -1,27 +1,25 @@
 package com.zglossip.bopbrowser.benchmark.controllers;
 
+import com.zglossip.bopbrowser.BopBrowserApplication;
 import com.zglossip.bopbrowser.benchmark.AbstractBenchmark;
 import com.zglossip.bopbrowser.controllers.ArtistController;
-import org.junit.runner.RunWith;
 import org.openjdk.jmh.annotations.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
 import java.util.concurrent.TimeUnit;
 
-@SpringBootTest
-@State(Scope.Benchmark)
-@BenchmarkMode(Mode.AverageTime)
+@State(Scope.Thread)
+@BenchmarkMode(Mode.SampleTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
-@RunWith(SpringRunner.class)
 public class ArtistControllerBenchmark extends AbstractBenchmark {
 
   private static ArtistController artistController;
 
-  @Autowired
-  void setArtistController(final ArtistController artistController) {
-    ArtistControllerBenchmark.artistController = artistController;
+  @Setup
+  public void setup() {
+    final ConfigurableApplicationContext context = new SpringApplicationBuilder(BopBrowserApplication.class).run();
+    artistController = (ArtistController) context.getBean("artistController");
   }
 
   @Benchmark
