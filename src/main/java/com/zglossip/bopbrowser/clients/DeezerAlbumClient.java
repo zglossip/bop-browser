@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.net.URI;
 
 import static com.zglossip.bopbrowser.util.ApiUtil.generateUri;
-import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI;
+import static com.zglossip.bopbrowser.util.MiscConstants.DEEZER_BASE_URI;
 
 @Service
 public class DeezerAlbumClient extends AbstractClient {
@@ -29,7 +29,7 @@ public class DeezerAlbumClient extends AbstractClient {
   }
 
   private URI getAlbumInfoUri(final int id) {
-    return generateUri(BASE_URI + String.format(ALBUM_INFO_URI, id),
+    return generateUri(DEEZER_BASE_URI + String.format(ALBUM_INFO_URI, id),
                        String.format("There was an issue generating the URI for album %d", id));
   }
 }

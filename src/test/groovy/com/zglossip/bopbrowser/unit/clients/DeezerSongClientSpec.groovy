@@ -7,7 +7,7 @@ import com.zglossip.bopbrowser.util.ApiUtil
 import spock.lang.Specification
 import spock.lang.Subject
 
-import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI
+import static com.zglossip.bopbrowser.util.MiscConstants.DEEZER_BASE_URI
 
 class DeezerSongClientSpec extends Specification {
 
@@ -29,7 +29,7 @@ class DeezerSongClientSpec extends Specification {
     DeezerSongToSongAdaptor result = songClient.getSongInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(songClient.TRACK_INFO_URI, id)), DeezerSongToSongAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(DEEZER_BASE_URI + String.format(songClient.TRACK_INFO_URI, id)), DeezerSongToSongAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -44,7 +44,7 @@ class DeezerSongClientSpec extends Specification {
     DeezerSongToSongStubAdaptor result = songClient.getSongInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(songClient.TRACK_INFO_URI, id)), DeezerSongToSongAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(DEEZER_BASE_URI + String.format(songClient.TRACK_INFO_URI, id)), DeezerSongToSongAdaptor.class) >> expected
     result.equals(expected)
 
     where:

@@ -6,7 +6,7 @@ import com.zglossip.bopbrowser.util.ApiUtil
 import spock.lang.Specification
 import spock.lang.Subject
 
-import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI
+import static com.zglossip.bopbrowser.util.MiscConstants.DEEZER_BASE_URI
 
 class DeezerGenreClientSpec extends Specification {
 
@@ -28,7 +28,7 @@ class DeezerGenreClientSpec extends Specification {
     DeezerGenreToGenreAdaptor result = client.getGenre(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(client.GENRE_URI, id)), DeezerGenreToGenreAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(DEEZER_BASE_URI + String.format(client.GENRE_URI, id)), DeezerGenreToGenreAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -43,7 +43,7 @@ class DeezerGenreClientSpec extends Specification {
     DeezerGenreToGenreAdaptor result = client.getGenre(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(client.GENRE_URI, id)), DeezerGenreToGenreAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(DEEZER_BASE_URI + String.format(client.GENRE_URI, id)), DeezerGenreToGenreAdaptor.class) >> expected
     result.equals(expected)
 
     where:

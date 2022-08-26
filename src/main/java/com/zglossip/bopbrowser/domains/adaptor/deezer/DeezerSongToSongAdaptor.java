@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class DeezerSongToSongAdaptor extends DeezerSongToSongStubAdaptor implements Song {
 
-  private DeezerSongToSongAdaptor(final DeezerSong deezerSong) {
+  protected DeezerSongToSongAdaptor(final DeezerSong deezerSong) {
     super(deezerSong);
   }
 

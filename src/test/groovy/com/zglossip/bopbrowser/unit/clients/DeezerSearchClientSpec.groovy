@@ -14,7 +14,7 @@ import spock.lang.Subject
 
 import java.nio.charset.StandardCharsets
 
-import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI
+import static com.zglossip.bopbrowser.util.MiscConstants.DEEZER_BASE_URI
 
 class DeezerSearchClientSpec extends Specification {
 
@@ -34,7 +34,7 @@ class DeezerSearchClientSpec extends Specification {
         data: [new DeezerArtistToArtistStubAdaptor(id: 1), new DeezerArtistToArtistStubAdaptor(id: 3)],
         total: total
     )
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_ARTISTS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -59,7 +59,7 @@ class DeezerSearchClientSpec extends Specification {
         data: [],
         total: 0
     )
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_ARTISTS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -83,7 +83,7 @@ class DeezerSearchClientSpec extends Specification {
         data: [],
         total: 0
     )
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_ARTISTS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -108,7 +108,7 @@ class DeezerSearchClientSpec extends Specification {
         total: 0
     )
 
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ARTISTS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_ARTISTS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -132,7 +132,7 @@ class DeezerSearchClientSpec extends Specification {
         data: [new DeezerAlbumToAlbumStubAdaptor(id: 1), new DeezerAlbumToAlbumStubAdaptor(id: 3)],
         total: total
     )
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_ALBUMS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -154,7 +154,7 @@ class DeezerSearchClientSpec extends Specification {
   def 'Search albums (empty data)'() {
     given:
     SearchResults<DeezerAlbumToAlbumStubAdaptor> expected = new SearchResults<>(data: [], total: 0)
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_ALBUMS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -175,7 +175,7 @@ class DeezerSearchClientSpec extends Specification {
   def 'Search albums (null data)'() {
     given:
     SearchResults<DeezerAlbumToAlbumStubAdaptor> expected = new SearchResults<>(data: [])
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_ALBUMS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -196,7 +196,7 @@ class DeezerSearchClientSpec extends Specification {
   def 'Search albums (null results)'() {
     given:
     SearchResults<DeezerAlbumToAlbumStubAdaptor> expected = new SearchResults<>(data: [], total: 0)
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_ALBUMS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_ALBUMS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -217,7 +217,7 @@ class DeezerSearchClientSpec extends Specification {
   def 'Search songs'() {
     given:
     SearchResults<DeezerSongToSongAdaptor> expected = new SearchResults<>(total: total, data: [new DeezerSongToSongAdaptor(id: 1), new DeezerSongToSongAdaptor(id: 3)])
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_SONGS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -239,7 +239,7 @@ class DeezerSearchClientSpec extends Specification {
   def 'Search songs (empty data)'() {
     given:
     SearchResults<DeezerSongToSongAdaptor> expected = new SearchResults(data: [], total: 0)
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_SONGS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -260,7 +260,7 @@ class DeezerSearchClientSpec extends Specification {
   def 'Search songs (null data)'() {
     given:
     SearchResults<DeezerSongToSongAdaptor> expected = new SearchResults<>(data: [], total: 0)
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_SONGS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))
@@ -281,7 +281,7 @@ class DeezerSearchClientSpec extends Specification {
   def 'Search songs (null results)'() {
     given:
     SearchResults<DeezerSongToSongAdaptor> expected = new SearchResults<>(data: [], total: 0)
-    URI expectedUri = new URI(String.format(BASE_URI + searchClient.SEARCH_SONGS_URL,
+    URI expectedUri = new URI(String.format(DEEZER_BASE_URI + searchClient.SEARCH_SONGS_URL,
         URLEncoder.encode(query, StandardCharsets.UTF_8.toString()),
         index,
         limit))

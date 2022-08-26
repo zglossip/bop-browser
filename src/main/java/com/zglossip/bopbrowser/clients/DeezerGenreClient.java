@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.net.URI;
 
 import static com.zglossip.bopbrowser.util.ApiUtil.generateUri;
-import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI;
+import static com.zglossip.bopbrowser.util.MiscConstants.DEEZER_BASE_URI;
 
 @Service
 public class DeezerGenreClient extends AbstractClient {
@@ -25,7 +25,7 @@ public class DeezerGenreClient extends AbstractClient {
   }
 
   private URI getGenreUri(final int id) {
-    return generateUri(BASE_URI + String.format(GENRE_URI, id),
+    return generateUri(DEEZER_BASE_URI + String.format(GENRE_URI, id),
                        String.format("There was an issue getting the artist info URI for artist ID %d", id));
   }
 }

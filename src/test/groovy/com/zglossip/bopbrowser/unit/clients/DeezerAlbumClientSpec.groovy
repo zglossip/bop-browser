@@ -7,7 +7,7 @@ import com.zglossip.bopbrowser.util.ApiUtil
 import spock.lang.Specification
 import spock.lang.Subject
 
-import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI
+import static com.zglossip.bopbrowser.util.MiscConstants.DEEZER_BASE_URI
 
 class DeezerAlbumClientSpec extends Specification {
 
@@ -29,7 +29,7 @@ class DeezerAlbumClientSpec extends Specification {
     DeezerAlbumToAlbumAdaptor result = albumClient.getAlbumInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(DEEZER_BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -44,7 +44,7 @@ class DeezerAlbumClientSpec extends Specification {
     DeezerAlbumToAlbumAdaptor result = albumClient.getAlbumInfo(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(DEEZER_BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -59,7 +59,7 @@ class DeezerAlbumClientSpec extends Specification {
     DeezerAlbumToAlbumStubAdaptor result = albumClient.getAlbumStub(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumStubAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(DEEZER_BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumStubAdaptor.class) >> expected
     result.equals(expected)
 
     where:
@@ -74,7 +74,7 @@ class DeezerAlbumClientSpec extends Specification {
     DeezerAlbumToAlbumStubAdaptor result = albumClient.getAlbumStub(id)
 
     then:
-    1 * apiUtil.getRequest(new URI(BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumStubAdaptor.class) >> expected
+    1 * apiUtil.getRequest(new URI(DEEZER_BASE_URI + String.format(albumClient.ALBUM_INFO_URI, id)), DeezerAlbumToAlbumStubAdaptor.class) >> expected
     result.equals(expected)
 
     where:

@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.zglossip.bopbrowser.util.ApiUtil.generateUri;
-import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI;
+import static com.zglossip.bopbrowser.util.MiscConstants.DEEZER_BASE_URI;
 
 @Service
 public class DeezerArtistClient extends AbstractClient {
@@ -67,17 +67,17 @@ public class DeezerArtistClient extends AbstractClient {
   }
 
   private URI getArtistInfoUri(final int id) {
-    return generateUri(BASE_URI + String.format(ARTIST_INFO_URI, id),
+    return generateUri(DEEZER_BASE_URI + String.format(ARTIST_INFO_URI, id),
                        String.format("There was an issue getting the artist info URI for artist ID %d", id));
   }
 
   private URI getTopAlbumsUri(final int id) {
-    return generateUri(BASE_URI + String.format(TOP_ALBUMS_URI, id),
+    return generateUri(DEEZER_BASE_URI + String.format(TOP_ALBUMS_URI, id),
                        String.format("There was an issue getting the top albums URI for artist ID %d", id));
   }
 
   private URI getRelatedArtistsUri(final int id) {
-    return generateUri(BASE_URI + String.format(RELATED_ARTISTS_URI, id),
+    return generateUri(DEEZER_BASE_URI + String.format(RELATED_ARTISTS_URI, id),
                        String.format("There was an issue getting the related artists URI for artist ID %d", id));
   }
 }

@@ -1,11 +1,15 @@
 package com.zglossip.bopbrowser.services.deezer;
 
 import com.zglossip.bopbrowser.clients.DeezerSearchClient;
+import com.zglossip.bopbrowser.clients.DeezerSongClient;
+import com.zglossip.bopbrowser.clients.LyricsOvhClient;
 import com.zglossip.bopbrowser.domains.SearchResults;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerAlbumToAlbumStubAdaptor;
+import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToFullSongAdaptor;
 import com.zglossip.bopbrowser.domains.adaptor.deezer.DeezerSongToSongAdaptor;
 import com.zglossip.bopbrowser.domains.categories.AlbumStub;
 import com.zglossip.bopbrowser.domains.categories.Song;
+import com.zglossip.bopbrowser.domains.models.lyricsovh.LyricsOvhLyrics;
 import com.zglossip.bopbrowser.services.AlbumService;
 import com.zglossip.bopbrowser.services.SongContributorService;
 import com.zglossip.bopbrowser.services.SongService;
@@ -18,13 +22,20 @@ import java.util.List;
 public class SongServiceDeezerImpl implements SongService {
 
   private final DeezerSearchClient deezerSearchClient;
+  private final DeezerSongClient deezerSongClient;
+  private final LyricsOvhClient lyricsOvhClient;
   private final AlbumService albumService;
   private final SongContributorService songContributorService;
 
   @Autowired
-  public SongServiceDeezerImpl(final DeezerSearchClient deezerSearchClient, final AlbumServiceDeezerImpl albumServiceDeezerImpl,
+  public SongServiceDeezerImpl(final DeezerSearchClient deezerSearchClient,
+                               final DeezerSongClient deezerSongClient,
+                               final LyricsOvhClient lyricsOvhClient,
+                               final AlbumServiceDeezerImpl albumServiceDeezerImpl,
                                final SongContributorService songContributorService) {
     this.deezerSearchClient = deezerSearchClient;
+    this.deezerSongClient = deezerSongClient;
+    this.lyricsOvhClient = lyricsOvhClient;
     this.albumService = albumServiceDeezerImpl;
     this.songContributorService = songContributorService;
   }
@@ -41,5 +52,16 @@ public class SongServiceDeezerImpl implements SongService {
     });
     results.setData(filledResults);
     return results;
+  }
+
+  @Override
+  public DeezerSongToFullSongAdaptor getFullSong(final int id) {
+    final DeezerSongToFullSongAdaptor fullSong = DeezerSongToFullSongAdaptor.clone(deezerSongClient.getSongInfo(id));
+    final LyricsOvhLyrics lyrics = lyricsOvhClient.getLyrics(fullSong.getArtistName(), fullSong.getTitle());
+    if (lyrics.getErrors() != null) {
+      return fullSong;
+    }
+    fullSong.setLyrics(lyrics.getLyrics());
+    return fullSong;
   }
 }

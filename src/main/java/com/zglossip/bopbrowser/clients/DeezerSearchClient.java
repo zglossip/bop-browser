@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static com.zglossip.bopbrowser.util.ApiUtil.generateUri;
-import static com.zglossip.bopbrowser.util.MiscConstants.BASE_URI;
+import static com.zglossip.bopbrowser.util.MiscConstants.DEEZER_BASE_URI;
 
 @Service
 public class DeezerSearchClient extends AbstractClient {
@@ -95,7 +95,8 @@ public class DeezerSearchClient extends AbstractClient {
   private URI generateUriWithQuery(final String query, final int index, final int limit, final String uri, final String errorMessage) {
     try {
       return generateUri(
-              BASE_URI + String.format(uri, URLEncoder.encode(query == null ? "" : query, StandardCharsets.UTF_8.toString()), index, limit),
+              DEEZER_BASE_URI +
+              String.format(uri, URLEncoder.encode(query == null ? "" : query, StandardCharsets.UTF_8.toString()), index, limit),
               errorMessage);
     } catch (final UnsupportedEncodingException e) {
       throw new BadQueryException(String.format("There was an issue encoding query %s", query), e);
